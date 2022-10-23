@@ -1,0 +1,80 @@
+<template>
+  <form @submit.prevent="submitForm" ref="form" @click="handleModal">
+    <div class="container g-0">
+      <div class="row g-0">
+        <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-xs-12">
+          <div class="title-8 input-modal-title">Log in</div>
+        </div>
+
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-12">
+          <div class="close-block">
+            <button class="close borderless_button" @click="hideByButton">×</button>
+          </div>
+        </div>
+
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <input type="text" class="input-css-grey input-modal" placeholder="E-mail"
+                 @input="email = $event.target.value">
+          <input type="text" class="input-css-grey input-modal-end" placeholder="*************"
+                 @input="password = $event.target.value">
+        </div>
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <button type="submit" class="button-menu" :disabled="showLoading" ref="button">log in</button>
+          <button type="button" class="button-menu-line password-pad" @click="setShowRemindForm"
+                  :disabled="showLoading">Remind password
+          </button>
+          <div v-if="showError" style="color: red"> {{ error }}</div>
+        </div>
+      </div>
+    </div>
+  </form>
+</template>
+
+<script>
+
+export default {
+  name: "loginForm",
+  data() {
+    return {
+      email: "",
+      password: "",
+      showLoading: false,
+      error: "",
+      showError: false
+    }
+  },
+  methods: {
+    submitForm() {
+      //TODO submit login form
+    },
+    handleModal() {
+      let panel = this.$refs.form.nextElementSibling;
+      this.$refs.button.classList.toggle("act-long");
+      if (panel.style.maxHeight) {
+        panel.style.maxHeight = null;
+      } else {
+        panel.style.maxHeight = panel.scrollHeight + "px";
+      }
+    },
+    hideByButton() {
+      this.$emit(`update:show`, false)
+    },
+    disableButton() {
+      this.valid = false
+      this.$refs.button.classList.replace("button-menu", "disabled-button")
+    },
+    enableButton() {
+      this.valid = true
+      this.$refs.button.classList.replace("disabled-button", "button-menu")
+    },
+    setShowRemindForm() {
+      //TODO create show remind password modal method,
+      this.$emit("showRemindPassword", true)
+    }
+  }
+}
+</script>
+
+<style scoped>
+
+</style>
