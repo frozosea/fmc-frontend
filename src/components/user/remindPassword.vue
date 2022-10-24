@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="submitForm" ref="form" @click="submitForm">
+  <form @submit.prevent="submitForm" ref="form">
     <div class="container g-0">
       <div class="row g-0">
         <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-xs-12">
@@ -14,7 +14,7 @@
 
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <input type="text" class="input-css-grey input-modal-end" id="recipient-name" placeholder="E-mail"
-                 @input="email=$event.target.value">
+                 v-model="email">
         </div>
       </div>
     </div>

@@ -1,6 +1,6 @@
 <template>
   <long-dotted-line/>
-  <search-number-form/>
+  <search-number-form @search="filterNumbers" @inputSearchQuery="searchQuery = $event"/>
   <short-dotted-line/>
   <type-selector-in-user-account @updateType="updateSearchType" @updateNumberType="updateNumberType"
                                  @addOnTrackVisible="addTrackingVisible = $event"/>
@@ -54,7 +54,8 @@ export default {
       billNumbers: [],
       containerNumbers: [],
       addTrackingVisible: false,
-      archive: null
+      archive: null,
+      searchQuery: ""
     }
   },
   components: {
@@ -103,10 +104,24 @@ export default {
     unselectArchiveBillNumbers(number) {
       this.archive.billNumbers = this.archive.billNumbers.filter(n => n.number !== number);
     },
+  },
+  computed: {
+    filterNumbers() {
+      if (this.searchType === `actual ` && this.numberType === `bill`) {
+        return this.billNumbers.filter(b => b.number.toLowerCase().includes(this.searchType.toLowerCase()))
+      } else if (this.searchType === `archive ` && this.numberType === `bill`) {
+        return this.archive.billNumbers.filter(b => b.number.toLowerCase().includes(this.searchType.toLowerCase()))
+      } else if (this.searchType === `actual` && this.numberType === `container`) {
+        return this.containerNumbers.filter(b => b.number.toLowerCase().includes(this.searchType.toLowerCase()))
+      } else if (this.searchType === `archive` && this.numberType === `container`) {
+        return this.archive.containerNumbers.filter(b => b.number.toLowerCase().includes(this.searchType.toLowerCase()))
+      }
+      return null
+    }
   }
 }
 </script>
 
 <style scoped>
-
+@import "@/assets/style.css";
 </style>

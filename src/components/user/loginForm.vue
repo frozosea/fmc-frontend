@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="submitForm" ref="form" @click="handleModal">
+  <form @submit.prevent="submitForm" ref="form">
     <div class="container g-0">
       <div class="row g-0">
         <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-xs-12">
@@ -13,9 +13,9 @@
         </div>
 
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-          <input type="text" class="input-css-grey input-modal" placeholder="E-mail"
+          <input type="email" class="input-css-grey input-modal" placeholder="E-mail"
                  @input="email = $event.target.value">
-          <input type="text" class="input-css-grey input-modal-end" placeholder="*************"
+          <input type="password" class="input-css-grey input-modal-end" placeholder="*************"
                  @input="password = $event.target.value">
         </div>
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -45,6 +45,8 @@ export default {
   },
   methods: {
     submitForm() {
+      this.$store.state.isAuth = true
+      this.$emit(`close`, false)
       //TODO submit login form
     },
     handleModal() {
@@ -57,7 +59,7 @@ export default {
       }
     },
     hideByButton() {
-      this.$emit(`update:show`, false)
+      this.$emit(`close`, false)
     },
     disableButton() {
       this.valid = false

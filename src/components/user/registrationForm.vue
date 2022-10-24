@@ -8,7 +8,7 @@
 
         <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-12">
           <div class="close-block">
-            <button class="close" @click="hideByButton">×</button>
+            <button class="close borderless_button" @click="hideByButton">×</button>
           </div>
         </div>
 
@@ -26,7 +26,7 @@
     <div class="row g-0">
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <button type="submit" class="button-menu" :disabled="!valid" ref="button">Register</button>
-        <div style="color: red" v-if="showError">{{ this.errorMessage }}</div>
+        <div style="color: red" v-if="showError">{{ errorMessage }}</div>
       </div>
     </div>
   </form>
@@ -92,7 +92,7 @@ export default {
       }
     },
     hideByButton() {
-      this.$emit(`update:show`, false)
+      this.$emit(`close`, false)
     },
     disableButton() {
       this.valid = false

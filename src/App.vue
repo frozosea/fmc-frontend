@@ -1,19 +1,20 @@
 <template>
   <FmcHeader/>
-  <NavBar/>
-   <FmcFooter/>
+<!--  <nav-bar/>-->
+  <router-view/>
+  <FmcFooter/>
 </template>
 
 <script>
 
-import NavBar from "@/components/navBar";
+// import NavBar from "@/components/navBar";
 import FmcHeader from "@/components/header"
 import FmcFooter from "@/components/footer"
 
 export default {
   name: 'App',
   components: {
-    NavBar,
+    // NavBar,
     FmcHeader,
     FmcFooter
   }

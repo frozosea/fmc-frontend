@@ -1,6 +1,6 @@
 <template>
   <CustomModal :show="show">
-    <registration-form />
+    <registration-form @close="closeByButton"/>
   </CustomModal>
 </template>
 
@@ -13,6 +13,11 @@ export default {
   components: {CustomModal, registrationForm},
   props: {
     show: Boolean
+  },
+  methods: {
+    closeByButton(e) {
+      this.$emit("close", e)
+    }
   }
 }
 </script>

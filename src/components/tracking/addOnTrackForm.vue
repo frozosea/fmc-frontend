@@ -80,7 +80,7 @@ export default {
       this.$emit(`close`, false)
     },
     hideByButton() {
-      this.$emit(`show:update`, false)
+      this.$emit(`close`, false)
     },
     changeList(number) {
       this.$emit("changeNumbers", number)
