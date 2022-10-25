@@ -43,7 +43,7 @@ export default {
       this.$emit("deleteNumbers")
     },
     setAddTrackingVisible(){
-      this.$emit("addOnTrackVisible",true)
+      this.$emit("addOnTrackVisible", true)
     }
   }
 }

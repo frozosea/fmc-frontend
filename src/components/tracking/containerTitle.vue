@@ -1,6 +1,6 @@
 <template>
   <div class="col-xl-3 col-lg-4 col-md-12 col-sm-12 col-xs-12">
-    <div class="container-title" v-if="isFound && !isLoading">
+    <div class="container-title" v-if="isFound && !isLoading && !isInAccount">
       {{
         isContainer ? `${this.trackingResponse.number}/${this.trackingResponse.containerSize}` : `${this.trackingResponse.number}/ETA: ${this.trackingResponse.eta}`
       }}

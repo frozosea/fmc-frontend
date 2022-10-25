@@ -2,32 +2,30 @@
   <long-dotted-line/>
   <search-number-form @search="filterNumbers" @inputSearchQuery="searchQuery = $event"/>
   <short-dotted-line/>
-  <type-selector-in-user-account @updateType="updateSearchType" @updateNumberType="updateNumberType"
+  <type-selector-in-user-account @updateType="updateSearchType($event)" @updateNumberType="updateNumberType($event)"
                                  @addOnTrackVisible="addTrackingVisible = $event"/>
   <CustomModal v-model:show="addTrackingVisible">
     <add-on-track-form v-if="numberType === `container`" :numberList="containerNumbers"
                        @changeNumbers="unselectContainerNumbers($event)"
                        @close="addTrackingVisible=false" :submit="addContainersOnTrack"/>
-    />
-    <add-on-track-form v-if="numberType === `bill`" :numberList="billNumbers"
+    <add-on-track-form v-if="numberType === `bills`" :numberList="billNumbers"
                        @changeNumbers="unselectBillNumbers($event)"
                        @close="addTrackingVisible=false" :submit="addBillsOnTrack"/>
-    />
   </CustomModal>
 
   <containers-or-bills-list v-if="numberType === `container`" :numbers="containerNumbers"
                             @addToSelectedNumbers="selectContainer"
                             @unselectToSelectedNumbers="unselectContainerNumbers"
   />
-  <containers-or-bills-list v-if="numberType === `bill`" :numbers="billNumbers"
+  <containers-or-bills-list v-if="numberType === `bills`" :numbers="billNumbers"
                             @addToSelectedNumbers="selectBill"
                             @unselectToSelectedNumbers="unselectBillNumbers"
   />
-  <containers-or-bills-list v-if="numberType === `bill` && searchType === `archive` " :numbers="archive.billNumbers"
+  <containers-or-bills-list v-if="numberType === `bills` && searchType === `archive` " :numbers="archive.billNumbers"
                             @addToSelectedNumbers="selectArchiveBill"
                             @unselectToSelectedNumbers="unselectArchiveBillNumbers"
   />
-  <containers-or-bills-list v-if="numberType === `bill`  && searchType === `archive` "
+  <containers-or-bills-list v-if="numberType === `bills`  && searchType === `archive` "
                             :numbers="archive.containerNumbers"
                             @addToSelectedNumbers="selectArchiveContainer"
                             @unselectToSelectedNumbers="unselectArchiveContainerNumbers"
@@ -69,9 +67,11 @@ export default {
   },
   methods: {
     updateSearchType(type) {
+      console.log(type)
       this.searchType = type;
     },
     updateNumberType(type) {
+      console.log(type)
       this.numberType = type;
     },
     selectContainer(number) {

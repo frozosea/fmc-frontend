@@ -16,7 +16,7 @@
                                :is-loading="isLoading"
               />
               <SpinnerLoader
-                  active="isLoading"
+                  :active="isLoading"
                   text=""
                   v-if="isLoading"
               />

@@ -33,8 +33,8 @@
   />
 
   <div v-if="!isLoading && !hasContainers" class="not_found_numbers">Number(s) not found!</div>
-  <base-container-or-bill-number is-found="true" tracking-response="trackingResult" isContainer="true"
-                                 is-on-track="false"
+  <base-container-or-bill-number :is-found="true" :tracking-response="trackingResult" :isContainer="true"
+                                 :is-on-track="false"
                                  @selectCheckBox="changeNumToSelectedList(trackingResult.number,$event)"
                                  :is-loading="isLoading" v-if="hasContainers"/>
 </template>
