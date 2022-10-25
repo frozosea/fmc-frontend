@@ -12,7 +12,9 @@
                   :number="number"
                   :is-in-account="true"
               />
-              <binaculars-picture/>
+              <tracking-latest-move :empty="true"/>
+              <binaculars-picture :schedule-tracking-object="scheduleTrackingInfo" :is-on-track="isOnTrack"
+                                  :number="number" :is-found="true"/>
 
               <CustomCheckBox class-name="col-xl-1 col-lg-1 col-md-12 col-sm-12 col-xs-12"
                               :change-func="selectCheckBox"/>
@@ -38,6 +40,7 @@ import ContainerTitle from "@/components/tracking/containerTitle";
 import BinacularsPicture from "@/components/tracking/binacularsPicture";
 import CustomCheckBox from "@/UI/customCheckBox";
 import scheduleTrackingInfoInBillOrContainer from "@/components/tracking/scheduleTrackingInfoInBillOrContainer";
+import trackingLatestMove from "@/components/tracking/trackingLatestMove";
 // import TrackingEventsList from "@/components/tracking/trackingEventsList";
 // import SpinnerLoader from "@/UI/loading";
 
@@ -47,6 +50,7 @@ export default {
     // TrackingEventsList,
     CustomCheckBox,
     BinacularsPicture,
+    trackingLatestMove,
     // SpinnerLoader,
     ContainerTitle, ContainerPicture, scheduleTrackingInfoInBillOrContainer
   },

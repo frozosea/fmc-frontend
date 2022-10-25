@@ -1,12 +1,12 @@
 <template>
   <div class="col-xl-1 col-lg-1 col-md-12 col-sm-12 col-xs-12">
     <div class="container-tracking" v-if="isFound">
-      <button class="borderless_button" @click="showAddOnTrackModal = !showAddOnTrackModal">
+      <button class="borderless_button" @click="handleModal">
         <img src="@/assets/images/binoculars.svg" class="svg-binoculars img-hover"></button>
     </div>
   </div>
-  <CustomModal v-model:show="showAddOnTrackModal" v-if="showAddOnTrackModal && isOnTrack">
-    <add-on-track-form :scheduleTrackingObject="scheduleTrackingObject" :numberList="[scheduleTrackingObject.number]"
+  <CustomModal v-model:show="showAddOnTrackModal">
+    <add-on-track-form :scheduleTrackingObject="scheduleTrackingObject" :numberList="[number]"
                        :show="showAddOnTrackModal"
                        @close="showAddOnTrackModal = $event"
                        :submit="submitAddOnTrackChange"
@@ -29,6 +29,9 @@ export default {
   methods: {
     submitAddOnTrackChange(){
       //TODO submitAddOnTrackChange
+    },
+    handleModal(){
+      this.showAddOnTrackModal = !this.showAddOnTrackModal
     }
   },
   mounted() {
@@ -40,7 +43,8 @@ export default {
     scheduleTrackingObject: {
       type: Object,
       required: false
-    }
+    },
+    number: String
   }
 }
 </script>

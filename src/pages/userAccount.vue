@@ -12,7 +12,11 @@
                        @changeNumbers="unselectBillNumbers($event)"
                        @close="addTrackingVisible=false" :submit="addBillsOnTrack"/>
   </CustomModal>
-
+  <div class="not_found_numbers"
+       v-if="(searchType === `actual` && (containerNumbers.length === 0 || billNumbers.length === 0)) || (searchType === `archive` && (archive.containerNumbers.length === 0 || archive.billNumbers.length === 0))">
+    Number(s) not
+    found!
+  </div>
   <containers-or-bills-list v-if="numberType === `container`" :numbers="containerNumbers"
                             @addToSelectedNumbers="selectContainer"
                             @unselectToSelectedNumbers="unselectContainerNumbers"
@@ -49,10 +53,19 @@ export default {
       numberType: "container", //also can be bill
       selectedBillNumbers: [],
       selectedContainerNumbers: [],
-      billNumbers: [],
+      billNumbers: [{
+        number: "MRKU6788432", scheduleTrackingInfo: {
+          time: "15:00",
+          emails: [`3dteapot@gmail.com`, `subvenire@mail.com`, `logistic@ya.ru`],
+          subject: "боксы вмтп"
+        }, isContainer: true, isOnTrack: true
+      }],
       containerNumbers: [],
       addTrackingVisible: false,
-      archive: null,
+      archive: {
+        billNumbers: [],
+        containerNumbers: []
+      },
       searchQuery: ""
     }
   },

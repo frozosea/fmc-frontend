@@ -36,7 +36,7 @@
   <base-container-or-bill-number :is-found="true" :tracking-response="trackingResult" :isContainer="true"
                                  :is-on-track="false"
                                  @selectCheckBox="changeNumToSelectedList(trackingResult.number,$event)"
-                                 :is-loading="isLoading" v-if="hasContainers"/>
+                                 :is-loading="isLoading" v-if="hasContainers" :schedule-tracking-info="scheduleTrackingInfo"/>
 </template>
 
 <script>
@@ -74,7 +74,12 @@ export default {
         "scac": "string"
       },
       addTrackingVisible: false,
-      numbers: [`MRKU6782621`, `MRKU6782612`, `MRKU6782613`, `MRKU6782614`, `MRKU6782615`, `MRKU6782616`, `MRKU6782617`, `MRKU6782618`]
+      numbers: [`MRKU6782621`, `MRKU6782612`, `MRKU6782613`, `MRKU6782614`, `MRKU6782615`, `MRKU6782616`, `MRKU6782617`, `MRKU6782618`],
+      scheduleTrackingInfo: {
+        time: "15:00",
+        emails: [`3dteapot@gmail.com`, `subvenire@mail.com`, `logistic@ya.ru`],
+        subject: "боксы вмтп"
+      },
     }
   },
   methods: {

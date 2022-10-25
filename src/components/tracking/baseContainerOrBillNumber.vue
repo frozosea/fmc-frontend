@@ -22,7 +22,8 @@
               />
               <tracking-latest-move :is-found="isFound" :tracking-response="trackingResponse" v-if="!isLoading"/>
 
-              <binaculars-picture :is-found="isFound" v-if="!isLoading"/>
+              <binaculars-picture :is-found="isFound" v-if="!isLoading" :number="number"
+                                  :schedule-tracking-object="scheduleTrackingInfo"/>
 
               <CustomCheckBox class-name="col-xl-1 col-lg-1 col-md-12 col-sm-12 col-xs-12"
                               :change-func="selectCheckBox" v-if="!isLoading"/>
@@ -96,11 +97,6 @@ export default {
       },
       isSelectCheckBox: false,
       isFound: true,
-      scheduleTrackingInfo: {
-        time: "15:00",
-        emails: [`3dteapot@gmail.com`, `subvenire@mail.com`, `logistic@ya.ru`],
-        subject: "боксы вмтп"
-      },
       isContainer: true,
       isOnTrack: true,
     }
@@ -111,10 +107,10 @@ export default {
     // number: String,
     // isContainer: Boolean,
     // isOnTrack: Boolean,
-    // scheduleTrackingInfo: {
-    //   type: Object,
-    //   required: false
-    // },
+    scheduleTrackingInfo: {
+      type: Object,
+      required: false
+    },
     // isFound: Boolean
     billScac: {
       type: Array,

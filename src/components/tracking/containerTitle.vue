@@ -9,7 +9,7 @@
       {{ this.number.toUpperCase() }}
     </div>
     <div class="container-title" v-if="isLoading"> {{ this.number.toUpperCase() }}</div>
-    <div class="container-title" v-if="isInAccount"> {{ this.number.toUpperCase() }}</div>
+    <div class="container-title" v-if="isInAccount && !isLoading && isFound"> {{ this.number.toUpperCase() }}</div>
 
   </div>
 </template>

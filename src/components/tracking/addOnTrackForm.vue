@@ -14,11 +14,15 @@
 
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <input type="text" class="input-css-grey input-modal" placeholder="E-mail for mailings / separated by commas"
-                 @input="handleEmails" value="">
+                 @input="handleEmails"
+                 :value="scheduleTrackingObject ? scheduleTrackingObject.emails.join(`,`) : ``">
           <input type="text" class="input-css-grey input-modal" placeholder="Subject name"
-                 @input="subject = $event.target.value">
+                 @input="subject = $event.target.value"
+                 :value="scheduleTrackingObject ? scheduleTrackingObject.subject : ``">
           <input type="text" class="input-css-grey input-modal" placeholder="Time (in format 01:44)"
-                 @input="handleTime">
+                 @input="handleTime"
+                 :value="scheduleTrackingObject? scheduleTrackingObject.time : ``"
+          >
         </div>
       </div>
       <div class="market-minus col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -57,6 +61,7 @@ export default {
   data() {
     return {
       valid: false,
+      // scheduleTrackingObject: {},
       subject: "",
       emails: [],
       time: "",
@@ -67,8 +72,12 @@ export default {
   props: {
     numberList: Array,
     show: Boolean,
-    scheduleTrackingObject:{
+    scheduleTrackingObject: {
       type: Object,
+      required: false
+    },
+    number: {
+      type: String,
       required: false
     },
     submit: Function
