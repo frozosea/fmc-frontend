@@ -1,4 +1,5 @@
 import {createStore} from "vuex";
+import Api, {AuthApi, ScheduleTrackingApi, TrackingApi, UserApi} from "@/api";
 
 export default createStore({
     state: {
@@ -10,7 +11,12 @@ export default createStore({
         telegramUrl: "example.org",
         facebookUrl: "example.org",
         twitterUrl: "example.org",
-        supportEmail: "support@findmycargo.ru"
+        supportEmail: "support@findmycargo.ru",
+        authApi: new AuthApi(),
+        trackingApi: new TrackingApi(),
+        scheduleTrackingApi: new ScheduleTrackingApi(),
+        userApi: new UserApi(),
+        api: new Api(this.authApi, this.trackingApi, this.scheduleTrackingApi, this.userApi)
     },
     getters: {
         getIsAuth(state) {

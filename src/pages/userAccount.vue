@@ -13,7 +13,7 @@
                        @close="addTrackingVisible=false" :submit="addBillsOnTrack"/>
   </CustomModal>
   <div class="not_found_numbers"
-       v-if="(searchType === `actual` && (containerNumbers.length === 0 || billNumbers.length === 0)) || (searchType === `archive` && (archive.containerNumbers.length === 0 || archive.billNumbers.length === 0))">
+       v-if="checkNumbersExists">
     Number(s) not
     found!
   </div>
@@ -51,8 +51,8 @@ export default {
     return {
       searchType: "actual", //also can be archive
       numberType: "container", //also can be bill
-      selectedBillNumbers: [],
-      selectedContainerNumbers: [],
+      selectedBillNumbers: new Set(),
+      selectedContainerNumbers: new Set(),
       billNumbers: [{
         number: "MRKU6788432", scheduleTrackingInfo: {
           time: "15:00",
@@ -60,13 +60,26 @@ export default {
           subject: "боксы вмтп"
         }, isContainer: true, isOnTrack: true
       }],
-      containerNumbers: [],
+      containerNumbers: [{
+        number: "exampleContainer", scheduleTrackingInfo: {
+          time: "15:00",
+          emails: [`3dteapot@gmail.com`, `subvenire@mail.com`, `logistic@ya.ru`],
+          subject: "боксы вмтп"
+        }, isContainer: true, isOnTrack: true
+      }],
       addTrackingVisible: false,
       archive: {
-        billNumbers: [],
+        billNumbers: [{
+          number: "exampleContainer", scheduleTrackingInfo: {
+            time: "15:00",
+            emails: [`3dteapot@gmail.com`, `subvenire@mail.com`, `logistic@ya.ru`],
+            subject: "боксы вмтп"
+          }, isContainer: true, isOnTrack: true
+        }],
         containerNumbers: []
       },
-      searchQuery: ""
+      searchQuery: "",
+      isShowNumbersNotFound: this.checkNumbersExists()
     }
   },
   components: {
@@ -80,57 +93,88 @@ export default {
   },
   methods: {
     updateSearchType(type) {
+      this.isShowNumbersNotFound = this.checkNumbersExists()
       console.log(type)
       this.searchType = type;
     },
     updateNumberType(type) {
+      this.isShowNumbersNotFound = this.checkNumbersExists()
       console.log(type)
       this.numberType = type;
     },
     selectContainer(number) {
-      this.containerNumbers.push(number)
+      if (this.containerNumbers.indexOf(number) === -1) {
+        this.containerNumbers.push(number)
+      }
     },
     unselectContainerNumbers(number) {
-      this.containerNumbers = this.containerNumbers.filter(n => n.number !== number);
+      this.containerNumbers = this.containerNumbers.filter(n => n.number === number);
     },
     selectBill(number) {
-      this.billNumbers.push(number)
+      this.isShowNumbersNotFound = this.checkNumbersExists()
+      if (this.billNumbers.indexOf(number) === -1) {
+        this.billNumbers.push(number)
+      }
     },
     unselectBillNumbers(number) {
-      this.billNumbers = this.billNumbers.filter(n => n.number !== number);
+      this.isShowNumbersNotFound = this.checkNumbersExists()
+      this.billNumbers = this.billNumbers.filter(n => n.number === number);
     },
     addBillsOnTrack() {
+      this.isShowNumbersNotFound = this.checkNumbersExists()
       //TODO add bill on track in user account
     },
     addContainersOnTrack() {
+      this.isShowNumbersNotFound = this.checkNumbersExists()
       //TODO add containers on track in user account
     },
     selectArchiveContainer(number) {
+      this.isShowNumbersNotFound = this.checkNumbersExists()
       this.archive.containerNumbers.push(number)
     },
     unselectArchiveContainerNumbers(number) {
+      this.isShowNumbersNotFound = this.checkNumbersExists()
       this.archive.containerNumbers = this.archive.containerNumbers.filter(n => n.number !== number);
     },
     selectArchiveBill(number) {
+      this.isShowNumbersNotFound = this.checkNumbersExists()
       this.archive.billNumbers.push(number)
     },
     unselectArchiveBillNumbers(number) {
       this.archive.billNumbers = this.archive.billNumbers.filter(n => n.number !== number);
     },
+    checkNumbersExists() {
+      //TODO write func which can check containers or bills in archive and actual numbers
+      if (this.numberType === `bills`) {
+        if (this.searchType === `actual`) {
+          return this.billNumbers.length === 0
+        } else if (this.searchType === `archive`) {
+          return this.archive.billNumbers.length === 0
+        }
+      } else if (this.numberType === `container`) {
+        if (this.searchType === `actual`) {
+          return this.containerNumbers.length === 0
+        } else if (this.searchType === `archive`) {
+          return this.archive.containerNumbers.length === 0
+        }
+      }
+      return false
+    }
+
   },
   computed: {
-    filterNumbers() {
-      if (this.searchType === `actual ` && this.numberType === `bill`) {
-        return this.billNumbers.filter(b => b.number.toLowerCase().includes(this.searchType.toLowerCase()))
-      } else if (this.searchType === `archive ` && this.numberType === `bill`) {
-        return this.archive.billNumbers.filter(b => b.number.toLowerCase().includes(this.searchType.toLowerCase()))
-      } else if (this.searchType === `actual` && this.numberType === `container`) {
-        return this.containerNumbers.filter(b => b.number.toLowerCase().includes(this.searchType.toLowerCase()))
-      } else if (this.searchType === `archive` && this.numberType === `container`) {
-        return this.archive.containerNumbers.filter(b => b.number.toLowerCase().includes(this.searchType.toLowerCase()))
-      }
-      return null
-    }
+    // filterNumbers() {
+    //   if (this.searchType === `actual ` && this.numberType === `bills`) {
+    //     return this.billNumbers.filter(b => b.number.toLowerCase().includes(this.searchType.toLowerCase()))
+    //   } else if (this.searchType === `archive ` && this.numberType === `bills`) {
+    //     return this.archive.billNumbers.filter(b => b.number.toLowerCase().includes(this.searchType.toLowerCase()))
+    //   } else if (this.searchType === `actual` && this.numberType === `container`) {
+    //     return this.containerNumbers.filter(b => b.number.toLowerCase().includes(this.searchType.toLowerCase()))
+    //   } else if (this.searchType === `archive` && this.numberType === `container`) {
+    //     return this.archive.containerNumbers.filter(b => b.number.toLowerCase().includes(this.searchType.toLowerCase()))
+    //   }
+    //   return null
+    // }
   }
 }
 </script>

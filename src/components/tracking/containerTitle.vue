@@ -2,14 +2,14 @@
   <div class="col-xl-3 col-lg-4 col-md-12 col-sm-12 col-xs-12">
     <div class="container-title" v-if="isFound && !isLoading && !isInAccount">
       {{
-        isContainer ? `${this.trackingResponse.number}/${this.trackingResponse.containerSize}` : `${this.trackingResponse.number}/ETA: ${this.trackingResponse.eta}`
+        isContainer ? `${this.number}/${this.trackingResponse.containerSize}` : `${this.number.toUpperCase()}/ETA: ${this.trackingResponse.eta}`
       }}
     </div>
     <div class="container-title" v-if="!isFound && !isLoading">
-      {{ this.number.toUpperCase() }}
+      {{ number.toUpperCase() }}
     </div>
-    <div class="container-title" v-if="isLoading"> {{ this.number.toUpperCase() }}</div>
-    <div class="container-title" v-if="isInAccount && !isLoading && isFound"> {{ this.number.toUpperCase() }}</div>
+    <div class="container-title" v-if="isLoading"> {{ number.toUpperCase() }}</div>
+    <div class="container-title" v-if="isInAccount && !isLoading && isFound"> {{ number.toUpperCase() }}</div>
 
   </div>
 </template>
@@ -23,7 +23,15 @@ export default {
     isLoading: Boolean,
     number: String,
     trackingResponse: Object,
-    isInAccount: Boolean
+    isInAccount: Boolean,
+  }, mounted() {
+    console.log(this.number)
+  },
+  computed: {
+    print() {
+      console.log(this.number)
+      return true
+    }
   }
 }
 </script>
