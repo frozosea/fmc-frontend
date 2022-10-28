@@ -16,7 +16,7 @@ export default createStore({
         trackingApi: new TrackingApi(),
         scheduleTrackingApi: new ScheduleTrackingApi(),
         userApi: new UserApi(),
-        api: new Api(this.authApi, this.trackingApi, this.scheduleTrackingApi, this.userApi)
+        api: new Api(new AuthApi(), new TrackingApi(), new ScheduleTrackingApi(), new UserApi())
     },
     getters: {
         getIsAuth(state) {
@@ -24,13 +24,30 @@ export default createStore({
         },
         getUsername(state) {
             return state.username
-        }, getEmail(state) {
+        },
+        getEmail(state) {
             return state.email
         },
         getAuthToken(state) {
             return state.authToken
-        }, getRefreshToke(state) {
+        },
+        getRefreshToke(state) {
             return state.refreshToken
+        },
+        getApi(state) {
+            return state.api
+        },
+        getAuthApi(state) {
+            return state.authApi
+        },
+        getTrackingApi(state) {
+            return state.trackingApi
+        },
+        getScheduleTrackingApi(state) {
+            return state.scheduleTrackingApi
+        },
+        getUserApi(state) {
+            return state.userApi
         }
 
     },

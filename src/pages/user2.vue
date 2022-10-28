@@ -12,7 +12,12 @@ import shortDottedLine from "@/UI/shortDottedLine";
 
 export default {
   name: "user2",
-  components: {SearchNumberForm, longDottedLine, shortDottedLine}
+  components: {SearchNumberForm, longDottedLine, shortDottedLine},
+  data(){
+    return {
+
+    }
+  },
 }
 </script>
 

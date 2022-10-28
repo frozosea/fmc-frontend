@@ -14,3 +14,8 @@ components.forEach(component => {
 })
 
 app.use(VueSpinners).use(router).use(store).mount("#app")
+
+
+
+
+

@@ -130,19 +130,73 @@ export class ScheduleTrackingApi {
 export class UserApi {
     get() {
         //TODO get bill and containers from user account
+
+        return {
+            containers : [{
+                number: "MRKU6782312",
+                scheduleTrackingInfo:{
+                    time: "4:20",
+                    emails: ["i20072004@gmail.com","y20072004@gmail.com","d20072004@gmail.com"],
+                    subject: "example subject"
+                }
+            }],
+            billNumbers: [{
+                number: "ZHGO22222222",
+                scheduleTrackingInfo:{
+                    time: "4:20",
+                    emails: ["i20072004@gmail.com","y20072004@gmail.com","d20072004@gmail.com"],
+                    subject: "example subject"
+                }
+            }]
+        }
+
     }
     getArchive(){
         //TODO get archive of tracking from user account
+
+        return {
+            containers : [{
+                number: "FESO2213945",
+                scheduleTrackingInfo:{
+                    time: "4:20",
+                    emails: ["i20072004@gmail.com","y20072004@gmail.com","d20072004@gmail.com"],
+                    subject: "example subject"
+                }
+            }],
+            billNumbers: [{
+                number: "MSCU2312312321321",
+                scheduleTrackingInfo:{
+                    time: "4:20",
+                    emails: ["i20072004@gmail.com","y20072004@gmail.com","d20072004@gmail.com"],
+                    subject: "example subject"
+                }
+            }]
+        }
     }
 }
 
 
 export default class Api {
+    get authApi() {
+        return this._authApi;
+    }
+
+    get trackingApi() {
+        return this._trackingApi;
+    }
+
+    get scheduleTrackingApi() {
+        return this._scheduleTrackingApi;
+    }
+
+    get userApi() {
+        return this._userApi;
+    }
 
     constructor(authApi, trackingApi, scheduleTrackingApi, userApi) {
-        this.authApi = authApi;
-        this.trackingApi = trackingApi
-        this.scheduleTrackingApi = scheduleTrackingApi
-        this.userApi = userApi
+        this._authApi = authApi;
+        this._trackingApi = trackingApi;
+        this._scheduleTrackingApi = scheduleTrackingApi;
+        this._userApi = userApi;
     }
 }

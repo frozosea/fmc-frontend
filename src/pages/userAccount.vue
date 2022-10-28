@@ -2,37 +2,27 @@
   <long-dotted-line/>
   <search-number-form @search="filterNumbers" @inputSearchQuery="searchQuery = $event"/>
   <short-dotted-line/>
-  <type-selector-in-user-account @updateType="updateSearchType($event)" @updateNumberType="updateNumberType($event)"
-                                 @addOnTrackVisible="addTrackingVisible = $event"/>
+  <type-selector-in-user-account @updateType="updateSearchType($event)"
+                                 @updateNumberType="updateNumberType($event)"
+                                 @addOnTrackVisible="addTrackingVisible = $event"
+                                 @deleteNumbers="deleteNumbers"
+  />
   <CustomModal v-model:show="addTrackingVisible">
-    <add-on-track-form v-if="numberType === `container`" :numberList="containerNumbers"
-                       @changeNumbers="unselectContainerNumbers($event)"
+    <add-on-track-form v-if="numberType === `container`" :numberList="toBaseNumbers(true)"
+                       @changeNumbers="unselectAddOnTrackContainerNumbers($event)"
                        @close="addTrackingVisible=false" :submit="addContainersOnTrack"/>
-    <add-on-track-form v-if="numberType === `bills`" :numberList="billNumbers"
-                       @changeNumbers="unselectBillNumbers($event)"
+    <add-on-track-form v-if="numberType === `bills`" :numberList="toBaseNumbers(false)"
+                       @changeNumbers="unselectAddOnTrackBillNumbers($event)"
                        @close="addTrackingVisible=false" :submit="addBillsOnTrack"/>
   </CustomModal>
   <div class="not_found_numbers"
-       v-if="checkNumbersExists">
+       v-if="isShowNumbersNotFound">
     Number(s) not
     found!
   </div>
-  <containers-or-bills-list v-if="numberType === `container`" :numbers="containerNumbers"
-                            @addToSelectedNumbers="selectContainer"
-                            @unselectToSelectedNumbers="unselectContainerNumbers"
-  />
-  <containers-or-bills-list v-if="numberType === `bills`" :numbers="billNumbers"
-                            @addToSelectedNumbers="selectBill"
-                            @unselectToSelectedNumbers="unselectBillNumbers"
-  />
-  <containers-or-bills-list v-if="numberType === `bills` && searchType === `archive` " :numbers="archive.billNumbers"
-                            @addToSelectedNumbers="selectArchiveBill"
-                            @unselectToSelectedNumbers="unselectArchiveBillNumbers"
-  />
-  <containers-or-bills-list v-if="numberType === `bills`  && searchType === `archive` "
-                            :numbers="archive.containerNumbers"
-                            @addToSelectedNumbers="selectArchiveContainer"
-                            @unselectToSelectedNumbers="unselectArchiveContainerNumbers"
+  <containers-or-bills-list :numbers=" numberType === `container` ? containerNumbers: billNumbers"
+                            @addToSelectedNumbers="numberType === `container` ? selectContainer($event) : selectBill($event)"
+                            @unselectToSelectedNumbers="numberType === `container` ? unselectContainerNumbers($event) : unselectBillNumbers($event)"
   />
 </template>
 
@@ -51,33 +41,14 @@ export default {
     return {
       searchType: "actual", //also can be archive
       numberType: "container", //also can be bill
-      selectedBillNumbers: new Set(),
-      selectedContainerNumbers: new Set(),
-      billNumbers: [{
-        number: "MRKU6788432", scheduleTrackingInfo: {
-          time: "15:00",
-          emails: [`3dteapot@gmail.com`, `subvenire@mail.com`, `logistic@ya.ru`],
-          subject: "боксы вмтп"
-        }, isContainer: true, isOnTrack: true
-      }],
-      containerNumbers: [{
-        number: "exampleContainer", scheduleTrackingInfo: {
-          time: "15:00",
-          emails: [`3dteapot@gmail.com`, `subvenire@mail.com`, `logistic@ya.ru`],
-          subject: "боксы вмтп"
-        }, isContainer: true, isOnTrack: true
-      }],
+      selectedBillNumbers: [],
+      selectedContainerNumbers: [],
+      selectedAddOnTrackBillNumbers: [],
+      selectedAddOnTrackContainerNumbers: [],
+      billNumbers: [],
+      containerNumbers: [],
       addTrackingVisible: false,
-      archive: {
-        billNumbers: [{
-          number: "exampleContainer", scheduleTrackingInfo: {
-            time: "15:00",
-            emails: [`3dteapot@gmail.com`, `subvenire@mail.com`, `logistic@ya.ru`],
-            subject: "боксы вмтп"
-          }, isContainer: true, isOnTrack: true
-        }],
-        containerNumbers: []
-      },
+      archive: {billNumbers: [], containerNumbers: []},
       searchQuery: "",
       isShowNumbersNotFound: this.checkNumbersExists()
     }
@@ -103,22 +74,37 @@ export default {
       this.numberType = type;
     },
     selectContainer(number) {
-      if (this.containerNumbers.indexOf(number) === -1) {
-        this.containerNumbers.push(number)
+      if (this.selectedContainerNumbers.indexOf(number) === -1) {
+        this.selectedContainerNumbers.push(number)
+      }
+      if (this.selectedAddOnTrackContainerNumbers.indexOf(number) === -1) {
+        this.selectedAddOnTrackContainerNumbers.push(number)
       }
     },
     unselectContainerNumbers(number) {
-      this.containerNumbers = this.containerNumbers.filter(n => n.number === number);
+      this.selectedContainerNumbers = this.selectedContainerNumbers.filter(n => n.number === number);
+    },
+
+    unselectAddOnTrackContainerNumbers(number) {
+      this.selectedAddOnTrackContainerNumbers = this.selectedAddOnTrackContainerNumbers.filter(n => n.number === number)
+    },
+    unselectAddOnTrackBillNumbers(number) {
+      this.selectedAddOnTrackBillNumbers = this.selectedAddOnTrackBillNumbers.filter(n => n.number === number)
     },
     selectBill(number) {
-      this.isShowNumbersNotFound = this.checkNumbersExists()
-      if (this.billNumbers.indexOf(number) === -1) {
-        this.billNumbers.push(number)
+      if (this.selectedBillNumbers.indexOf(number.toUpperCase()) === -1) {
+        this.selectedBillNumbers.push(number.toUpperCase())
+      }
+      if (this.selectedAddOnTrackBillNumbers.indexOf(number) === -1) {
+        this.selectedAddOnTrackBillNumbers.push(number)
       }
     },
     unselectBillNumbers(number) {
-      this.isShowNumbersNotFound = this.checkNumbersExists()
-      this.billNumbers = this.billNumbers.filter(n => n.number === number);
+      if (this.selectedBillNumbers.indexOf(number) !== -1) {
+        console.log(this.selectedBillNumbers.target)
+        this.selectedBillNumbers = this.selectedBillNumbers.filter(n => n.number === number);
+        console.log(this.selectedBillNumbers)
+      }
     },
     addBillsOnTrack() {
       this.isShowNumbersNotFound = this.checkNumbersExists()
@@ -128,37 +114,83 @@ export default {
       this.isShowNumbersNotFound = this.checkNumbersExists()
       //TODO add containers on track in user account
     },
-    selectArchiveContainer(number) {
-      this.isShowNumbersNotFound = this.checkNumbersExists()
-      this.archive.containerNumbers.push(number)
+    toBaseNumbers(isContainer) {
+      const ar = [];
+      if (isContainer) {
+        for (const item of this.selectedAddOnTrackContainerNumbers) {
+          ar.push(item.toUpperCase())
+        }
+      } else {
+        for (const item of this.selectedAddOnTrackBillNumbers) {
+          ar.push(item.toUpperCase())
+        }
+      }
+      return ar
     },
-    unselectArchiveContainerNumbers(number) {
-      this.isShowNumbersNotFound = this.checkNumbersExists()
-      this.archive.containerNumbers = this.archive.containerNumbers.filter(n => n.number !== number);
-    },
-    selectArchiveBill(number) {
-      this.isShowNumbersNotFound = this.checkNumbersExists()
-      this.archive.billNumbers.push(number)
-    },
-    unselectArchiveBillNumbers(number) {
-      this.archive.billNumbers = this.archive.billNumbers.filter(n => n.number !== number);
+    // selectArchiveContainer(number) {
+    //   this.isShowNumbersNotFound = this.checkNumbersExists()
+    //   this.archive.containerNumbers.push(number)
+    // },
+    // unselectArchiveContainerNumbers(number) {
+    //   this.isShowNumbersNotFound = this.checkNumbersExists()
+    //   this.archive.containerNumbers = this.archive.containerNumbers.filter(n => n.number !== number);
+    // },
+    // selectArchiveBill(number) {
+    //   this.isShowNumbersNotFound = this.checkNumbersExists()
+    //   this.archive.billNumbers.push(number)
+    // },
+    // unselectArchiveBillNumbers(number) {
+    //   this.archive.billNumbers = this.archive.billNumbers.filter(n => n.number !== number);
+    // },
+    deleteNumberFromArray(number, isContainer) {
+      if (isContainer) {
+        for (const item of this.containerNumbers) {
+          if (item.number.toUpperCase() === number.toUpperCase()) {
+            this.containerNumbers.splice(this.containerNumbers.indexOf(item), 1)
+          }
+        }
+      } else {
+        for (const item of this.billNumbers) {
+          if (item.number.toUpperCase() === number.toUpperCase()) {
+            this.billNumbers.splice(this.billNumbers.indexOf(item), 1)
+          }
+        }
+      }
     },
     checkNumbersExists() {
       //TODO write func which can check containers or bills in archive and actual numbers
       if (this.numberType === `bills`) {
         if (this.searchType === `actual`) {
+          console.log("AAAAAA actual bills")
           return this.billNumbers.length === 0
-        } else if (this.searchType === `archive`) {
-          return this.archive.billNumbers.length === 0
         }
-      } else if (this.numberType === `container`) {
+      } else if (this.numberType === `containers`) {
         if (this.searchType === `actual`) {
           return this.containerNumbers.length === 0
-        } else if (this.searchType === `archive`) {
-          return this.archive.containerNumbers.length === 0
         }
       }
       return false
+    },
+    deleteNumbers() {
+      if (this.numberType === `bills`) {
+        if (this.searchType === `actual`) {
+          console.log(this.selectedBillNumbers)
+          for (const item of this.selectedBillNumbers) {
+            console.log(item)
+            this.deleteNumberFromArray(item, false)
+          }
+          console.log(this.billNumbers)
+        }
+      } else {
+        if (this.searchType === `actual`) {
+          for (const item of this.selectedContainerNumbers) {
+            this.deleteNumberFromArray(item, true)
+          }
+          // this.containerNumbers.splice(this.containerNumbers.indexOf())
+          console.log(this.containerNumbers)
+        }
+      }
+
     }
 
   },
@@ -175,6 +207,13 @@ export default {
     //   }
     //   return null
     // }
+  },
+  mounted() {
+    console.log(this.$store.state.api)
+    const allBillsContainer = this.$store.state.api.userApi.get()
+    this.billNumbers = allBillsContainer.billNumbers
+    this.containerNumbers = allBillsContainer.containers
+    this.isShowNumbersNotFound = this.checkNumbersExists()
   }
 }
 </script>
