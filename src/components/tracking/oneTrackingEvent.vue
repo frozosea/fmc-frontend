@@ -1,10 +1,13 @@
 <template>
-  <div class="row g-0">
-    <one-tracking-component name="Time" :variable="time"/>
-    <one-tracking-component name="Operation" :variable="operationName"/>
-    <one-tracking-component name="Location" :variable="location"/>
-    <one-tracking-component name="Vessel" :variable="vessel"/>
+  <div class="container g-0 path">
+    <div class="row g-0">
+      <one-tracking-component name="Time" :variable="time"/>
+      <one-tracking-component name="Operation" :variable="operationName"/>
+      <one-tracking-component name="Location" :variable="location"/>
+      <one-tracking-component name="Vessel" :variable="vessel"/>
+    </div>
   </div>
+
 </template>
 
 <script>

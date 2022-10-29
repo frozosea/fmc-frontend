@@ -4,7 +4,7 @@
 
       <div class="col-xl-4 col-lg-6 col-md-4 col-sm-12 col-xs-12">
         <input type="text" class="input-css-grey" id="recipient-name" placeholder="Enter Bill number"
-               @input="handleInput">
+               @input="changeNumber">
       </div>
 
       <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-xs-12">
@@ -15,8 +15,9 @@
       </div>
 
       <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-xs-12">
-        <select class="select-css-grey">
-          <option v-bind:key="line" value="line.toUpperCase()" v-for="line in scac">{{ line }}</option>
+        <select class="select-css-grey" @change="changeScac">
+          <option value="AUTO" selected>Automatically</option>
+          <option :key="line" :value="line.scac.toUpperCase()" v-for="line in scac">{{ line.fullName }}</option>
         </select>
       </div>
 
@@ -39,7 +40,8 @@ export default {
     return {
       isContainer: true,
       number: "",
-      isValid: true
+      isValid: true,
+      selectedScac: ""
     }
   },
   props: {
@@ -48,16 +50,20 @@ export default {
   methods: {
     submitForm() {
       //TODO tracking form request sender
+      this.$emit(`submitTrack`, this.isContainer, this.number, this.selectedScac)
     },
-    handleInput(e) {
-      const value = e.target.value
-      this.number = value.trim();
-      console.log(this.number)
-    },
-    changeTrackingSignature(e){
+    changeTrackingSignature(e) {
       this.isContainer = e.target.value === `container`;
       this.$emit('changeTrackingType', this.isContainer);
-    }
+    },
+    changeNumber(ev) {
+      this.number = ev.target.value.trim()
+      this.$emit(`changeNumber`, this.number)
+    },
+    changeScac(e) {
+      this.selectedScac = e.target.value.trim()
+      this.$emit(`changeScac`, this.selectedScac)
+    },
   }
 }
 </script>

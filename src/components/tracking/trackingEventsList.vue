@@ -1,11 +1,9 @@
 <template>
-  <div class="container g-0 path end-path">
-    <div v-for="event in trackingResponse.infoAboutMoving" :key="event.time">
-      <one-tracking-event :time="event.time"
-                          :operationName="event.operationName" :location="event.location" :vessel="event.vessel"
-                          :key="event.time"/>
-    </div>
-  </div>
+  <one-tracking-event :time="event.time"
+                      :operationName="event.operationName"
+                      :location="event.location"
+                      :vessel="event.vessel"
+                      :key="event.time" v-for="event in trackingResponse.infoAboutMoving"/>
 </template>
 
 <script>
@@ -17,7 +15,8 @@ export default {
     oneTrackingEvent
   },
   props: {
-    trackingResponse: Object}
+    trackingResponse: Object
+  }
 }
 </script>
 

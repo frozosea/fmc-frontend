@@ -25,8 +25,8 @@
     </div>
     <div class="row g-0">
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div style="color: red; margin-left: auto; margin-top: auto" v-if="showError">{{ errorMessage }}</div>
         <button type="submit" class="button-menu" :disabled="!valid" ref="button">Register</button>
-        <div style="color: red" v-if="showError">{{ errorMessage }}</div>
       </div>
     </div>
   </form>
@@ -43,7 +43,8 @@ export default {
       repeatedPassword: "",
       valid: true,
       showError: false,
-      errorMessage: ""
+      errorMessage: "",
+      9: false
     }
   },
   methods: {
@@ -103,7 +104,18 @@ export default {
       this.$refs.button.classList.replace("disabled-button", "button-menu")
     },
     submitForm() {
-      //TODO registration form submit func
+      const api = this.$store.state.api.authApi
+      try {
+        this.showLoading = true
+        api.register(this.email, this.username, this.password)
+        this.showLoading = false
+        this.showError = false
+        this.$emit(`close`, false)
+      } catch (e) {
+        this.error = "user with this username or email already exist!"
+        this.showError = true
+        this.showLoading = false
+      }
     }
   }
 }

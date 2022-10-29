@@ -33,8 +33,20 @@
         </button>
 
         <div :class="isOnTrack ? `panel` : `panel back-accordion`" v-if="isFound">
+          <schedule-tracking-info-in-bill-or-container :scheduleTrackingInfo="scheduleTrackingInfo"
+                                                       :is-on-track="isOnTrack"/>
+          <div class="container g-0">
+            <div class="row g-0">
 
-          <schedule-tracking-info-in-bill-or-container :scheduleTrackingInfo="scheduleTrackingInfo"/>
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="container-font">
+                  <span class="bold grey-color">Tracking information: </span>
+                  <span class="grey-color"><p></p>
+                                     </span></div>
+              </div>
+
+            </div>
+          </div>
           <tracking-events-list :tracking-response="trackingResponse" v-if="isFound"/>
 
         </div>
@@ -72,54 +84,24 @@ export default {
   },
   data() {
     return {
-      number: "MRKU6788432",
-      trackingResponse: {
-        number: "MRKU6788432",
-        containerSize: "20HQ",
-        infoAboutMoving: [{
-          "time": "2022-20-20",
-          "operationName": "test opeartion",
-          "location": "nakhodka",
-          "vessel": ""
-        },
-          {
-            "time": "2022-20-20",
-            "operationName": "test opeartion",
-            "location": "nakhodka",
-            "vessel": ""
-          },
-          {
-            "time": "2022-20-20",
-            "operationName": "test opeartion",
-            "location": "nakhodka",
-            "vessel": ""
-          }]
-      },
+      // number: "MRKU6788432",
       isSelectCheckBox: false,
       isFound: true,
-      isContainer: true,
-      isOnTrack: true,
+      // isContainer: true,
+      // isOnTrack: true,
     }
   },
   props: {
     isLoading: Boolean,
-    // trackingResponse: Object,
-    // number: String,
-    // isContainer: Boolean,
-    // isOnTrack: Boolean,
+    trackingResponse: Object,
+    number: String,
+    isContainer: Boolean,
+    isOnTrack: Boolean,
     scheduleTrackingInfo: {
       type: Object,
       required: false
     },
     // isFound: Boolean
-    billScac: {
-      type: Array,
-      required: false
-    },
-    containerScac: {
-      type: Array,
-      required: false
-    }
   },
   methods: {
     selectCheckBox() {

@@ -26,11 +26,14 @@
           </router-link>
           <router-link to="/user">
             <img src="@/assets/images/avatar.png" class="pad-avatar"></router-link>
-          <img src="@/assets/images/exit.svg"
-               class="svg-exit img-hover">
+          <button class="borderless_button"
+                  @click="this.$store.commit(`logout`)">
+            <img src="@/assets/images/exit.svg"
+                 class="svg-exit img-hover">
+          </button>
         </div>
         <div class="login" v-if="!this.$store.state.isAuth">
-          <img src="@/assets/images/exit.svg" class="svg-enter">
+          <img src="@/assets/images/exit.svg" class="svg-enter" @click="this.$store.commit(`logout`)">
           <a @click="showLogin" class="title-3">Log in</a>
           <a @click="showRegister">
             <button type="button" class="button-login">Registration</button>
@@ -70,19 +73,25 @@
         </div>
       </div>
       <CustomModal v-model:show="isShowRegister">
-        <registration-form @close="isShowRegister=$event"/>
+        <registration-form
+            @close="isShowRegister = $event; console.log(`close event ${$event}`)"
+        />
       </CustomModal>
       <CustomModal v-model:show="isShowLogin">
-        <login-form @close="isShowLogin=$event" @showRemindPassword="isShowRemindPassword=$event;isShowLogin=false"/>
+        <login-form @close="isShowLogin = $event"
+                    @showRemindPassword="isShowRemindPassword=$event; isShowLogin=false"
+        />
       </CustomModal>
       <CustomModal v-model:show="isShowServices">
-        <services-modal @close="isShowServices=$event"/>
+        <services-modal @close="isShowServices = $event"/>
       </CustomModal>
       <CustomModal v-model:show="isShowFeedBack">
-        <feed-back-modal @close="isShowFeedBack=$event"/>
+        <feed-back-modal @close="isShowFeedBack = $event"/>
       </CustomModal>
       <CustomModal v-model:show="isShowRemindPassword">
-        <registration-form @showRemindPassword="isShowRemindPassword=$event" @close="isShowLogin=$event"/>
+        <registration-form
+            @showRemindPassword="isShowRemindPassword = $event"
+            @close="isShowLogin = $event"/>
       </CustomModal>
     </div>
   </div>

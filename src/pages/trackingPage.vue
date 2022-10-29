@@ -3,6 +3,10 @@
   <TrackingForm
       :isContainer="isContainer"
       @changeTrackingType="isContainer = $event"
+      @submitTrack="trackByNumber"
+      @changeNumber="number = $event"
+      @changeScac="scac = $event"
+      :scac="this.$store.state.api.trackingApi.getAllLines()"
   />
   <short-dotted-line/>
   <div class="container g-3 actions-pad">
@@ -23,20 +27,25 @@
   </div>
   <CustomModal v-model:show="addTrackingVisible">
     <add-on-track-form
-        :numberList="numbers" @changeNumbers="deleteNumberFromListAddOnTrackList($event)"
+        :numberList="numbers"
+        @changeNumbers="deleteNumberFromListAddOnTrackList($event)"
         @close="addTrackingVisible=false"/>
   </CustomModal>
   <SpinnerLoader
-      active="isLoading"
+      :active="isLoading"
       text=""
       v-if="isLoading"
   />
 
   <div v-if="!isLoading && !hasContainers" class="not_found_numbers">Number(s) not found!</div>
-  <base-container-or-bill-number :is-found="true" :tracking-response="trackingResult" :isContainer="true"
-                                 :is-on-track="false"
+  <base-container-or-bill-number :is-found="true" :tracking-response="trackingResult"
+                                 :isContainer="true"
+                                 :is-on-track="isOnTrack"
                                  @selectCheckBox="changeNumToSelectedList(trackingResult.number,$event)"
-                                 :is-loading="isLoading" v-if="hasContainers" :schedule-tracking-info="scheduleTrackingInfo"/>
+                                 :is-loading="isLoading" v-if="hasContainers"
+                                 :schedule-tracking-info="scheduleTrackingInfo"
+                                 :number="number"
+  />
 </template>
 
 <script>
@@ -52,42 +61,58 @@ export default {
   name: "trackingPage",
   components: {
     CustomModal,
-    AddOnTrackForm, BaseContainerOrBillNumber, ShortDottedLine, LongDottedLine, TrackingForm,SpinnerLoader
+    AddOnTrackForm, BaseContainerOrBillNumber, ShortDottedLine, LongDottedLine, TrackingForm, SpinnerLoader
   },
   data() {
     return {
       isContainer: true,
       isLoading: false,
-      isFound: true,
-      hasContainers: true,
-      trackingResult: {
-        "number": "string",
-        "containerSize": "string",
-        "infoAboutMoving": [
-          {
-            "location": "string",
-            "operation_name": "string",
-            "time": 0,
-            "vessel": "string"
-          }
-        ],
-        "scac": "string"
-      },
+      isFound: false,
+      hasContainers: false,
+      number: "",
+      isOnTrack: false,
+      trackingResult: null,
       addTrackingVisible: false,
-      numbers: [`MRKU6782621`, `MRKU6782612`, `MRKU6782613`, `MRKU6782614`, `MRKU6782615`, `MRKU6782616`, `MRKU6782617`, `MRKU6782618`],
-      scheduleTrackingInfo: {
-        time: "15:00",
-        emails: [`3dteapot@gmail.com`, `subvenire@mail.com`, `logistic@ya.ru`],
-        subject: "боксы вмтп"
-      },
+      numbers: [],
+      scheduleTrackingInfo: {},
+      scac: ""
     }
   },
   methods: {
     trackByNumber() {
-
+      const api = this.$store.state.api
+      try {
+        if (this.isContainer) {
+          const result = api.trackingApi.trackContainer(this.number.toUpperCase(), this.scac)
+          this.trackingResult = result
+          this.isFound = true
+          this.hasContainers = true
+        } else {
+          const result = api.trackingApi.trackByBillNumber(this.number, this.scac)
+          this.trackingResult = result
+          this.isFound = true
+          this.hasContainers = false
+        }
+      } catch (e) {
+        this.isFound = false
+      }
+      try {
+        const scheduleTrackingResult = api.scheduleTrackingApi.getInfoAboutTracking(this.number)
+        this.scheduleTrackingInfo = scheduleTrackingResult
+        this.isOnTrack = true
+      } catch (e) {
+        this.isOnTrack = false
+      }
     },
     changeNumToSelectedList(number, value) {
-      console.log(number, value)
+      const index = this.numbers.indexOf(number)
+      if (value) {
+        if (index === -1) {
+          this.numbers.push(number)
+        }
+      } else {
+        this.numbers.splice(index, 1)
+      }
     },
     setAddTrackingVisible() {
       this.addTrackingVisible = !this.addTrackingVisible;

@@ -1,55 +1,46 @@
 <template>
-  <form @submit.prevent="submitForm">
-    <div class="container g-0">
-      <div class="row g-0">
-        <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-xs-12">
-          <div class="title-8 input-modal-title">Add tracking</div>
-        </div>
+  <div class="container g-0">
+    <div class="row g-0">
+      <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-xs-12">
+        <div class="title-8 input-modal-title">Add tracking</div>
+      </div>
 
-        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-12">
-          <div class="close-block">
-            <button class="close borderless_button" @click="hideByButton">×</button>
-          </div>
-        </div>
-
-        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-          <input type="text" class="input-css-grey input-modal" placeholder="E-mail for mailings / separated by commas"
-                 @input="handleEmails"
-                 :value="scheduleTrackingObject ? scheduleTrackingObject.emails.join(`,`) : ``">
-          <input type="text" class="input-css-grey input-modal" placeholder="Subject name"
-                 @input="subject = $event.target.value"
-                 :value="scheduleTrackingObject ? scheduleTrackingObject.subject : ``">
-          <input type="text" class="input-css-grey input-modal" placeholder="Time (in format 01:44)"
-                 @input="handleTime"
-                 :value="scheduleTrackingObject? scheduleTrackingObject.time : ``"
-          >
+      <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-12">
+        <div class="close-block">
+          <button class="close borderless_button" @click="hideByButton">×</button>
         </div>
       </div>
-      <div class="market-minus col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-          <span class="marker" v-for="item in numberList" :key="item" @click="changeList(item)">{{
-              item
-            }}&nbsp; ×</span>&nbsp;
-      </div>
-      <!--      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">-->
-      <!--        <div class="market-minus">-->
-      <!--          <span class="marker" v-for="item in numberList" :key="item" @click="changeList(item)">{{-->
-      <!--              item-->
-      <!--            }}&nbsp; ×</span>&nbsp;-->
-      <!--        </div>-->
-      <!--      </div>-->
 
-    </div>
-    <div class="container g-0 area-pad-two">
-      <div class="row g-0">
-        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-          <button type="submit" class="button-menu" @click="submitForm" ref="button" :disabled="!valid">Add tracking
-          </button>
-          <button type="button" class="button-menu-line password-pad" @click="deleteFromTrack">Remove tracking</button>
-          <div style="color: red" v-if="showError"> {{ error }}</div>
-        </div>
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <input type="text" class="input-css-grey input-modal" placeholder="E-mail for mailings / separated by commas"
+               @input="handleEmails"
+               :value="scheduleTrackingObject ? scheduleTrackingObject.emails.join(`,`) : ``">
+        <input type="text" class="input-css-grey input-modal" placeholder="Subject name"
+               @input="subject = $event.target.value"
+               :value="scheduleTrackingObject ? scheduleTrackingObject.subject : ``">
+        <input type="text" class="input-css-grey input-modal" placeholder="Time (in format 01:44)"
+               @input="handleTime"
+               :value="scheduleTrackingObject? scheduleTrackingObject.time : ``"
+        >
       </div>
     </div>
-  </form>
+    <div class="market-minus col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <span class="marker" v-for="item in numberList" :key="item" @click="changeList(item)">{{
+          item
+        }}&nbsp; × &nbsp;</span>
+    </div>
+
+  </div>
+  <div class="container g-0 area-pad-two">
+    <div class="row g-0">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <button type="button" class="button-menu" @click="addOnTrack" ref="button" :disabled="!valid">Add on track
+        </button>
+        <button type="button" class="button-menu-line password-pad" @click="deleteFromTrack">Remove tracking</button>
+        <div style="color: red" v-if="showError"> {{ error }}</div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -60,8 +51,7 @@ export default {
   name: "addOnTrackForm",
   data() {
     return {
-      valid: false,
-      // scheduleTrackingObject: {},
+      valid: true,
       subject: "",
       emails: [],
       time: "",
@@ -80,12 +70,14 @@ export default {
       type: String,
       required: false
     },
-    submit: Function
+    // submit: Function,
   },
   methods: {
-    submitForm() {
+    addOnTrack() {
       //TODO submit add on tracking form
-      this.submit()
+      // this.submit()
+      console.log(`AAAAAA SUBMIT`)
+      this.$emit(`submitForm`, {numbers: this.numberList, time: this.time, emails: this.emails, subject: this.subject})
       this.$emit(`close`, false)
     },
     hideByButton() {
@@ -94,10 +86,24 @@ export default {
     changeList(number) {
       this.$emit("changeNumbers", number)
     },
-    handleEmails() {
+    handleEmails(ev) {
       //TODO email validator
-
-      // const emails = ev.target.value
+      const value = ev.target.value
+      let emails = value.replace(/\s/g, '').split(",");
+      const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      for (let i = 0; i < emails.length; i++) {
+        if (emails[i] == "" || !regex.test(emails[i])) {
+          this.valid = false;
+          this.error = "please enter valid email(s)!"
+          this.showError = true
+          this.disableButton()
+        } else {
+          this.valid = true;
+          this.error = ""
+          this.showError = false
+          this.enableButton()
+        }
+      }
       // const re = /^([\w+-.%]+@[\w-.]+\.[A-Za-z]{2,}(\s*,?\s*)*)+$ /
       // if (!re.test(emails)) {
       //   this.disableButton()
@@ -116,14 +122,25 @@ export default {
       const time = ev.target.value;
       if (!/\d{1,2}:\d{1,2}/g.test(time)) {
         this.disableButton()
+        this.error = "please, enter valid time in format `hh:mm` "
+        this.valid = false
+        this.showError = true
         return
       }
       this.enableButton()
     },
     deleteFromTrack() {
+      this.$emit(`deleteFromTrack`, this.numberList)
       //TODO create delete from tracking func
     }
     //TODO fix numbers with css
+  },
+  mounted() {
+    if (this.numberList.length === 0) {
+      this.disableButton()
+      this.error = "add container or bill numbers!"
+      this.showError = true
+    }
   }
 }
 </script>

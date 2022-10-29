@@ -2,13 +2,19 @@ export class AuthApi {
     login(email, password) {
         //TODO create login method
         console.log(email, password)
-        throw new Error("example error if username or password is wrong")
+        return {
+            "refreshToken": "string",
+            "refreshTokenExpires": 0,
+            "token": "string",
+            "tokenExpires": 0,
+            "token_type": "string"
+        }
     }
 
     register(email, username, password) {
         //TODO create register method
         console.log(email, username, password)
-        throw new Error("example error if username or password is wrong")
+        // throw new Error("example error if username or password is wrong")
     }
 
     recovery(email) {
@@ -77,6 +83,13 @@ export class TrackingApi {
         }
 
     }
+
+    getAllLines() {
+        return [{scac: "FESO", fullName: "Fesco shipping line company"}, {
+            scac: "MAEU",
+            fullName: "Maersk co."
+        }]
+    }
 }
 
 
@@ -114,6 +127,11 @@ export class ScheduleTrackingApi {
     getInfoAboutTracking(number) {
         //TODO getInfoAboutTracking
         console.log(number)
+        return {
+            time: "15:00",
+            emails: [`3dteapot@gmail.com`, `subvenire@mail.com`, `logistic@ya.ru`],
+            subject: "боксы вмтп"
+        }
     }
 
     changeTimeOfTracking(numbers, newTime) {
@@ -128,6 +146,11 @@ export class ScheduleTrackingApi {
 
 
 export class UserApi {
+    feedback(email, message) {
+        console.log(email, message)
+        //TODO implement feedback method in api
+    }
+
     get() {
         //TODO get bill and containers from user account
 

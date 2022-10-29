@@ -66,6 +66,13 @@ export default createStore({
         },
         setRefreshToken(state, token) {
             state.refreshToken = token
+        },
+        logout(state) {
+            state.isAuth = false
+            state.authToken = ""
+            state.refreshToken = ""
+            this.username = ""
+            this.email = ""
         }
     }
 })

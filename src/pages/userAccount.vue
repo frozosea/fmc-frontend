@@ -6,14 +6,21 @@
                                  @updateNumberType="updateNumberType($event)"
                                  @addOnTrackVisible="addTrackingVisible = $event"
                                  @deleteNumbers="deleteNumbers"
+                                 @deleteNumbersFromTracking="deleteFromTracking"
   />
   <CustomModal v-model:show="addTrackingVisible">
     <add-on-track-form v-if="numberType === `containers`" :numberList="toBaseNumbers(true)"
                        @changeNumbers="unselectAddOnTrackContainerNumbers($event)"
-                       @close="addTrackingVisible=false" :submit="addContainersOnTrack"/>
+                       @close="addTrackingVisible=false" :submit="addContainersOnTrack"
+                       @submitForm="changeNumberSignature($event)"
+                       @deleteFromTrack="deleteFromTracking($event)"
+    />
     <add-on-track-form v-if="numberType === `bills`" :numberList="toBaseNumbers(false)"
                        @changeNumbers="unselectAddOnTrackBillNumbers($event)"
-                       @close="addTrackingVisible=false" :submit="addBillsOnTrack"/>
+                       @close="addTrackingVisible=false" :submit="addBillsOnTrack"
+                       @submitForm="changeNumberSignature($event)"
+                       @deleteFromTrack="deleteFromTracking($event)"
+    />
   </CustomModal>
   <div class="not_found_numbers"
        v-if="isShowNumbersNotFound">
@@ -24,6 +31,16 @@
                             @addToSelectedNumbers="numberType === `containers` ? selectContainer($event) : selectBill($event)"
                             @unselectToSelectedNumbers="numberType === `containers` ? unselectContainerNumbers($event) : unselectBillNumbers($event)"
   />
+  <CustomModal v-model:show="isShowLogin" @update:show="isShowLogin = $event; this.$router.push(`/`)">
+    <login-form @close="isShowLogin = $event; this.$router.push(`/`)"
+                @showRemindPassword="isShowRemindPassword=$event; isShowLogin=false"
+    />
+  </CustomModal>
+  <CustomModal v-model:show="isShowRemindPassword" @update:show="isShowLogin = $event; this.$router.push(`/`)">
+    <registration-form
+        @showRemindPassword="isShowRemindPassword = $event"
+        @close="isShowLogin = $event; this.$router.push(`/`)"/>
+  </CustomModal>
 </template>
 
 <script>
@@ -34,6 +51,8 @@ import TypeSelectorInUserAccount from "@/components/user/typeSelectorInUserAccou
 import ContainersOrBillsList from "@/components/user/containersOrBillsList";
 import CustomModal from "@/UI/CustomModal";
 import addOnTrackForm from "@/components/tracking/addOnTrackForm";
+import LoginForm from "@/components/user/loginForm";
+import registrationForm from "@/components/user/registrationForm";
 
 export default {
   name: "userAccount",
@@ -50,17 +69,21 @@ export default {
       addTrackingVisible: false,
       archive: {billNumbers: [], containerNumbers: []},
       searchQuery: "",
-      isShowNumbersNotFound: this.checkNumbersExists()
+      isShowNumbersNotFound: this.checkNumbersExists(),
+      isShowLogin: false,
+      isShowRemindPassword: false
     }
   },
   components: {
+    LoginForm,
     ContainersOrBillsList,
     TypeSelectorInUserAccount,
     SearchNumberForm,
     longDottedLine,
     shortDottedLine,
     CustomModal,
-    addOnTrackForm
+    addOnTrackForm,
+    registrationForm
   },
   methods: {
     updateSearchType(type) {
@@ -86,14 +109,14 @@ export default {
 
     unselectAddOnTrackContainerNumbers(number) {
       const itemIndex = this.selectedAddOnTrackContainerNumbers.indexOf(number)
-      if (itemIndex !== -1){
-        this.selectedAddOnTrackContainerNumbers.splice(itemIndex,1)
+      if (itemIndex !== -1) {
+        this.selectedAddOnTrackContainerNumbers.splice(itemIndex, 1)
       }
     },
     unselectAddOnTrackBillNumbers(number) {
       const itemIndex = this.selectedAddOnTrackBillNumbers.indexOf(number)
-      if (itemIndex !== -1){
-        this.selectedAddOnTrackBillNumbers.splice(itemIndex,1)
+      if (itemIndex !== -1) {
+        this.selectedAddOnTrackBillNumbers.splice(itemIndex, 1)
       }
     },
     selectBill(number) {
@@ -116,6 +139,7 @@ export default {
     addContainersOnTrack() {
       this.isShowNumbersNotFound = this.checkNumbersExists()
       //TODO add containers on track in user account
+
     },
     toBaseNumbers(isContainer) {
       const ar = [];
@@ -177,6 +201,7 @@ export default {
       if (this.numberType === `bills`) {
         if (this.searchType === `actual`) {
           for (const item of this.selectedBillNumbers) {
+            console.log(item)
             this.deleteNumberFromArray(item, false)
           }
         }
@@ -189,6 +214,56 @@ export default {
         }
       }
 
+    },
+    deleteFromTracking() {
+      if (this.numberType === `containers`) {
+        for (const item of this.selectedAddOnTrackContainerNumbers) {
+          const index = this.findInArray(item, true)
+          if (index !== -1) {
+            this.containerNumbers[index].isOnTrack = false
+            this.containerNumbers[index].scheduleTrackingInfo = {}
+          }
+        }
+      } else {
+        for (const item of this.selectedAddOnTrackBillNumbers) {
+          const index = this.findInArray(item, true)
+          if (index !== -1) {
+            this.billNumbers[index].isOnTrack = false
+            this.billNumbers[index].scheduleTrackingInfo = {}
+          }
+        }
+      }
+    },
+
+    findInArray(num, isContainer) {
+      if (isContainer) {
+        for (const item of this.containerNumbers) {
+          if (item.number === num) {
+            return this.containerNumbers.indexOf(item)
+          }
+        }
+      } else {
+        for (const item of this.billNumbers) {
+          if (item.number === num) {
+            return this.billNumbers.indexOf(item)
+          }
+        }
+      }
+    }
+    ,
+    changeNumberSignature(obj) {
+      for (const num of obj.numbers) {
+        if (this.numberType === `containers`) {
+          const index = this.findInArray(num, true)
+          this.containerNumbers[index].scheduleTrackingInfo = {time: obj.time, subject: obj.subject, emails: obj.emails}
+          this.containerNumbers[index].isOnTrack = true
+        }
+        if (this.numberType === `bills`) {
+          const index = this.findInArray(num, false)
+          this.billNumbers[index].scheduleTrackingInfo = {time: obj.time, subject: obj.subject, emails: obj.emails}
+          this.billNumbers[index].isOnTrack = true
+        }
+      }
     }
 
   },
@@ -207,6 +282,10 @@ export default {
     // }
   },
   mounted() {
+    if (!this.$store.state.isAuth) {
+      this.isShowLogin = true
+      return
+    }
     const allBillsContainer = this.$store.state.api.userApi.get()
     this.billNumbers = allBillsContainer.billNumbers
     this.containerNumbers = allBillsContainer.containers

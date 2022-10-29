@@ -45,8 +45,24 @@ export default {
   },
   methods: {
     submitForm() {
-      this.$store.state.isAuth = true
-      this.$emit(`close`, false)
+      const api = this.$store.state.api.authApi
+      try {
+        this.showLoading = true
+        const data = api.login(this.email, this.password)
+        this.$store.commit(`setAuthToken`,data.token)
+        this.$store.commit(`setRefreshToken`,data.refreshToken)
+        this.showLoading = false
+        this.showError = false
+        this.$store.commit(`setIsAuth`,true)
+        this.$emit(`close`, false)
+      } catch (e) {
+        this.error = "user was not found!"
+        this.showError = true
+        this.showLoading = false
+        this.$store.commit(`setIsAuth`,false)
+      }
+      // this.$store.state.isAuth = true
+      // this.$emit(`close`, false)
       //TODO submit login form
     },
     handleModal() {
