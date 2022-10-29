@@ -1,6 +1,6 @@
 <template>
   <long-dotted-line/>
-  <search-number-form @search="filterNumbers" @inputSearchQuery="searchQuery = $event"/>
+  <search-number-form @inputSearchQuery="searchQuery = $event"/>
   <short-dotted-line/>
   <type-selector-in-user-account @updateType="updateSearchType($event)"
                                  @updateNumberType="updateNumberType($event)"
@@ -8,7 +8,7 @@
                                  @deleteNumbers="deleteNumbers"
   />
   <CustomModal v-model:show="addTrackingVisible">
-    <add-on-track-form v-if="numberType === `container`" :numberList="toBaseNumbers(true)"
+    <add-on-track-form v-if="numberType === `containers`" :numberList="toBaseNumbers(true)"
                        @changeNumbers="unselectAddOnTrackContainerNumbers($event)"
                        @close="addTrackingVisible=false" :submit="addContainersOnTrack"/>
     <add-on-track-form v-if="numberType === `bills`" :numberList="toBaseNumbers(false)"
@@ -20,9 +20,9 @@
     Number(s) not
     found!
   </div>
-  <containers-or-bills-list :numbers=" numberType === `container` ? containerNumbers: billNumbers"
-                            @addToSelectedNumbers="numberType === `container` ? selectContainer($event) : selectBill($event)"
-                            @unselectToSelectedNumbers="numberType === `container` ? unselectContainerNumbers($event) : unselectBillNumbers($event)"
+  <containers-or-bills-list :numbers=" numberType === `containers` ? containerNumbers : billNumbers"
+                            @addToSelectedNumbers="numberType === `containers` ? selectContainer($event) : selectBill($event)"
+                            @unselectToSelectedNumbers="numberType === `containers` ? unselectContainerNumbers($event) : unselectBillNumbers($event)"
   />
 </template>
 
@@ -40,7 +40,7 @@ export default {
   data() {
     return {
       searchType: "actual", //also can be archive
-      numberType: "container", //also can be bill
+      numberType: "", //also can be bill
       selectedBillNumbers: [],
       selectedContainerNumbers: [],
       selectedAddOnTrackBillNumbers: [],
@@ -69,9 +69,8 @@ export default {
       this.searchType = type;
     },
     updateNumberType(type) {
-      this.isShowNumbersNotFound = this.checkNumbersExists()
-      console.log(type)
       this.numberType = type;
+      console.log(`NOW SEARCH TYPE IS ${this.numberType}`)
     },
     selectContainer(number) {
       if (this.selectedContainerNumbers.indexOf(number) === -1) {
@@ -86,10 +85,16 @@ export default {
     },
 
     unselectAddOnTrackContainerNumbers(number) {
-      this.selectedAddOnTrackContainerNumbers = this.selectedAddOnTrackContainerNumbers.filter(n => n.number === number)
+      const itemIndex = this.selectedAddOnTrackContainerNumbers.indexOf(number)
+      if (itemIndex !== -1){
+        this.selectedAddOnTrackContainerNumbers.splice(itemIndex,1)
+      }
     },
     unselectAddOnTrackBillNumbers(number) {
-      this.selectedAddOnTrackBillNumbers = this.selectedAddOnTrackBillNumbers.filter(n => n.number === number)
+      const itemIndex = this.selectedAddOnTrackBillNumbers.indexOf(number)
+      if (itemIndex !== -1){
+        this.selectedAddOnTrackBillNumbers.splice(itemIndex,1)
+      }
     },
     selectBill(number) {
       if (this.selectedBillNumbers.indexOf(number.toUpperCase()) === -1) {
@@ -101,9 +106,7 @@ export default {
     },
     unselectBillNumbers(number) {
       if (this.selectedBillNumbers.indexOf(number) !== -1) {
-        console.log(this.selectedBillNumbers.target)
         this.selectedBillNumbers = this.selectedBillNumbers.filter(n => n.number === number);
-        console.log(this.selectedBillNumbers)
       }
     },
     addBillsOnTrack() {
@@ -161,7 +164,6 @@ export default {
       //TODO write func which can check containers or bills in archive and actual numbers
       if (this.numberType === `bills`) {
         if (this.searchType === `actual`) {
-          console.log("AAAAAA actual bills")
           return this.billNumbers.length === 0
         }
       } else if (this.numberType === `containers`) {
@@ -174,12 +176,9 @@ export default {
     deleteNumbers() {
       if (this.numberType === `bills`) {
         if (this.searchType === `actual`) {
-          console.log(this.selectedBillNumbers)
           for (const item of this.selectedBillNumbers) {
-            console.log(item)
             this.deleteNumberFromArray(item, false)
           }
-          console.log(this.billNumbers)
         }
       } else {
         if (this.searchType === `actual`) {
@@ -187,7 +186,6 @@ export default {
             this.deleteNumberFromArray(item, true)
           }
           // this.containerNumbers.splice(this.containerNumbers.indexOf())
-          console.log(this.containerNumbers)
         }
       }
 
@@ -209,10 +207,10 @@ export default {
     // }
   },
   mounted() {
-    console.log(this.$store.state.api)
     const allBillsContainer = this.$store.state.api.userApi.get()
     this.billNumbers = allBillsContainer.billNumbers
     this.containerNumbers = allBillsContainer.containers
+    this.numberType = "containers"
     this.isShowNumbersNotFound = this.checkNumbersExists()
   }
 }

@@ -132,42 +132,145 @@ export class UserApi {
         //TODO get bill and containers from user account
 
         return {
-            containers : [{
+            containers: [{
                 number: "MRKU6782312",
-                scheduleTrackingInfo:{
+                isOnTrack: true,
+                isContainer: true,
+                scheduleTrackingInfo: {
                     time: "4:20",
-                    emails: ["i20072004@gmail.com","y20072004@gmail.com","d20072004@gmail.com"],
+                    emails: ["i20072004@gmail.com", "y20072004@gmail.com", "d20072004@gmail.com"],
                     subject: "example subject"
                 }
-            }],
-            billNumbers: [{
-                number: "ZHGO22222222",
-                scheduleTrackingInfo:{
-                    time: "4:20",
-                    emails: ["i20072004@gmail.com","y20072004@gmail.com","d20072004@gmail.com"],
-                    subject: "example subject"
+            },
+                {
+                    number: "CMDU1239876",
+                    isOnTrack: true,
+                    isContainer: true,
+                    scheduleTrackingInfo: {
+                        time: "4:20",
+                        emails: ["i20072004@gmail.com", "y20072004@gmail.com", "d20072004@gmail.com"],
+                        subject: "example subject"
+                    }
+                },
+                {
+                    number: "MAEU5672343",
+                    isOnTrack: true,
+                    isContainer: true,
+                    scheduleTrackingInfo: {
+                        time: "4:20",
+                        emails: ["i20072004@gmail.com", "y20072004@gmail.com", "d20072004@gmail.com"],
+                        subject: "example subject"
+                    }
+                },
+                {
+                    number: "MSKU7658790",
+                    isOnTrack: true,
+                    isContainer: true,
+                    scheduleTrackingInfo: {
+                        time: "4:20",
+                        emails: ["i20072004@gmail.com", "y20072004@gmail.com", "d20072004@gmail.com"],
+                        subject: "example subject"
+                    }
+                },
+                {
+                    number: "FESO2219273",
+                    isOnTrack: true,
+                    isContainer: true,
+                    scheduleTrackingInfo: {
+                        time: "4:20",
+                        emails: ["i20072004@gmail.com", "y20072004@gmail.com", "d20072004@gmail.com"],
+                        subject: "example subject"
+                    }
+                },
+                {
+                    number: "FESO2219271",
+                    isOnTrack: true,
+                    isContainer: true,
+                    scheduleTrackingInfo: {
+                        time: "4:20",
+                        emails: ["i20072004@gmail.com", "y20072004@gmail.com", "d20072004@gmail.com"],
+                        subject: "example subject"
+                    }
+                },
+                {
+                    number: "FESO2219270",
+                    isOnTrack: true,
+                    isContainer: true,
+                    scheduleTrackingInfo: {
+                        time: "4:20",
+                        emails: ["i20072004@gmail.com", "y20072004@gmail.com", "d20072004@gmail.com"],
+                        subject: "example subject"
+                    }
+                },
+                {
+                    number: "FESO2219272",
+                    isOnTrack: true,
+                    isContainer: true,
+                    scheduleTrackingInfo: {
+                        time: "4:20",
+                        emails: ["i20072004@gmail.com", "y20072004@gmail.com", "d20072004@gmail.com"],
+                        subject: "example subject"
+                    }
+                }],
+            billNumbers: [
+                {
+                    number: "ZHGO22222222",
+                    isOnTrack: true,
+                    isContainer: false,
+                    scheduleTrackingInfo: {
+                        time: "4:20",
+                        emails: ["i20072004@gmail.com", "y20072004@gmail.com", "d20072004@gmail.com"],
+                        subject: "example subject"
+                    }
+                },
+                {
+                    number: "MKRU1231231231",
+                    isOnTrack: false,
+                    isContainer: false,
+                    scheduleTrackingInfo: {}
+                },
+                {
+                    number: "FESO23123123",
+                    isOnTrack: true,
+                    isContainer: false,
+                    scheduleTrackingInfo: {
+                        time: "4:20",
+                        emails: ["i20072004@gmail.com", "y20072004@gmail.com", "d20072004@gmail.com"],
+                        subject: "example subject"
+                    }
+                },
+                {
+                    number: "CMDU23123123",
+                    isOnTrack: true,
+                    isContainer: false,
+                    scheduleTrackingInfo: {
+                        time: "4:20",
+                        emails: ["i20072004@gmail.com", "y20072004@gmail.com", "d20072004@gmail.com"],
+                        subject: "example subject"
+                    }
                 }
-            }]
+            ]
         }
 
     }
-    getArchive(){
+
+    getArchive() {
         //TODO get archive of tracking from user account
 
         return {
-            containers : [{
+            containers: [{
                 number: "FESO2213945",
-                scheduleTrackingInfo:{
+                scheduleTrackingInfo: {
                     time: "4:20",
-                    emails: ["i20072004@gmail.com","y20072004@gmail.com","d20072004@gmail.com"],
+                    emails: ["i20072004@gmail.com", "y20072004@gmail.com", "d20072004@gmail.com"],
                     subject: "example subject"
                 }
             }],
             billNumbers: [{
                 number: "MSCU2312312321321",
-                scheduleTrackingInfo:{
+                scheduleTrackingInfo: {
                     time: "4:20",
-                    emails: ["i20072004@gmail.com","y20072004@gmail.com","d20072004@gmail.com"],
+                    emails: ["i20072004@gmail.com", "y20072004@gmail.com", "d20072004@gmail.com"],
                     subject: "example subject"
                 }
             }]

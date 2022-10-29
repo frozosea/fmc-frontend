@@ -4,7 +4,7 @@
 
       <div class="col-xl-8 col-lg-6 col-md-6 col-sm-12 col-xs-12 number-two">
         <button class="title-1-s pad-search borderless_button" @click="changeType(`actual`)">Actual</button>
-<!--        <button class="title-1-s pad-search borderless_button" @click="changeType(`archive`)">Archive</button>-->
+        <!--        <button class="title-1-s pad-search borderless_button" @click="changeType(`archive`)">Archive</button>-->
       </div>
 
       <div class="col-xl-2 col-lg-3 col-md-3 col-sm-12 col-xs-12 order-md-1 order-2">

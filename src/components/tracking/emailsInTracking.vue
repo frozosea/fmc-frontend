@@ -1,5 +1,5 @@
 <template>
-  <div class="col-xl-9 col-lg-8 col-md-12 col-sm-12 col-xs-12">
+  <div class="col-xl-9 col-lg-8 col-md-12 col-sm-12 col-xs-12" v-if="isOnTrack">
     <div class="container-font">
       <span class="bold">E-mail:</span>
       {{ separateEmailsByComma() }}
@@ -11,11 +11,15 @@
 export default {
   name: "emailsInTracking",
   props: {
-    emails: Array
+    emails: Array,
+    isOnTrack: Boolean
   },
   methods: {
     separateEmailsByComma() {
-      return this.emails.join(",")
+      if (this.isOnTrack) {
+        return this.emails.join(",")
+
+      }
     }
   }
 }

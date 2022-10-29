@@ -3,7 +3,8 @@
     <div class="row g-0">
 
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <button :class="isOnTrack ? `accordion` : `accordion back-accordion`" @click="onClick" ref="button">
+        <button :class="isOnTrack ? `accordion` : `accordion back-accordion`" @click="onClick" ref="button"
+                :disabled="!isOnTrack">
           <div class="container g-3">
             <div class="row g-0">
               <container-picture :is-on-track="isOnTrack" :is-container="isContainer"/>
@@ -25,7 +26,9 @@
 
         <div :class="isOnTrack ? `panel` : `panel back-accordion`">
           <schedule-tracking-info-in-bill-or-container :scheduleTrackingInfo="scheduleTrackingInfo"
-                                                       @showTrackingModal="addTrackingVisible=$event"/>
+                                                       @showTrackingModal="addTrackingVisible=$event"
+                                                       :is-on-track="isOnTrack"
+          />
         </div>
       </div>
 

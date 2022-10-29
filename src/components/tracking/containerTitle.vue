@@ -24,14 +24,6 @@ export default {
     number: String,
     trackingResponse: Object,
     isInAccount: Boolean,
-  }, mounted() {
-    console.log(this.number)
-  },
-  computed: {
-    print() {
-      console.log(this.number)
-      return true
-    }
   }
 }
 </script>
