@@ -44,7 +44,6 @@ export default {
       valid: true,
       showError: false,
       errorMessage: "",
-      9: false
     }
   },
   methods: {
@@ -93,7 +92,7 @@ export default {
       }
     },
     hideByButton() {
-      this.$emit(`close`, false)
+      this.$emit(`show`, false)
     },
     disableButton() {
       this.valid = false
@@ -110,7 +109,7 @@ export default {
         api.register(this.email, this.username, this.password)
         this.showLoading = false
         this.showError = false
-        this.$emit(`close`, false)
+        this.$emit(`show`, false)
       } catch (e) {
         this.error = "user with this username or email already exist!"
         this.showError = true

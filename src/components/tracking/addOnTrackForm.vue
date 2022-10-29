@@ -78,10 +78,10 @@ export default {
       // this.submit()
       console.log(`AAAAAA SUBMIT`)
       this.$emit(`submitForm`, {numbers: this.numberList, time: this.time, emails: this.emails, subject: this.subject})
-      this.$emit(`close`, false)
+      this.$emit(`show`, false)
     },
     hideByButton() {
-      this.$emit(`close`, false)
+      this.$emit(`show`, false)
     },
     changeList(number) {
       this.$emit("changeNumbers", number)

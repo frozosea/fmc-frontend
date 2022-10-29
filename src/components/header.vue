@@ -74,24 +74,24 @@
       </div>
       <CustomModal v-model:show="isShowRegister">
         <registration-form
-            @close="isShowRegister = $event; console.log(`close event ${$event}`)"
+            @show="isShowRegister = $event; console.log(`close event ${$event}`)"
         />
       </CustomModal>
       <CustomModal v-model:show="isShowLogin">
-        <login-form @close="isShowLogin = $event"
+        <login-form @show="isShowLogin = $event"
                     @showRemindPassword="isShowRemindPassword=$event; isShowLogin=false"
         />
       </CustomModal>
       <CustomModal v-model:show="isShowServices">
-        <services-modal @close="isShowServices = $event"/>
+        <services-modal @show="isShowServices = $event"/>
       </CustomModal>
       <CustomModal v-model:show="isShowFeedBack">
-        <feed-back-modal @close="isShowFeedBack = $event"/>
+        <feed-back-modal @show="isShowFeedBack = $event"/>
       </CustomModal>
       <CustomModal v-model:show="isShowRemindPassword">
         <registration-form
             @showRemindPassword="isShowRemindPassword = $event"
-            @close="isShowLogin = $event"/>
+            @show="isShowLogin = $event"/>
       </CustomModal>
     </div>
   </div>

@@ -61,16 +61,5 @@ export default {
 </script>
 
 <style scoped>
-.container.flex-test-wrap {
-
-}
-
-.flex-test {
-  display: inline;
-}
-
-.flex-test-item {
-  display: inline-block;
-}
 
 </style>

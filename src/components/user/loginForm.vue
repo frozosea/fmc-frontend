@@ -54,7 +54,7 @@ export default {
         this.showLoading = false
         this.showError = false
         this.$store.commit(`setIsAuth`,true)
-        this.$emit(`close`, false)
+        this.$emit(`show`, false)
       } catch (e) {
         this.error = "user was not found!"
         this.showError = true
@@ -75,7 +75,7 @@ export default {
       }
     },
     hideByButton() {
-      this.$emit(`close`, false)
+      this.$emit(`show`, false)
     },
     disableButton() {
       this.valid = false
