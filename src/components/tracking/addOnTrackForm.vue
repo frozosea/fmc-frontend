@@ -24,10 +24,11 @@
         >
       </div>
     </div>
+
     <div class="market-minus col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-      <span class="marker" v-for="item in numberList" :key="item" @click="changeList(item)">{{
+      <div class="marker" v-for="item in numberList" :key="item" @click="changeList(item)">{{
           item
-        }}&nbsp; × &nbsp;</span>
+        }}&nbsp; × &nbsp;</div>
     </div>
 
   </div>

@@ -27,24 +27,30 @@
   </div>
   <CustomModal v-model:show="addTrackingVisible">
     <add-on-track-form
-        :numberList="numbers"
+        :number-list="[this.number]"
+        :schedule-tracking-object="scheduleTrackingInfo"
+        @submitForm="addOnTrack"
         @changeNumbers="deleteNumberFromListAddOnTrackList($event)"
-        @close="addTrackingVisible=false"/>
+        @show="addTrackingVisible = $event"
+        @deleteFromTrack="deleteFromTracking($event)"
+    />
   </CustomModal>
+
   <SpinnerLoader
       :active="isLoading"
-      text=""
-      v-if="isLoading"
   />
 
   <div v-if="!isLoading && !hasContainers" class="not_found_numbers">Number(s) not found!</div>
-  <base-container-or-bill-number :is-found="true" :tracking-response="trackingResult"
-                                 :isContainer="true"
+  <base-container-or-bill-number :is-found="isFound"
+                                 :tracking-response="trackingResult"
+                                 :isContainer="isContainer"
                                  :is-on-track="isOnTrack"
-                                 @selectCheckBox="changeNumToSelectedList(trackingResult.number,$event)"
-                                 :is-loading="isLoading" v-if="hasContainers"
+                                 @selectCheckBox="changeNumToSelectedList(number,$event)"
+                                 @showModal="addTrackingVisible = $event"
+                                 :is-loading="isLoading"
+                                 v-if="hasContainers"
                                  :schedule-tracking-info="scheduleTrackingInfo"
-                                 :number="number"
+                                 :number="trackingResult.number"
   />
 </template>
 
@@ -78,28 +84,46 @@ export default {
       scac: ""
     }
   },
+  computed: {},
   methods: {
     trackByNumber() {
+      this.isLoading = true
+      console.log(this.isContainer)
+      // console.log(this.isLoading)
       const api = this.$store.state.api
       try {
         if (this.isContainer) {
-          const result = api.trackingApi.trackContainer(this.number.toUpperCase(), this.scac)
-          this.trackingResult = result
-          this.isFound = true
-          this.hasContainers = true
+          this.isLoading = true
+          setTimeout(() => {
+            const result = api.trackingApi.trackContainer(this.number.toUpperCase(), this.scac)
+            this.number = result.number
+            this.trackingResult = result
+            this.isFound = true
+            this.hasContainers = true
+            this.isLoading = false
+          }, 1000)
         } else {
-          const result = api.trackingApi.trackByBillNumber(this.number, this.scac)
-          this.trackingResult = result
-          this.isFound = true
-          this.hasContainers = false
+          this.isLoading = true
+          setTimeout(() => {
+            const result = api.trackingApi.trackByBillNumber(this.number, this.scac)
+            this.number = result.number
+            this.trackingResult = result
+            this.isFound = true
+            this.hasContainers = true
+            this.isLoading = false
+          }, 1000)
         }
       } catch (e) {
         this.isFound = false
       }
       try {
-        const scheduleTrackingResult = api.scheduleTrackingApi.getInfoAboutTracking(this.number)
-        this.scheduleTrackingInfo = scheduleTrackingResult
-        this.isOnTrack = true
+        if (this.$store.state.user.isAuth) {
+          const scheduleTrackingResult = api.scheduleTrackingApi.getInfoAboutTracking(this.number)
+          this.scheduleTrackingInfo = scheduleTrackingResult
+          this.isOnTrack = true
+        } else {
+          throw new Error();
+        }
       } catch (e) {
         this.isOnTrack = false
       }
@@ -130,6 +154,27 @@ export default {
       }
       this.isFound = false;
       this.hasContainers = false
+    },
+    deleteFromTracking() {
+      this.isOnTrack = false
+      this.scheduleTrackingInfo = null
+      this.addTrackingVisible = false
+    },
+    addOnTrack() {
+      const api = this.$store.api.state.api
+      try {
+        if (this.isContainer) {
+          api.scheduleTrackingApi.addContainersOnTracking([this.number])
+        } else {
+          api.scheduleTrackingApi.addBillsOnTrack([this.number])
+        }
+        this.isOnTrack = true
+        this.scheduleTrackingInfo = api.scheduleTrackingApi.getInfoAboutTracking(this.number)
+      } catch (e) {
+        this.isOnTrack = false
+        this.scheduleTrackingInfo = {}
+      }
+      //TODO add on track in tracking page modal
     }
   }
 }

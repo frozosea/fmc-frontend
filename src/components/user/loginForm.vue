@@ -49,17 +49,21 @@ export default {
       try {
         this.showLoading = true
         const data = api.login(this.email, this.password)
-        this.$store.commit(`setAuthToken`,data.token)
-        this.$store.commit(`setRefreshToken`,data.refreshToken)
+        window.localStorage.setItem(`authToken`, data.token)
+        window.localStorage.setItem(`refreshToken`, data.refreshToken)
+        // window.localStorage.setItem(`isAuth`, true)
+        this.$store.commit(`setAuthToken`, data.token)
+        this.$store.commit(`setRefreshToken`, data.refreshToken)
         this.showLoading = false
         this.showError = false
-        this.$store.commit(`setIsAuth`,true)
+        this.$store.commit(`user/setIsAuth`, true)
         this.$emit(`show`, false)
       } catch (e) {
+        // console.log(e)
         this.error = "user was not found!"
         this.showError = true
         this.showLoading = false
-        this.$store.commit(`setIsAuth`,false)
+        this.$store.commit(`user/setIsAuth`, false)
       }
       // this.$store.state.isAuth = true
       // this.$emit(`close`, false)
@@ -75,6 +79,9 @@ export default {
       }
     },
     hideByButton() {
+      this.$emit(`show`, false)
+    },
+    hide() {
       this.$emit(`show`, false)
     },
     disableButton() {

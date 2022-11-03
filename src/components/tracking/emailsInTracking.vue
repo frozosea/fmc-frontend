@@ -1,7 +1,7 @@
 <template>
-  <div class="col-xl-9 col-lg-8 col-md-12 col-sm-12 col-xs-12" v-if="isOnTrack">
+  <div class="col-xl-9 col-lg-8 col-md-12 col-sm-12 col-xs-12">
     <div class="container-font">
-      <span class="bold">E-mail:</span>
+      <span class="bold">E-mail(s):</span>
       {{ separateEmailsByComma() }}
     </div>
   </div>
@@ -16,9 +16,10 @@ export default {
   },
   methods: {
     separateEmailsByComma() {
-      if (this.isOnTrack) {
-        return this.emails.join(",")
-
+      try {
+        return this.emails.join(", ")
+      } catch (e) {
+        return ""
       }
     }
   }

@@ -19,21 +19,21 @@
       <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 col-xs-12 d-md-none d-lg-block
                     d-none d-sm-block d-sm-none d-md-block">
 
-        <div class="avatar" v-if="this.$store.state.isAuth">
+        <div class="avatar" v-if="this.$store.state.user.isAuth">
           <router-link class="title-2" to="/user">{{
-              this.$store.state.username
+              this.$store.state.user.username
             }}
           </router-link>
           <router-link to="/user">
             <img src="@/assets/images/avatar.png" class="pad-avatar"></router-link>
           <button class="borderless_button"
-                  @click="this.$store.commit(`logout`)">
+                  @click="this.$store.commit(`user/logout`)">
             <img src="@/assets/images/exit.svg"
                  class="svg-exit img-hover">
           </button>
         </div>
-        <div class="login" v-if="!this.$store.state.isAuth">
-          <img src="@/assets/images/exit.svg" class="svg-enter" @click="this.$store.commit(`logout`)">
+        <div class="login" v-if="!this.$store.state.user.isAuth">
+          <img src="@/assets/images/exit.svg" class="svg-enter" @click="this.$store.commit(`user/logout`)">
           <a @click="showLogin" class="title-3">Log in</a>
           <a @click="showRegister">
             <button type="button" class="button-login">Registration</button>
@@ -60,14 +60,17 @@
             <li class=""><a class="menu-item" href="">Company</a></li>
             <li><a class="menu-item" @click="showServices">Services</a></li>
             <li><a class="menu-item" @click="showFeedback">Feedback</a></li>
-            <li><a class="menu-item" @click="showLogin">Login →</a></li>
-            <li><a class="menu-item" @click="showRegister">Registration</a></li>
-            <div class="menu-font">© 2022 <b>«Find my Cargo»</b>
+            <li>
+              <a class="menu-item" v-if="this.$store.state.user.isAuth" href="/user">Account</a>
+            </li>
+            <li><a class="menu-item" @click="showLogin" v-if="!this.$store.state.user.isAuth">Login →</a></li>
+            <li><a class="menu-item" @click="showRegister" v-if="!this.$store.state.user.isAuth">Registration</a></li>
+            <div class="menu-font">© {{ new Date().getFullYear() }} <b>«Find my Cargo»</b>
               <p>Support: <a href="" class="title-5">{{ this.$store.state.supportEmail }}</a></p></div>
             <div class="menu-font">
-              <a :href="this.$store.state.telegramUrl" class="avatar-menu"><img src="@/assets/images/telegram.svg"></a>
-              <a :href="this.$store.state.facebookUrl" class="avatar-menu"><img src="@/assets/images/facebook.svg"></a>
-              <a :href="this.$store.state.twitterUrl" class="avatar-menu"><img src="@/assets/images/twitter.svg"></a>
+              <a :href="this.$store.state.base.telegramUrl" class="avatar-menu"><img src="@/assets/images/telegram.svg"></a>
+              <a :href="this.$store.state.base.facebookUrl" class="avatar-menu"><img src="@/assets/images/facebook.svg"></a>
+              <a :href="this.$store.state.base.twitterUrl" class="avatar-menu"><img src="@/assets/images/twitter.svg"></a>
             </div>
           </ul>
         </div>
@@ -116,6 +119,9 @@ export default {
       isShowRemindPassword: false
     }
   },
+  mounted() {
+    console.log(this.$store.state.user.isAuth)
+  },
   methods: {
     showServices() {
       this.isShowServices = !this.isShowServices
@@ -128,6 +134,10 @@ export default {
     },
     showRegister() {
       this.isShowRegister = !this.isShowRegister
+    },
+    redirectToAccount() {
+      this.$router.push(`/user`)
+
     }
   }
 }

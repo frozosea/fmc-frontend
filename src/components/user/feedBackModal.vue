@@ -48,11 +48,11 @@ export default {
       } catch (e) {
         this.error = "something went wrong, try again later :("
       }
-      this.$emit(`close`, false)
+      this.$emit(`show`, false)
 
     },
     hideByButton() {
-      this.$emit(`close`, false)
+      this.$emit(`show`, false)
     },
     disableButton() {
       this.valid = false

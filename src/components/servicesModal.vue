@@ -19,7 +19,7 @@
       <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12" style="cursor: pointer;" @click="redirectToTracking">
         <div class="service-block">
           <img src="@/assets/images/container.png" class="service-img img-hover">
-          <router-link to="/tracking"><p>Tracking by container number</p></router-link>
+          <p>Tracking by container number</p>
         </div>
       </div>
       <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12" style="cursor: pointer;" @click="redirectToTracking">

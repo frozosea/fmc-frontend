@@ -26,7 +26,7 @@
 
         <div :class="isOnTrack ? `panel` : `panel back-accordion`">
           <schedule-tracking-info-in-bill-or-container :scheduleTrackingInfo="scheduleTrackingInfo"
-                                                       @showTrackingModal="addTrackingVisible=$event"
+                                                       @showTrackingModal="addTrackingVisible = $event"
                                                        :is-on-track="isOnTrack"
           />
         </div>

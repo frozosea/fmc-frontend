@@ -6,18 +6,24 @@
                                  @updateNumberType="updateNumberType($event)"
                                  @addOnTrackVisible="addTrackingVisible = $event"
                                  @deleteNumbers="deleteNumbers"
-                                 @deleteNumbersFromTracking="deleteFromTracking"
+                                 @deleteNumbersFromTracking="deleteFromTrackingNotInModal"
   />
   <CustomModal v-model:show="addTrackingVisible">
-    <add-on-track-form v-if="numberType === `containers`" :numberList="toBaseNumbers(true)"
+    <add-on-track-form v-if="numberType === `containers`"
+                       :numberList="toBaseNumbers(true)"
                        @changeNumbers="unselectAddOnTrackContainerNumbers($event)"
-                       @close="addTrackingVisible=false" :submit="addContainersOnTrack"
+                       @close="addTrackingVisible=false"
+                       :submit="addContainersOnTrack"
+                       @show="addTrackingVisible=false"
                        @submitForm="changeNumberSignature($event)"
                        @deleteFromTrack="deleteFromTracking($event)"
     />
-    <add-on-track-form v-if="numberType === `bills`" :numberList="toBaseNumbers(false)"
+    <add-on-track-form v-if="numberType === `bills`"
+                       :numberList="toBaseNumbers(false)"
                        @changeNumbers="unselectAddOnTrackBillNumbers($event)"
-                       @close="addTrackingVisible=false" :submit="addBillsOnTrack"
+                       @close="addTrackingVisible=false"
+                       :submit="addBillsOnTrack"
+                       @show="addTrackingVisible = $event"
                        @submitForm="changeNumberSignature($event)"
                        @deleteFromTrack="deleteFromTracking($event)"
     />
@@ -33,6 +39,7 @@
   />
   <CustomModal v-model:show="isShowLogin" @update:show="isShowLogin = $event; this.$router.push(`/`)">
     <login-form @close="isShowLogin = $event; this.$router.push(`/`)"
+                @show="isShowLogin = $event; this.$router.push(`/`)"
                 @showRemindPassword="isShowRemindPassword=$event; isShowLogin=false"
     />
   </CustomModal>
@@ -153,6 +160,26 @@ export default {
         }
       }
       return ar
+    },
+    deleteFromTrackingNotInModal() {
+      if (this.numberType === `containers`) {
+        for (const item of this.selectedContainerNumbers) {
+          console.log(item)
+          const index = this.findInArray(item, true)
+          if (index !== -1) {
+            this.containerNumbers[index].isOnTrack = false
+            this.containerNumbers[index].scheduleTrackingInfo = {}
+          }
+        }
+      } else {
+        for (const item of this.selectedBillNumbers) {
+          const index = this.findInArray(item, true)
+          if (index !== -1) {
+            this.billNumbers[index].isOnTrack = false
+            this.billNumbers[index].scheduleTrackingInfo = {}
+          }
+        }
+      }
     },
     // selectArchiveContainer(number) {
     //   this.isShowNumbersNotFound = this.checkNumbersExists()
@@ -282,7 +309,7 @@ export default {
     // }
   },
   mounted() {
-    if (!this.$store.state.isAuth) {
+    if (!this.$store.state.user.isAuth) {
       this.isShowLogin = true
       return
     }

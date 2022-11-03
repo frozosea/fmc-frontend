@@ -7,7 +7,7 @@
                 :disabled="isLoading">
           <div class="container g-3">
             <div class="row g-0">
-              <container-picture :is-on-track="isOnTrack"/>
+              <container-picture :is-on-track="isOnTrack" :is-container="isContainer"/>
 
               <container-title :is-found="isFound"
                                :is-container="isContainer"
@@ -15,15 +15,19 @@
                                :number="number"
                                :is-loading="isLoading"
               />
-              <SpinnerLoader
-                  :active="isLoading"
-                  text=""
-                  v-if="isLoading"
-              />
+<!--              <SpinnerLoader-->
+<!--                  :active="isLoading"-->
+<!--                  text=""-->
+<!--                  v-if="isLoading"-->
+<!--              />-->
               <tracking-latest-move :is-found="isFound" :tracking-response="trackingResponse" v-if="!isLoading"/>
 
-              <binaculars-picture :is-found="isFound" v-if="!isLoading" :number="number"
-                                  :schedule-tracking-object="scheduleTrackingInfo"/>
+              <binaculars-picture :is-found="isFound" v-if="!isLoading"
+                                  :number="number"
+                                  :schedule-tracking-object="scheduleTrackingInfo"
+                                  @showModal="showModal"
+
+              />
 
               <CustomCheckBox class-name="col-xl-1 col-lg-1 col-md-12 col-sm-12 col-xs-12"
                               :change-func="selectCheckBox" v-if="!isLoading"/>
@@ -32,9 +36,9 @@
           </div>
         </button>
 
-        <div :class="isOnTrack ? `panel` : `panel back-accordion`" v-if="isFound">
+        <div :class="isOnTrack ? `panel` : `panel back-accordion`">
           <schedule-tracking-info-in-bill-or-container :scheduleTrackingInfo="scheduleTrackingInfo"
-                                                       :is-on-track="isOnTrack"/>
+                                                       v-if="isOnTrack"/>
           <div class="container g-0">
             <div class="row g-0">
 
@@ -69,7 +73,7 @@ import CustomCheckBox from "@/UI/customCheckBox";
 import scheduleTrackingInfoInBillOrContainer from "@/components/tracking/scheduleTrackingInfoInBillOrContainer";
 import TrackingEventsList from "@/components/tracking/trackingEventsList";
 
-import SpinnerLoader from "@/UI/loading";
+// import SpinnerLoader from "@/UI/loading";
 
 
 export default {
@@ -79,7 +83,7 @@ export default {
     CustomCheckBox,
     BinacularsPicture,
     TrackingLatestMove,
-    SpinnerLoader,
+    // SpinnerLoader,
     ContainerTitle, ContainerPicture, scheduleTrackingInfoInBillOrContainer
   },
   data() {
@@ -116,6 +120,9 @@ export default {
       } else {
         panel.style.maxHeight = panel.scrollHeight + "px";
       }
+    },
+    showModal(e) {
+      this.$emit(`showModal`, e)
     }
   }
 }

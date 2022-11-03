@@ -8,7 +8,8 @@
         </div>
         <div class="col-xl-4 col-lg-8 col-md-6 col-sm-12 col-xs-12">
           <div class="footer-copyright">
-            © {{ new Date().getFullYear() }} «<b>Find my Cargo</b>», <a href="" class="title-4">support@cargo.com</a>
+            © {{ new Date().getFullYear() }} «<b>Find my Cargo</b>», <a href=""
+                                                                        class="title-4">{{ this.$store.state.base.supportEmail }}</a>
           </div>
         </div>
         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-xs-12 d-md-none d-xl-block
@@ -26,7 +27,7 @@
     </div>
   </div>
   <CustomModal v-model:show="isShowServices">
-    <services-modal @close="isShowServices=$event"/>
+    <services-modal @close="isShowServices = $event"/>
   </CustomModal>
   <CustomModal v-model:show="isShowFeedBack">
     <feed-back-modal @close="isShowFeedBack=$event"/>

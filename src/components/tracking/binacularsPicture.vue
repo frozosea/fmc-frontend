@@ -5,33 +5,33 @@
         <img src="@/assets/images/binoculars.svg" class="svg-binoculars img-hover"></button>
     </div>
   </div>
-  <CustomModal v-model:show="showAddOnTrackModal">
-    <add-on-track-form :scheduleTrackingObject="scheduleTrackingObject" :numberList="[number]"
-                       :show="showAddOnTrackModal"
-                       @close="showAddOnTrackModal = $event"
-                       :submit="submitAddOnTrackChange"
-    />
-  </CustomModal>
+<!--  <CustomModal v-model:show="showAddOnTrackModal">-->
+<!--    <add-on-track-form :scheduleTrackingObject="scheduleTrackingObject" :numberList="[number]"-->
+<!--                       :show="showAddOnTrackModal"-->
+<!--                       @close="showAddOnTrackModal = $event"-->
+<!--                       :submit="submitAddOnTrackChange"-->
+<!--    />-->
+<!--  </CustomModal>-->
 </template>
 
 <script>
-import CustomModal from "@/UI/CustomModal";
-import AddOnTrackForm from "@/components/tracking/addOnTrackForm";
+// import CustomModal from "@/UI/CustomModal";
+// import AddOnTrackForm from "@/components/tracking/addOnTrackForm";
 
 export default {
   name: "binacularsPicture",
-  components: {AddOnTrackForm, CustomModal},
   data() {
     return {
       showAddOnTrackModal: false,
     }
   },
   methods: {
-    submitAddOnTrackChange(){
-      //TODO submitAddOnTrackChange
-    },
+    // submitAddOnTrackChange(){
+    //   //TODO submitAddOnTrackChange
+    // },
     handleModal(){
-      this.showAddOnTrackModal = !this.showAddOnTrackModal
+      this.$emit(`showModal`, !this.showAddOnTrackModal)
+      // this.showAddOnTrackModal = !this.showAddOnTrackModal
     }
   },
   mounted() {
