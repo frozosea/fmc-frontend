@@ -2,7 +2,6 @@
   <long-dotted-line/>
   <TrackingForm
       :isContainer="isContainer"
-      @changeTrackingType="isContainer = $event"
       @submitTrack="trackByNumber"
       @changeNumber="number = $event"
       @changeScac="scac = $event"
@@ -86,9 +85,11 @@ export default {
   },
   computed: {},
   methods: {
-    trackByNumber() {
+    trackByNumber(isContainer, num, scac) {
+      this.isContainer = isContainer
+      this.number = num
+      this.scac = scac
       this.isLoading = true
-      console.log(this.isContainer)
       // console.log(this.isLoading)
       const api = this.$store.state.api
       try {
@@ -161,7 +162,7 @@ export default {
       this.addTrackingVisible = false
     },
     addOnTrack() {
-      const api = this.$store.api.state.api
+      const api = this.$store.state.api
       try {
         if (this.isContainer) {
           api.scheduleTrackingApi.addContainersOnTracking([this.number])

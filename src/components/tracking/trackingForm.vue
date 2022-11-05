@@ -3,7 +3,7 @@
     <div class="row g-3">
 
       <div class="col-xl-4 col-lg-6 col-md-4 col-sm-12 col-xs-12">
-        <input type="text" class="input-css-grey" id="recipient-name" placeholder="Enter Bill number"
+        <input type="text" class="input-css-grey" id="recipient-name" placeholder="Enter number"
                @input="changeNumber">
       </div>
 

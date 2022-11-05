@@ -77,7 +77,6 @@ export default {
     addOnTrack() {
       //TODO submit add on tracking form
       // this.submit()
-      console.log(`AAAAAA SUBMIT`)
       this.$emit(`submitForm`, {numbers: this.numberList, time: this.time, emails: this.emails, subject: this.subject})
       this.$emit(`show`, false)
     },

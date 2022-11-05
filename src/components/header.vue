@@ -39,11 +39,6 @@
             <button type="button" class="button-login">Registration</button>
           </a>
         </div>
-        <!--        <div class="login">-->
-        <!--          <img src="@/assets/images/exit.svg" class="svg-enter">-->
-        <!--          <a @click="showLogin" class="title-3 borderless_button">Log in</a>-->
-        <!--          <a @click="showRegister" class="button-login borderless_button">Registration</a>-->
-        <!--        </div>-->
       </div>
       <div class="d-lg-none">
         <div class="position-menu">
@@ -77,7 +72,7 @@
       </div>
       <CustomModal v-model:show="isShowRegister">
         <registration-form
-            @show="isShowRegister = $event; console.log(`close event ${$event}`)"
+            @show="isShowRegister = $event"
         />
       </CustomModal>
       <CustomModal v-model:show="isShowLogin">
@@ -118,9 +113,6 @@ export default {
       isShowRegister: false,
       isShowRemindPassword: false
     }
-  },
-  mounted() {
-    console.log(this.$store.state.user.isAuth)
   },
   methods: {
     showServices() {

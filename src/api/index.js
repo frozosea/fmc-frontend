@@ -109,7 +109,10 @@ export class ScheduleTrackingApi {
         console.log(numbers)
         //TODO add containers on tracking method
     }
-
+    addBillsOnTrack(numbers){
+        console.log(numbers)
+        //TODO add bill numbers on track method
+    }
     deleteContainerFromTracking(numbers) {
         console.log(numbers)
         //TODO deleteContainerFromTracking

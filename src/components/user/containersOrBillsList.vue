@@ -27,11 +27,9 @@ export default {
   },
   methods: {
     selectNumber(number) {
-      console.log(number)
       this.$emit("addToSelectedNumbers", number)
     },
     unSelectNumber(number) {
-      console.log(number)
       this.$emit("unselectToSelectedNumbers", number)
     }
   }

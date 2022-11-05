@@ -33,7 +33,7 @@
     Number(s) not
     found!
   </div>
-  <containers-or-bills-list :numbers=" numberType === `containers` ? containerNumbers : billNumbers"
+  <containers-or-bills-list :numbers=" numberType === `containers` ? filterContainerNumbers : filterBillNumbers"
                             @addToSelectedNumbers="numberType === `containers` ? selectContainer($event) : selectBill($event)"
                             @unselectToSelectedNumbers="numberType === `containers` ? unselectContainerNumbers($event) : unselectBillNumbers($event)"
   />
@@ -43,6 +43,7 @@
                 @showRemindPassword="isShowRemindPassword=$event; isShowLogin=false"
     />
   </CustomModal>
+
   <CustomModal v-model:show="isShowRemindPassword" @update:show="isShowLogin = $event; this.$router.push(`/`)">
     <registration-form
         @showRemindPassword="isShowRemindPassword = $event"
@@ -60,6 +61,7 @@ import CustomModal from "@/UI/CustomModal";
 import addOnTrackForm from "@/components/tracking/addOnTrackForm";
 import LoginForm from "@/components/user/loginForm";
 import registrationForm from "@/components/user/registrationForm";
+import {utils} from "@/util";
 
 export default {
   name: "userAccount",
@@ -95,12 +97,10 @@ export default {
   methods: {
     updateSearchType(type) {
       this.isShowNumbersNotFound = this.checkNumbersExists()
-      console.log(type)
       this.searchType = type;
     },
     updateNumberType(type) {
       this.numberType = type;
-      console.log(`NOW SEARCH TYPE IS ${this.numberType}`)
     },
     selectContainer(number) {
       if (this.selectedContainerNumbers.indexOf(number) === -1) {
@@ -164,7 +164,6 @@ export default {
     deleteFromTrackingNotInModal() {
       if (this.numberType === `containers`) {
         for (const item of this.selectedContainerNumbers) {
-          console.log(item)
           const index = this.findInArray(item, true)
           if (index !== -1) {
             this.containerNumbers[index].isOnTrack = false
@@ -173,7 +172,7 @@ export default {
         }
       } else {
         for (const item of this.selectedBillNumbers) {
-          const index = this.findInArray(item, true)
+          const index = this.findInArray(item, false)
           if (index !== -1) {
             this.billNumbers[index].isOnTrack = false
             this.billNumbers[index].scheduleTrackingInfo = {}
@@ -228,7 +227,6 @@ export default {
       if (this.numberType === `bills`) {
         if (this.searchType === `actual`) {
           for (const item of this.selectedBillNumbers) {
-            console.log(item)
             this.deleteNumberFromArray(item, false)
           }
         }
@@ -287,14 +285,21 @@ export default {
         }
         if (this.numberType === `bills`) {
           const index = this.findInArray(num, false)
-          this.billNumbers[index].scheduleTrackingInfo = {time: obj.time, subject: obj.subject, emails: obj.emails}
           this.billNumbers[index].isOnTrack = true
+          this.billNumbers[index].scheduleTrackingInfo = {time: obj.time, subject: obj.subject, emails: obj.emails}
         }
       }
     }
 
   },
   computed: {
+    filterContainerNumbers() {
+      return utils.findInUserAccountBySearchQuery(this.containerNumbers, this.searchQuery)
+    },
+    filterBillNumbers() {
+      return utils.findInUserAccountBySearchQuery(this.billNumbers, this.searchQuery)
+
+    }
     // filterNumbers() {
     //   if (this.searchType === `actual ` && this.numberType === `bills`) {
     //     return this.billNumbers.filter(b => b.number.toLowerCase().includes(this.searchType.toLowerCase()))
