@@ -1,6 +1,6 @@
 <template>
-  <div class="footer-width">
-    <div class="container g-3 footer fixed-bottom">
+  <div class="my-footer">
+    <div class="container g-3 footer">
       <div class="row g-0">
         <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-xs-12 d-md-none d-lg-block
                     d-none d-sm-block d-sm-none d-md-block">
@@ -9,7 +9,7 @@
         <div class="col-xl-4 col-lg-8 col-md-6 col-sm-12 col-xs-12">
           <div class="footer-copyright">
             © {{ new Date().getFullYear() }} «<b>Find my Cargo</b>», <a href=""
-                                                                        class="title-4">{{ this.$store.state.base.supportEmail }}</a>
+                                                                        class="title-4">{{ this.$store.state.info.supportEmail }}</a>
           </div>
         </div>
         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-xs-12 d-md-none d-xl-block
@@ -62,6 +62,11 @@ export default {
 <style>
 @import "@/assets/style.css";
 
+.my-footer{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
 .page-footer {
   padding: 1rem;
   text-align: center;
@@ -75,4 +80,5 @@ export default {
   bottom: 0;
   z-index: 10;
 }
+
 </style>

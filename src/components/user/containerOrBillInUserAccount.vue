@@ -2,8 +2,9 @@
   <div class="container g-3">
     <div class="row g-0">
 
-      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" :ref="`b_${this.number}`">
         <button :class="isOnTrack ? `accordion` : `accordion back-accordion`" @click="onClick" ref="button"
+                :id="this.number"
                 :disabled="!isOnTrack">
           <div class="container g-3">
             <div class="row g-0">
@@ -70,8 +71,8 @@ export default {
       this.$emit('selectCheckBox', this.isSelectCheckBox)
     },
     onClick() {
-      let panel = this.$refs.button.nextElementSibling;
-      this.$refs.button.classList.toggle("act-long");
+      let panel = this.$refs[`b_${this.number}`].firstChild.nextElementSibling;
+      this.$refs[`b_${this.number}`].firstChild.classList.toggle("act-long");
       if (panel.style.maxHeight) {
         panel.style.maxHeight = null;
       } else {

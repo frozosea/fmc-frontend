@@ -166,8 +166,15 @@ export default {
         for (const item of this.selectedContainerNumbers) {
           const index = this.findInArray(item, true)
           if (index !== -1) {
+            // console.log(this.$children.$refs[`p_${this.containerNumbers[index].number}`].firstChild.nextElementSibling)
+            // console.log(this.$refs[`p_${this.containerNumbers[index].number}`])
             this.containerNumbers[index].isOnTrack = false
             this.containerNumbers[index].scheduleTrackingInfo = {}
+            try {
+              document.getElementById(this.containerNumbers[index].number).click()
+            } catch (e) {
+              console.log(e)
+            }
           }
         }
       } else {
@@ -176,6 +183,12 @@ export default {
           if (index !== -1) {
             this.billNumbers[index].isOnTrack = false
             this.billNumbers[index].scheduleTrackingInfo = {}
+            try {
+              document.getElementById(this.billNumbers[index].number).click()
+            } catch (e) {
+              console.log(e)
+
+            }
           }
         }
       }
@@ -247,6 +260,11 @@ export default {
           if (index !== -1) {
             this.containerNumbers[index].isOnTrack = false
             this.containerNumbers[index].scheduleTrackingInfo = {}
+            try {
+              document.getElementById(this.selectedContainerNumbers[index]).click()
+            } catch (e) {
+              console.log(e)
+            }
           }
         }
       } else {
@@ -255,6 +273,11 @@ export default {
           if (index !== -1) {
             this.billNumbers[index].isOnTrack = false
             this.billNumbers[index].scheduleTrackingInfo = {}
+            try {
+              document.getElementById(this.selectedAddOnTrackBillNumbers[index]).click()
+            } catch (e) {
+              console.log(e)
+            }
           }
         }
       }
@@ -287,6 +310,7 @@ export default {
           const index = this.findInArray(num, false)
           this.billNumbers[index].isOnTrack = true
           this.billNumbers[index].scheduleTrackingInfo = {time: obj.time, subject: obj.subject, emails: obj.emails}
+          // this.$refs[`button_${num}`].click()
         }
       }
     }
