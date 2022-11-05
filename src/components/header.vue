@@ -61,11 +61,12 @@
             <li><a class="menu-item" @click="showLogin" v-if="!this.$store.state.user.isAuth">Login →</a></li>
             <li><a class="menu-item" @click="showRegister" v-if="!this.$store.state.user.isAuth">Registration</a></li>
             <div class="menu-font">© {{ new Date().getFullYear() }} <b>«Find my Cargo»</b>
-              <p>Support: <a href="" class="title-5">{{ this.$store.state.supportEmail }}</a></p></div>
+              <p>Support: <a href="" class="title-5">{{ this.$store.state.info.supportEmail }}</a></p></div>
             <div class="menu-font">
-              <a :href="this.$store.state.base.telegramUrl" class="avatar-menu"><img src="@/assets/images/telegram.svg"></a>
-              <a :href="this.$store.state.base.facebookUrl" class="avatar-menu"><img src="@/assets/images/facebook.svg"></a>
-              <a :href="this.$store.state.base.twitterUrl" class="avatar-menu"><img src="@/assets/images/twitter.svg"></a>
+              <a :href="this.$store.state.info.telegramUrl" class="avatar-menu"><img src="@/assets/images/telegram.svg"></a>
+              <a :href="this.$store.state.info.facebookUrl" class="avatar-menu"><img src="@/assets/images/facebook.svg"></a>
+              <a :href="this.$store.state.info.twitterUrl" class="avatar-menu"><img
+                  src="@/assets/images/twitter.svg"></a>
             </div>
           </ul>
         </div>
@@ -101,6 +102,7 @@ import FeedBackModal from "@/components/user/feedBackModal";
 import CustomModal from "@/UI/CustomModal";
 import RegistrationForm from "@/components/user/registrationForm";
 import LoginForm from "@/components/user/loginForm";
+import {mapMutations} from "vuex";
 
 export default {
   name: "FmcHeader",
@@ -131,7 +133,9 @@ export default {
       this.$router.push(`/user`)
 
     }
-  }
+  },
+  computed: mapMutations(["user/logout"])
+
 }
 </script>
 
