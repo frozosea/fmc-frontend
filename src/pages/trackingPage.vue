@@ -83,6 +83,9 @@ export default {
       scac: ""
     }
   },
+  mounted() {
+    console.log(this.$store.state.api)
+  },
   computed: {},
   methods: {
     trackByNumber(isContainer, num, scac) {

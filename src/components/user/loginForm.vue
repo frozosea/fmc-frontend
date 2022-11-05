@@ -36,7 +36,7 @@ export default {
   name: "loginForm",
   data() {
     return {
-      email: "",
+      email: "i20072004@gmail.com",
       password: "",
       showLoading: false,
       error: "",
@@ -49,11 +49,9 @@ export default {
       try {
         this.showLoading = true
         const data = api.login(this.email, this.password)
-        window.localStorage.setItem(`authToken`, data.token)
-        window.localStorage.setItem(`refreshToken`, data.refreshToken)
-        // window.localStorage.setItem(`isAuth`, true)
-        this.$store.commit(`setAuthToken`, data.token)
-        this.$store.commit(`setRefreshToken`, data.refreshToken)
+        this.$store.commit(`user/setAuthToken`, data.token)
+        this.$store.commit(`user/setRefreshToken`, data.refreshToken)
+        this.$store.commit(`user/setEmail`, this.email)
         this.showLoading = false
         this.showError = false
         this.$store.commit(`user/setIsAuth`, true)

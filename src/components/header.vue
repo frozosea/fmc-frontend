@@ -19,9 +19,9 @@
       <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 col-xs-12 d-md-none d-lg-block
                     d-none d-sm-block d-sm-none d-md-block">
 
-        <div class="avatar" v-if="this.$store.state.user.isAuth">
+        <div class="avatar" v-if="this.$store.getters[`user/getIsAuth`]">
           <router-link class="title-2" to="/user">{{
-              this.$store.state.user.username
+              this.$store.getters[`user/getEmail`]
             }}
           </router-link>
           <router-link to="/user">
@@ -32,7 +32,7 @@
                  class="svg-exit img-hover">
           </button>
         </div>
-        <div class="login" v-if="!this.$store.state.user.isAuth">
+        <div class="login" v-if="!this.$store.getters[`user/getIsAuth`]">
           <img src="@/assets/images/exit.svg" class="svg-enter" @click="this.$store.commit(`user/logout`)">
           <a @click="showLogin" class="title-3">Log in</a>
           <a @click="showRegister">
@@ -56,10 +56,10 @@
             <li><a class="menu-item" @click="showServices">Services</a></li>
             <li><a class="menu-item" @click="showFeedback">Feedback</a></li>
             <li>
-              <a class="menu-item" v-if="this.$store.state.user.isAuth" href="/user">Account</a>
+              <a class="menu-item" v-if="this.$store.getters[`user/getIsAuth`]" href="/user">Account</a>
             </li>
-            <li><a class="menu-item" @click="showLogin" v-if="!this.$store.state.user.isAuth">Login →</a></li>
-            <li><a class="menu-item" @click="showRegister" v-if="!this.$store.state.user.isAuth">Registration</a></li>
+            <li><a class="menu-item" @click="showLogin" v-if="!this.$store.getters[`user/getIsAuth`]">Login →</a></li>
+            <li><a class="menu-item" @click="showRegister" v-if="!this.$store.getters[`user/getIsAuth`]">Registration</a></li>
             <div class="menu-font">© {{ new Date().getFullYear() }} <b>«Find my Cargo»</b>
               <p>Support: <a href="" class="title-5">{{ this.$store.state.info.supportEmail }}</a></p></div>
             <div class="menu-font">
@@ -78,7 +78,7 @@
       </CustomModal>
       <CustomModal v-model:show="isShowLogin">
         <login-form @show="isShowLogin = $event"
-                    @showRemindPassword="isShowRemindPassword=$event; isShowLogin=false"
+                    @showRemindPassword="isShowRemindPassword = $event; isShowLogin=false"
         />
       </CustomModal>
       <CustomModal v-model:show="isShowServices">

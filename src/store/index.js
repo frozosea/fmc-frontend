@@ -9,6 +9,6 @@ export default createStore({
         user: user,
         info: infoStore,
         api: apiStore
-    }
+    },
 })
 
