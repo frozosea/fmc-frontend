@@ -1307,18 +1307,18 @@ html, body,#app {
 
 
 .marker {
-    flex-grow: 1;
-    display: flex;
-    width: calc((100% / 3) - 2px);
+    /*flex-grow: 1;*/
+    /*display: flex;*/
+    /*width: calc((100% / 3) - 2px);*/
     color: #FFF;
-    word-wrap: break-word;
+    /*word-wrap: break-word;*/
     padding: 7px 10px 7px 15px;
     font-size: 10px;
-    border-radius: 7px;
+    border-radius: 9px;
     background-color: #2c6eab;
-    min-width: 60%;
-    margin-top: 10px;
-    text-decoration: none;
+    /*min-width: 60%;*/
+    /*margin-top: 10px;*/
+    /*text-decoration: none;*/
     transition-property: all;
     transition: all ease 0.5s;
 }
@@ -1352,7 +1352,7 @@ html, body,#app {
     /*!*flex-wrap: wrap;*!*/
     /*justify-content: space-between;*/
     /*min-width: 60%;*/
-    width: 40%;
+    /*width: 40%;*/
     /*margin-bottom: -5px;*/
     /*margin-top:-25px;*/
 }

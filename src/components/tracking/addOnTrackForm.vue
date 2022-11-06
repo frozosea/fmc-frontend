@@ -26,19 +26,20 @@
     </div>
 
     <div class="market-minus col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-      <div class="" v-for="item in numberList" :key="item" @click="changeList(item)">{{
+      <div class="marker" v-for="item in numberList" :key="item" @click="changeList(item)">{{
           item
-        }}&nbsp; × &nbsp;</div>
+        }}&nbsp; × &nbsp;
+      </div>
     </div>
 
   </div>
   <div class="container g-0 area-pad-two">
     <div class="row g-0">
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div style="color: red" v-if="showError"> {{ error }}</div>
         <button type="button" class="button-menu" @click="addOnTrack" ref="button" :disabled="!valid">Add on track
         </button>
         <button type="button" class="button-menu-line password-pad" @click="deleteFromTrack">Remove tracking</button>
-        <div style="color: red" v-if="showError"> {{ error }}</div>
       </div>
     </div>
   </div>
@@ -90,20 +91,23 @@ export default {
       //TODO email validator
       const value = ev.target.value
       let emails = value.replace(/\s/g, '').split(",");
-      const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      for (let i = 0; i < emails.length; i++) {
-        if (emails[i] == "" || !regex.test(emails[i])) {
-          this.valid = false;
-          this.error = "please enter valid email(s)!"
-          this.showError = true
-          this.disableButton()
-        } else {
-          this.valid = true;
-          this.error = ""
-          this.showError = false
-          this.enableButton()
-        }
-      }
+      // const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      this.emails += emails
+
+      // for (let i = 0; i < emails.length; i++) {
+      //   if (emails[i] == "" || !regex.test(emails[i])) {
+      //     this.valid = false;
+      //     this.error = "please enter valid email(s)!"
+      //     this.showError = true
+      //     this.disableButton()
+      //   } else {
+      //     this.valid = true;
+      //     this.error = ""
+      //     this.showError = false
+      //     this.enableButton()
+      //     this.emails.push(emails[i])
+      //   }
+      // }
       // const re = /^([\w+-.%]+@[\w-.]+\.[A-Za-z]{2,}(\s*,?\s*)*)+$ /
       // if (!re.test(emails)) {
       //   this.disableButton()
@@ -120,14 +124,19 @@ export default {
 
     handleTime(ev) {
       const time = ev.target.value;
-      if (!/\d{1,2}:\d{1,2}/g.test(time)) {
-        this.disableButton()
-        this.error = "please, enter valid time in format `hh:mm` "
-        this.valid = false
-        this.showError = true
-        return
-      }
-      this.enableButton()
+      this.time = time
+      // if (!/\d{1,2}:\d{1,2}/g.test(time)) {
+      //   this.disableButton()
+      //   this.error = "please, enter valid time in format `hh:mm` "
+      //   this.valid = false
+      //   this.showError = true
+      // }else{
+      //   this.error = ""
+      //   this.valid = true
+      //   this.showError = false
+      //   this.time = time
+      //   this.enableButton()
+      // }
     },
     deleteFromTrack() {
       this.$emit(`deleteFromTrack`, this.numberList)
