@@ -171,7 +171,9 @@ export default {
             this.containerNumbers[index].isOnTrack = false
             this.containerNumbers[index].scheduleTrackingInfo = {}
             try {
-              document.getElementById(this.containerNumbers[index].number).click()
+              let panel = document.getElementById(this.containerNumbers[index].number).nextElementSibling;
+              document.getElementById(this.containerNumbers[index].number).classList.toggle("act-long");
+              panel.style.maxHeight = null;
             } catch (e) {
               console.log(e)
             }
@@ -184,10 +186,11 @@ export default {
             this.billNumbers[index].isOnTrack = false
             this.billNumbers[index].scheduleTrackingInfo = {}
             try {
-              document.getElementById(this.billNumbers[index].number).click()
+              let panel = document.getElementById(this.billNumbers[index].number).nextElementSibling;
+              document.getElementById(this.billNumbers[index].number).classList.toggle("act-long");
+              panel.style.maxHeight = null;
             } catch (e) {
               console.log(e)
-
             }
           }
         }
@@ -261,10 +264,17 @@ export default {
             this.containerNumbers[index].isOnTrack = false
             this.containerNumbers[index].scheduleTrackingInfo = {}
             try {
-              document.getElementById(this.selectedContainerNumbers[index]).click()
+              let panel = document.getElementById(this.selectedAddOnTrackContainerNumbers[index]).nextElementSibling;
+              document.getElementById(this.selectedAddOnTrackContainerNumbers[index]).classList.toggle("act-long");
+              panel.style.maxHeight = null;
             } catch (e) {
               console.log(e)
             }
+            // try {
+            //   document.getElementById(this.selectedContainerNumbers[index]).click()
+            // } catch (e) {
+            //   console.log(e)
+            // }
           }
         }
       } else {
@@ -274,10 +284,17 @@ export default {
             this.billNumbers[index].isOnTrack = false
             this.billNumbers[index].scheduleTrackingInfo = {}
             try {
-              document.getElementById(this.selectedAddOnTrackBillNumbers[index]).click()
+              let panel = document.getElementById(this.selectedAddOnTrackBillNumbers[index]).nextElementSibling;
+              document.getElementById(this.selectedAddOnTrackBillNumbers[index]).classList.toggle("act-long");
+              panel.style.maxHeight = null;
             } catch (e) {
               console.log(e)
             }
+            // try {
+            //   document.getElementById(this.selectedAddOnTrackBillNumbers[index]).click()
+            // } catch (e) {
+            //   console.log(e)
+            // }
           }
         }
       }
