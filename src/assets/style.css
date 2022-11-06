@@ -1348,6 +1348,7 @@ html, body,#app {
     /*justify-content: flex-start;*/
     grid-template-columns: repeat(3, 1fr);
     gap: 3px;
+    text-align: center;
     /*display: flex;*/
     /*!*flex-wrap: wrap;*!*/
     /*justify-content: space-between;*/
