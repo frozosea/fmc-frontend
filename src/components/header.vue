@@ -27,13 +27,13 @@
           <router-link to="/user">
             <img src="@/assets/images/avatar.png" class="pad-avatar"></router-link>
           <button class="borderless_button"
-                  @click="this.$store.commit(`user/logout`)">
+                  @click="this.$store.commit(`user/logout`); this.$router.push(`/`)">
             <img src="@/assets/images/exit.svg"
                  class="svg-exit img-hover">
           </button>
         </div>
         <div class="login" v-if="!this.$store.getters[`user/getIsAuth`]">
-          <img src="@/assets/images/exit.svg" class="svg-enter" @click="this.$store.commit(`user/logout`)">
+          <img src="@/assets/images/exit.svg" class="svg-enter" @click="this.$store.commit(`user/logout`); this.$router.push(`/`)">
           <a @click="showLogin" class="title-3">Log in</a>
           <a @click="showRegister">
             <button type="button" class="button-login">Registration</button>

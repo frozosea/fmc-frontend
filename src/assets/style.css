@@ -1,7 +1,7 @@
 @charset "utf-8";
 /* CSS Document by Find my cargo */
 /*-------------------------------------------------------------------------*/
-html, body {
+html, body,#app {
     max-width: 100%;
     overflow-x: hidden;
     font-family: MyriadPro-LightSemiExt;
@@ -301,17 +301,18 @@ html, body {
 .footer-width {
     background-color: #f9f7f7;
     width: 100%;
-    position:absolute;
-    bottom:0;
+    position: absolute;
+    bottom: 0;
 }
 
 .footer {
-    position:absolute;
-    bottom:0;
-    margin-top: 100px;
+    background: #f9f7f7;
+    /*position:absolute;*/
+    bottom: 0;
+    /*margin: auto;*/
+    /*margin-left: 20px;*/
     font-size: 14px;
-    padding-top: 55px;
-    padding-bottom: 55px;
+    padding: 55px;
     color: #767676;
 }
 
@@ -1305,7 +1306,6 @@ html, body {
 }
 
 
-
 .marker {
     flex-grow: 1;
     display: flex;
@@ -1346,7 +1346,7 @@ html, body {
     display: grid;
     /*grid-template-rows: repeat(3,5fr);*/
     /*justify-content: flex-start;*/
-        grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 3px;
     /*display: flex;*/
     /*!*flex-wrap: wrap;*!*/
@@ -1356,7 +1356,6 @@ html, body {
     /*margin-bottom: -5px;*/
     /*margin-top:-25px;*/
 }
-
 
 
 .not_found_numbers {
@@ -1383,3 +1382,31 @@ html, body {
     grid-auto-flow: column;
     margin: 0 0 1rem 0;
 }
+
+/*body {*/
+/*    !* Margin bottom by footer height *!*/
+/*    margin-bottom: 60px;*/
+/*}*/
+/*.footer {*/
+/*    position: absolute;*/
+/*    bottom: 0;*/
+/*    width: 100%;*/
+/*    !* Set the fixed height of the footer here *!*/
+/*    height: 60px;*/
+/*    line-height: 60px; !* Vertically center the text there *!*/
+/*    background-color: #f5f5f5;*/
+/*}*/
+
+
+/*!* Custom page CSS*/
+/*-------------------------------------------------- *!*/
+/*!* Not required for template or sticky footer method. *!*/
+
+/*body > .container {*/
+/*    padding: 60px 15px 0;*/
+/*}*/
+
+/*.footer > .container {*/
+/*    padding-right: 15px;*/
+/*    padding-left: 15px;*/
+/*}*/

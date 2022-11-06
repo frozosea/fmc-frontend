@@ -320,12 +320,22 @@ export default {
           // this.$refs[`button_${num}`].click()
         }
       }
+    },
+    ShowNumbersNotFound(value) {
+      this.isShowNumbersNotFound = value
     }
 
   },
   computed: {
     filterContainerNumbers() {
-      return utils.findInUserAccountBySearchQuery(this.containerNumbers, this.searchQuery)
+      const nums = utils.findInUserAccountBySearchQuery(this.containerNumbers, this.searchQuery);
+      if (!nums.length) {
+        this.ShowNumbersNotFound(true)
+        // this.isShowNumbersNotFound = true
+        return nums
+      }
+      this.ShowNumbersNotFound(false)
+      return nums
     },
     filterBillNumbers() {
       return utils.findInUserAccountBySearchQuery(this.billNumbers, this.searchQuery)
