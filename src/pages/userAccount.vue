@@ -270,11 +270,6 @@ export default {
             } catch (e) {
               console.log(e)
             }
-            // try {
-            //   document.getElementById(this.selectedContainerNumbers[index]).click()
-            // } catch (e) {
-            //   console.log(e)
-            // }
           }
         }
       } else {
@@ -290,11 +285,6 @@ export default {
             } catch (e) {
               console.log(e)
             }
-            // try {
-            //   document.getElementById(this.selectedAddOnTrackBillNumbers[index]).click()
-            // } catch (e) {
-            //   console.log(e)
-            // }
           }
         }
       }

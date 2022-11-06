@@ -1,10 +1,10 @@
 <template>
-  <div class="container g-3">
+  <div class="container g-3" v-if="!isLoading">
     <div class="row g-0">
 
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <button :class="isOnTrack ? `accordion` : `accordion back-accordion`" @click="onClick" ref="button"
-                :disabled="isLoading">
+                :disabled="isLoading" :id="this.number">
           <div class="container g-3">
             <div class="row g-0">
               <container-picture :is-on-track="isOnTrack" :is-container="isContainer"/>
@@ -15,11 +15,11 @@
                                :number="number"
                                :is-loading="isLoading"
               />
-<!--              <SpinnerLoader-->
-<!--                  :active="isLoading"-->
-<!--                  text=""-->
-<!--                  v-if="isLoading"-->
-<!--              />-->
+              <!--              <SpinnerLoader-->
+              <!--                  :active="isLoading"-->
+              <!--                  text=""-->
+              <!--                  v-if="isLoading"-->
+              <!--              />-->
               <tracking-latest-move :is-found="isFound" :tracking-response="trackingResponse" v-if="!isLoading"/>
 
               <binaculars-picture :is-found="isFound" v-if="!isLoading"
