@@ -16,9 +16,9 @@
           <input type="text" class="input-css-grey input-modal" placeholder="Your E-mail" @input="handleEmail">
           <input type="text" class="input-css-grey input-modal" placeholder="Create username"
                  @input="username = $event.target.value">
-          <input type="text" class="input-css-grey input-modal" placeholder="Create password"
+          <input type="password" class="input-css-grey input-modal" placeholder="Create password"
                  @input="handlePasswordInput">
-          <input type="text" class="input-css-grey input-modal-end" placeholder="Password again"
+          <input type="password" class="input-css-grey input-modal-end" placeholder="Password again"
                  @input="handleRepeatedPasswordInput">
         </div>
       </div>

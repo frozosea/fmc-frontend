@@ -25,13 +25,13 @@
       <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12" style="cursor: pointer;" @click="redirectToTracking">
           <div class="service-block">
             <img src="@/assets/images/bill.png" class="service-img img-hover">
-            <router-link to="/tracking"><p>Tracking by bill number</p></router-link>
+            <p>Tracking by bill number</p>
           </div>
       </div>
-      <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12" style="cursor: pointer;" @click="redirectToTracking">
+      <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12" style="cursor: pointer;" @click="redirectToFreight">
         <div class="service-block">
           <img src="@/assets/images/document.png" class="service-img img-hover">
-          <router-link to="/freight"><p>Search the cheapest freight</p></router-link>
+          <p>Search the cheapest freight</p>
         </div>
       </div>
     </div>
@@ -63,6 +63,10 @@ export default {
     },
     redirectToTracking() {
       this.$router.push(`/tracking`)
+      this.$emit(`show`, false)
+    },
+    redirectToFreight(){
+      this.$router.push(`/freight`)
       this.$emit(`show`, false)
     }
   },

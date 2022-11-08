@@ -1,6 +1,5 @@
 <template>
   <FmcHeader/>
-<!--&lt;!&ndash;  <nav-bar/>&ndash;&gt;-->
   <router-view/>
   <FmcFooter/>
 </template>

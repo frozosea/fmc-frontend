@@ -19,11 +19,11 @@
                  @input="password = $event.target.value">
         </div>
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div v-if="showError" style="color: red"> {{ error }}</div>
           <button type="submit" class="button-menu" :disabled="showLoading" ref="button">log in</button>
           <button type="button" class="button-menu-line password-pad" @click="setShowRemindForm"
                   :disabled="showLoading">Remind password
           </button>
-          <div v-if="showError" style="color: red"> {{ error }}</div>
         </div>
       </div>
     </div>

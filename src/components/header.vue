@@ -33,7 +33,8 @@
           </button>
         </div>
         <div class="login" v-if="!this.$store.getters[`user/getIsAuth`]">
-          <img src="@/assets/images/exit.svg" class="svg-enter" @click="this.$store.commit(`user/logout`); this.$router.push(`/`)">
+          <img src="@/assets/images/exit.svg" class="svg-enter"
+               @click="this.$store.commit(`user/logout`); this.$router.push(`/`)">
           <a @click="showLogin" class="title-3">Log in</a>
           <a @click="showRegister">
             <button type="button" class="button-login">Registration</button>
@@ -59,7 +60,8 @@
               <a class="menu-item" v-if="this.$store.getters[`user/getIsAuth`]" href="/user">Account</a>
             </li>
             <li><a class="menu-item" @click="showLogin" v-if="!this.$store.getters[`user/getIsAuth`]">Login →</a></li>
-            <li><a class="menu-item" @click="showRegister" v-if="!this.$store.getters[`user/getIsAuth`]">Registration</a></li>
+            <li><a class="menu-item" @click="showRegister"
+                   v-if="!this.$store.getters[`user/getIsAuth`]">Registration</a></li>
             <div class="menu-font">© {{ new Date().getFullYear() }} <b>«Find my Cargo»</b>
               <p>Support: <a href="" class="title-5">{{ this.$store.state.info.supportEmail }}</a></p></div>
             <div class="menu-font">
@@ -88,9 +90,9 @@
         <feed-back-modal @show="isShowFeedBack = $event"/>
       </CustomModal>
       <CustomModal v-model:show="isShowRemindPassword">
-        <registration-form
+        <remind-password
             @showRemindPassword="isShowRemindPassword = $event"
-            @show="isShowLogin = $event"/>
+            @show="isShowLogin = $event; isShowRemindPassword = $event"/>
       </CustomModal>
     </div>
   </div>
@@ -103,10 +105,11 @@ import CustomModal from "@/UI/CustomModal";
 import RegistrationForm from "@/components/user/registrationForm";
 import LoginForm from "@/components/user/loginForm";
 import {mapMutations} from "vuex";
+import RemindPassword from "@/components/user/remindPassword";
 
 export default {
   name: "FmcHeader",
-  components: {LoginForm, RegistrationForm, CustomModal, FeedBackModal, ServicesModal},
+  components: {RemindPassword, LoginForm, RegistrationForm, CustomModal, FeedBackModal, ServicesModal},
   data() {
     return {
       isShowServices: false,

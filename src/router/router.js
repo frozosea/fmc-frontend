@@ -2,11 +2,12 @@ import userAccount from "@/pages/userAccount";
 import trackingPage from "@/pages/trackingPage";
 import companyPage from "@/pages/companyPage";
 import {createRouter, createWebHistory} from "vue-router";
+import FreightPage from "@/pages/freight";
 
 
 export const routes = [
     {
-        path:  `/user`,
+        path: `/user`,
         component: userAccount
     },
     {
@@ -18,8 +19,12 @@ export const routes = [
         component: trackingPage
     },
     {
-        path:  `/about`,
+        path: `/about`,
         component: companyPage
+    },
+    {
+        path: `/freight`,
+        component: FreightPage
     }
 ]
 

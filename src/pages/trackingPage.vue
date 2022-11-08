@@ -11,7 +11,8 @@
   <div class="container g-3 actions-pad">
     <div class="row g-0">
       <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12 number">
-        {{ isContainer ? `Track by container` : `Track by bill number` }}
+        Tracking your cargo by number:
+<!--        {{ isContainer ? `Track by container` : `Track by bill number` }}-->
       </div>
       <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
         <div class="action">

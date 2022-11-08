@@ -8,7 +8,7 @@
 
         <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-12">
           <div class="close-block">
-            <button class="close" @click="hideByButton">×</button>
+            <button class="close borderless_button" @click="hideByButton">×</button>
           </div>
         </div>
 
@@ -53,7 +53,7 @@ export default {
       }
     },
     hideByButton() {
-      this.$emit(`update:show`, false)
+      this.$emit(`show`, false)
     }
   }
 }

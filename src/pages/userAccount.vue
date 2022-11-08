@@ -166,13 +166,11 @@ export default {
         for (const item of this.selectedContainerNumbers) {
           const index = this.findInArray(item, true)
           if (index !== -1) {
-            // console.log(this.$children.$refs[`p_${this.containerNumbers[index].number}`].firstChild.nextElementSibling)
-            // console.log(this.$refs[`p_${this.containerNumbers[index].number}`])
             this.containerNumbers[index].isOnTrack = false
             this.containerNumbers[index].scheduleTrackingInfo = {}
             try {
               let panel = document.getElementById(this.containerNumbers[index].number).nextElementSibling;
-              document.getElementById(this.containerNumbers[index].number).classList.toggle("act-long");
+              document.getElementById(this.containerNumbers[index].number).classList.remove("act-long");
               panel.style.maxHeight = null;
             } catch (e) {
               console.log(e)
@@ -187,7 +185,7 @@ export default {
             this.billNumbers[index].scheduleTrackingInfo = {}
             try {
               let panel = document.getElementById(this.billNumbers[index].number).nextElementSibling;
-              document.getElementById(this.billNumbers[index].number).classList.toggle("act-long");
+              document.getElementById(this.billNumbers[index].number).classList.remove("act-long");
               panel.style.maxHeight = null;
             } catch (e) {
               console.log(e)
@@ -265,7 +263,7 @@ export default {
             this.containerNumbers[index].scheduleTrackingInfo = {}
             try {
               let panel = document.getElementById(this.selectedAddOnTrackContainerNumbers[index]).nextElementSibling;
-              document.getElementById(this.selectedAddOnTrackContainerNumbers[index]).classList.toggle("act-long");
+              document.getElementById(this.selectedAddOnTrackContainerNumbers[index]).classList.remove("act-long");
               panel.style.maxHeight = null;
             } catch (e) {
               console.log(e)
@@ -280,7 +278,7 @@ export default {
             this.billNumbers[index].scheduleTrackingInfo = {}
             try {
               let panel = document.getElementById(this.selectedAddOnTrackBillNumbers[index]).nextElementSibling;
-              document.getElementById(this.selectedAddOnTrackBillNumbers[index]).classList.toggle("act-long");
+              document.getElementById(this.selectedAddOnTrackBillNumbers[index]).classList.remove("act-long");
               panel.style.maxHeight = null;
             } catch (e) {
               console.log(e)
