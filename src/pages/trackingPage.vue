@@ -107,7 +107,7 @@ export default {
             this.isFound = true
             this.hasContainers = true
             this.isLoading = false
-          }, 1000)
+          }, 6000)
         } else {
           this.isLoading = true
           setTimeout(() => {
@@ -117,7 +117,7 @@ export default {
             this.isFound = true
             this.hasContainers = true
             this.isLoading = false
-          }, 1000)
+          }, 6000)
         }
       } catch (e) {
         this.isFound = false
@@ -188,11 +188,5 @@ export default {
 
 <style>
 @import "@/assets/style.css";
-
-.spinner {
-  margin-left: 20px;
-  margin-right: 70px;
-  margin-bottom: 200px;
-}
 
 </style>

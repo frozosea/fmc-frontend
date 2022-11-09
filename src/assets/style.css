@@ -1384,6 +1384,13 @@ html, body,#app {
     margin: 0 0 1rem 0;
 }
 
+.spinner {
+    margin-left: 20px;
+    margin-right: 70px;
+    margin-bottom: 200px;
+}
+
+
 /*body {*/
 /*    !* Margin bottom by footer height *!*/
 /*    margin-bottom: 60px;*/

@@ -28,6 +28,12 @@
                        @deleteFromTrack="deleteFromTracking($event)"
     />
   </CustomModal>
+  <div class="spinner" v-if="isLoading">
+    <SpinnerLoader
+        :active="isLoading"
+        class="spinner"
+    />
+  </div>
   <div class="not_found_numbers"
        v-if="isShowNumbersNotFound">
     Number(s) not
@@ -61,6 +67,7 @@ import CustomModal from "@/UI/CustomModal";
 import addOnTrackForm from "@/components/tracking/addOnTrackForm";
 import LoginForm from "@/components/user/loginForm";
 import registrationForm from "@/components/user/registrationForm";
+import SpinnerLoader from "@/UI/loading";
 import {utils} from "@/util";
 
 export default {
@@ -80,7 +87,8 @@ export default {
       searchQuery: "",
       isShowNumbersNotFound: this.checkNumbersExists(),
       isShowLogin: false,
-      isShowRemindPassword: false
+      isShowRemindPassword: false,
+      isLoading: false
     }
   },
   components: {
@@ -92,7 +100,8 @@ export default {
     shortDottedLine,
     CustomModal,
     addOnTrackForm,
-    registrationForm
+    registrationForm,
+    SpinnerLoader
   },
   methods: {
     updateSearchType(type) {
@@ -357,11 +366,16 @@ export default {
       this.isShowLogin = true
       return
     }
-    const allBillsContainer = this.$store.state.api.userApi.get()
-    this.billNumbers = allBillsContainer.billNumbers
-    this.containerNumbers = allBillsContainer.containers
-    this.numberType = "containers"
-    this.isShowNumbersNotFound = this.checkNumbersExists()
+    this.isLoading = true
+    //TODO remove set timeout
+    setTimeout(() => {
+      const allBillsContainer = this.$store.state.api.userApi.get()
+      this.billNumbers = allBillsContainer.billNumbers
+      this.containerNumbers = allBillsContainer.containers
+      this.numberType = "containers"
+      this.isShowNumbersNotFound = this.checkNumbersExists()
+      this.isLoading = false
+    }, 1000)
   }
 }
 </script>
