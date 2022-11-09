@@ -12,7 +12,7 @@
     <div class="row g-0">
       <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12 number">
         Tracking your cargo by number:
-<!--        {{ isContainer ? `Track by container` : `Track by bill number` }}-->
+        <!--        {{ isContainer ? `Track by container` : `Track by bill number` }}-->
       </div>
       <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
         <div class="action">
@@ -35,11 +35,12 @@
         @deleteFromTrack="deleteFromTracking($event)"
     />
   </CustomModal>
-
-  <SpinnerLoader
-      :active="isLoading"
-  />
-
+  <div class="spinner" v-if="isLoading">
+    <SpinnerLoader
+        :active="isLoading"
+        class="spinner"
+    />
+  </div>
   <div v-if="!isLoading && !hasContainers" class="not_found_numbers">Number(s) not found!</div>
   <base-container-or-bill-number :is-found="isFound"
                                  :tracking-response="trackingResult"
@@ -188,5 +189,10 @@ export default {
 <style>
 @import "@/assets/style.css";
 
+.spinner {
+  margin-left: 20px;
+  margin-right: 70px;
+  margin-bottom: 200px;
+}
 
 </style>
