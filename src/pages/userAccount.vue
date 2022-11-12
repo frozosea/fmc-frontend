@@ -221,7 +221,7 @@ export default {
       if (isContainer) {
         for (const item of this.containerNumbers) {
           if (item.number.toUpperCase() === number.toUpperCase()) {
-            this.containerNumbers.splice(this.containerNumbers.indexOf(item), 1)
+            this.containerNumbers.splice(this.containerNumbers.indexOf(item), 1);
           }
         }
       } else {
@@ -246,16 +246,23 @@ export default {
       return false
     },
     deleteNumbers() {
+      const api = this.$store.state.api
       if (this.numberType === `bills`) {
         if (this.searchType === `actual`) {
           for (const item of this.selectedBillNumbers) {
-            this.deleteNumberFromArray(item, false)
+            this.deleteNumberFromArray(item, false);
+            (async () => {
+              await api.userApi.deleteBills(this.selectedBillNumbers, this.$store.getters[`user/getAuthToken`])
+            })();
           }
         }
       } else {
         if (this.searchType === `actual`) {
           for (const item of this.selectedContainerNumbers) {
-            this.deleteNumberFromArray(item, true)
+            this.deleteNumberFromArray(item, true);
+            (async () => {
+              await api.userApi.deleteContainers(this.selectedContainerNumbers, this.$store.getters[`user/getAuthToken`])
+            })();
           }
           // this.containerNumbers.splice(this.containerNumbers.indexOf())
         }
@@ -368,7 +375,7 @@ export default {
     this.isLoading = true
     //TODO remove set timeout
     setTimeout(() => {
-      const allBillsContainer = this.$store.state.api.userApi.get()
+      const allBillsContainer = this.$store.state.api.userApi.get(this.$store.getters[`user/getAuthToken`])
       this.billNumbers = allBillsContainer.billNumbers
       this.containerNumbers = allBillsContainer.containers
       this.numberType = "containers"

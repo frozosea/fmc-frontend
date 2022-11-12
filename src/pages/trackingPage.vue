@@ -113,7 +113,7 @@ export default {
           this.isLoading = true
           //TODO remove set timeout
           setTimeout(async () => {
-            const result = await api.trackingApi.trackByBillNumber(this.number, this.scac)
+            const result = await api.trackingApi.trackByBillNumber(this.number.toUpperCase(), this.scac)
             this.number = result.number
             this.trackingResult = result
             this.isFound = true
@@ -126,7 +126,7 @@ export default {
       }
       try {
         if (this.$store.state.user.isAuth) {
-          const scheduleTrackingResult = await api.scheduleTrackingApi.getInfoAboutTracking(this.number)
+          const scheduleTrackingResult = await api.scheduleTrackingApi.getInfoAboutTracking(this.number,this.$store.getters[`user/getAuthToken`])
           this.scheduleTrackingInfo = scheduleTrackingResult
           this.isOnTrack = true
         } else {
@@ -172,12 +172,14 @@ export default {
       const api = this.$store.state.api
       try {
         if (this.isContainer) {
-          await api.scheduleTrackingApi.addContainersOnTracking([this.number])
+          await api.userApi.addContainers([this.number], this.$store.getters[`user/getAuthToken`])
+          await api.scheduleTrackingApi.addContainersOnTracking([this.number], this.$store.getters[`user/getAuthToken`])
         } else {
-          await api.scheduleTrackingApi.addBillsOnTrack([this.number])
+          await api.userApi.addBills([this.number], this.$store.getters[`user/getAuthToken`])
+          await api.scheduleTrackingApi.addBillsOnTrack([this.number], this.$store.getters[`user/getAuthToken`])
         }
         this.isOnTrack = true
-        this.scheduleTrackingInfo = await api.scheduleTrackingApi.getInfoAboutTracking(this.number)
+        this.scheduleTrackingInfo = await api.scheduleTrackingApi.getInfoAboutTracking(this.number, this.$store.getters[`user/getAuthToken`])
       } catch (e) {
         this.isOnTrack = false
         this.scheduleTrackingInfo = {}
