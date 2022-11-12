@@ -112,14 +112,12 @@ export default {
         } else {
           this.isLoading = true
           //TODO remove set timeout
-          setTimeout(async () => {
-            const result = await api.trackingApi.trackByBillNumber(this.number.toUpperCase(), this.scac)
-            this.number = result.number
-            this.trackingResult = result
-            this.isFound = true
-            this.hasContainers = true
-            this.isLoading = false
-          }, 6000)
+          const result = await api.trackingApi.trackByBillNumber(this.number.toUpperCase(), this.scac)
+          this.number = result.number
+          this.trackingResult = result
+          this.isFound = true
+          this.hasContainers = true
+          this.isLoading = false
         }
       } catch (e) {
         this.isFound = false

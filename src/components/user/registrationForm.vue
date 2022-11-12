@@ -112,17 +112,14 @@ export default {
       this.valid = true
       this.$refs.button.classList.replace("disabled-button", "button-menu")
     },
-    submitForm() {
+    async submitForm() {
       this.showLoading = true
       const api = this.$store.state.api.authApi
       try {
-        //TODO remove set timeout
-        setTimeout(async () => {
-          await api.register(this.email, this.username, this.password)
-          this.showLoading = false
-          this.showError = false
-          this.$emit(`show`, false)
-        }, 1000)
+        await api.register(this.email, this.username, this.password)
+        this.showLoading = false
+        this.showError = false
+        this.$emit(`show`, false)
       } catch (e) {
         this.error = "user with this username or email already exist!"
         this.showError = true

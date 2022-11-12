@@ -270,12 +270,16 @@ export default {
 
     },
     deleteFromTracking() {
+      const api = this.$store.state.api
       if (this.numberType === `containers`) {
         for (const item of this.selectedAddOnTrackContainerNumbers) {
           const index = this.findInArray(item, true)
           if (index !== -1) {
             this.containerNumbers[index].isOnTrack = false
-            this.containerNumbers[index].scheduleTrackingInfo = {}
+            this.containerNumbers[index].scheduleTrackingInfo = {};
+            (async () => {
+              await api.scheduleTrackingApi.deleteContainerFromTracking(this.selectedAddOnTrackContainerNumbers)
+            })()
             try {
               let panel = document.getElementById(this.selectedAddOnTrackContainerNumbers[index]).nextElementSibling;
               document.getElementById(this.selectedAddOnTrackContainerNumbers[index]).classList.remove("act-long");
@@ -290,7 +294,10 @@ export default {
           const index = this.findInArray(item, true)
           if (index !== -1) {
             this.billNumbers[index].isOnTrack = false
-            this.billNumbers[index].scheduleTrackingInfo = {}
+            this.billNumbers[index].scheduleTrackingInfo = {};
+            (async () => {
+              await api.scheduleTrackingApi.deleteBillNosFromTracking(this.selectedAddOnTrackContainerNumbers)
+            })()
             try {
               let panel = document.getElementById(this.selectedAddOnTrackBillNumbers[index]).nextElementSibling;
               document.getElementById(this.selectedAddOnTrackBillNumbers[index]).classList.remove("act-long");
@@ -374,14 +381,12 @@ export default {
     }
     this.isLoading = true
     //TODO remove set timeout
-    setTimeout(() => {
-      const allBillsContainer = this.$store.state.api.userApi.get(this.$store.getters[`user/getAuthToken`])
-      this.billNumbers = allBillsContainer.billNumbers
-      this.containerNumbers = allBillsContainer.containers
-      this.numberType = "containers"
-      this.isShowNumbersNotFound = this.checkNumbersExists()
-      this.isLoading = false
-    }, 1000)
+    const allBillsContainer = this.$store.state.api.userApi.get(this.$store.getters[`user/getAuthToken`])
+    this.billNumbers = allBillsContainer.billNumbers
+    this.containerNumbers = allBillsContainer.containers
+    this.numberType = "containers"
+    this.isShowNumbersNotFound = this.checkNumbersExists()
+    this.isLoading = false
   }
 }
 </script>

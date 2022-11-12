@@ -22,8 +22,7 @@ class BaseApiClass {
 
 export class AuthApi extends BaseApiClass {
     async login(email, password) {
-        const r = await fetch({
-            url: `${this.backendUrl}/login`,
+        const r = await fetch( `${this.backendUrl}/login`,{
             method: "POST",
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'
@@ -34,8 +33,7 @@ export class AuthApi extends BaseApiClass {
     }
 
     async register(email, username, password) {
-        const r = await fetch({
-            url: `${this.backendUrl}/register`,
+        const r = await fetch(`${this.backendUrl}/register`,{
             method: "POST",
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'
@@ -56,8 +54,7 @@ export class AuthApi extends BaseApiClass {
     }
 
     async refreshToken(refreshToken) {
-        const r = await fetch({
-            url: `${this.backendUrl}/refresh`,
+        const r = await fetch(`${this.backendUrl}/refresh`,{
             method: "POST",
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'
@@ -71,11 +68,7 @@ export class AuthApi extends BaseApiClass {
 
 export class TrackingApi extends BaseApiClass {
     async trackContainer(number, scac, accessToken) {
-        const url = new URL(`${this.backendUrl}/tracking/container`)
-        url.set("number", number)
-        url.set("scac", scac)
-        const r = await fetch({
-            url: url,
+        const r = await fetch(`${this.backendUrl}/tracking/container` + new URLSearchParams({number: number, scac: scac}).toString(),{
             method: "GET",
             headers: {"Authorization": `Bearer ${accessToken}`}
         })
@@ -134,11 +127,10 @@ export class TrackingApi extends BaseApiClass {
 
     async trackByBillNumber(number, scac, accessToken) {
         //TODO create track bill number method
-        const url = new URL(`${this.backendUrl}/tracking/billNumber`)
-        url.set("number", number)
-        url.set("scac", scac)
-        const r = await fetch({
-            url: url,
+        const r = await fetch(`${this.backendUrl}/tracking/billNumber` + new URLSearchParams({
+            number: number,
+            scac: scac
+        }).toString(), {
             method: "GET",
             headers: {"Authorization": `Bearer ${accessToken}`}
         })
@@ -177,8 +169,7 @@ export class TrackingApi extends BaseApiClass {
     }
 
     async getAllLines() {
-        const r = await fetch({
-            url: `${this.backendUrl}/tracking/allScac`,
+        const r = await fetch(`${this.backendUrl}/tracking/allScac`, {
             method: "GET",
 
             headers: {
@@ -192,8 +183,7 @@ export class TrackingApi extends BaseApiClass {
 
 export class ScheduleTrackingApi extends BaseApiClass {
     async deleteBillNosFromTracking(numbers, accessToken) {
-        const r = await fetch({
-            url: `${this.backendUrl}/schedule/billNumbers`,
+        const r = await fetch(`${this.backendUrl}/schedule/billNumbers`, {
             method: "DELETE",
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
@@ -205,8 +195,7 @@ export class ScheduleTrackingApi extends BaseApiClass {
     }
 
     async deleteContainerFromTracking(numbers, accessToken) {
-        const r = await fetch({
-            url: `${this.backendUrl}/schedule/containers`,
+        const r = await fetch(`${this.backendUrl}/schedule/containers`, {
             method: "DELETE",
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
@@ -218,8 +207,7 @@ export class ScheduleTrackingApi extends BaseApiClass {
     }
 
     async addContainersOnTracking(req, accessToken) {
-        const r = await fetch({
-            url: `${this.backendUrl}/schedule/containers`,
+        const r = await fetch(`${this.backendUrl}/schedule/containers`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
@@ -232,8 +220,7 @@ export class ScheduleTrackingApi extends BaseApiClass {
     }
 
     async addBillsOnTrack(req, accessToken) {
-        const r = await fetch({
-            url: `${this.backendUrl}/schedule/bills`,
+        const r = await fetch(`${this.backendUrl}/schedule/bills`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
@@ -247,10 +234,7 @@ export class ScheduleTrackingApi extends BaseApiClass {
     //TODO create update task func
 
     async getInfoAboutTracking(number, accessToken) {
-        const url = new URL(this.backendUrl)
-        url.set("number", number)
-        const r = await fetch({
-            url: url,
+        const r = await fetch(`${this.backendUrl}/schedule/info?number=${number}`, {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
@@ -261,8 +245,7 @@ export class ScheduleTrackingApi extends BaseApiClass {
     }
 
     async getTimeZone() {
-        const r = await fetch({
-            url: `${this.backendUrl}/schedule/timezone`,
+        const r = await fetch(`${this.backendUrl}/schedule/timezone`, {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'
@@ -272,8 +255,7 @@ export class ScheduleTrackingApi extends BaseApiClass {
     }
 
     async updateContainers(req, accessToken) {
-        const r = await fetch({
-            url: `${this.backendUrl}/schedule/containers`,
+        const r = await fetch(`${this.backendUrl}/schedule/containers`, {
             method: "PUT",
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
@@ -285,8 +267,8 @@ export class ScheduleTrackingApi extends BaseApiClass {
     }
 
     async updateBills(req, accessToken) {
-        const r = await fetch({
-            url: `${this.backendUrl}/schedule/bills`,
+        const r = await fetch(`${this.backendUrl}/schedule/bills`, {
+            // url: `${this.backendUrl}/schedule/bills`,
             method: "PUT",
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
@@ -301,8 +283,8 @@ export class ScheduleTrackingApi extends BaseApiClass {
 
 export class UserApi extends BaseApiClass {
     async feedback(email, message) {
-        const r = await fetch({
-            url: `${this.backendUrl}/user/feedback`,
+        const r = await fetch(`${this.backendUrl}/user/feedback`, {
+            // url: `${this.backendUrl}/user/feedback`,
             method: "POST",
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'
@@ -313,8 +295,8 @@ export class UserApi extends BaseApiClass {
     }
 
     async get(accessToken) {
-        const r = await fetch({
-            url: `${this.backendUrl}/user/all`,
+        const r = await fetch(`${this.backendUrl}/user/all`, {
+            // url: `${this.backendUrl}/user/all`,
             method: "GET",
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
@@ -446,8 +428,7 @@ export class UserApi extends BaseApiClass {
     }
 
     async addBills(numbers, accessToken) {
-        const r = await fetch({
-            url: `${this.backendUrl}/user/bills`,
+        const r = await fetch(`${this.backendUrl}/user/bills`,{
             method: "POST",
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
@@ -459,8 +440,7 @@ export class UserApi extends BaseApiClass {
     }
 
     async addContainers(numbers, accessToken) {
-        const r = await fetch({
-            url: `${this.backendUrl}/user/containers`,
+        const r = await fetch( `${this.backendUrl}/user/containers`,{
             method: "POST",
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
@@ -471,9 +451,8 @@ export class UserApi extends BaseApiClass {
         return await this.checkErrorAndReturnJson(r)
     }
 
-    async deleteContainers(numbers, accessToken){
-        const r = await fetch({
-            url: `${this.backendUrl}/user/containers`,
+    async deleteContainers(numbers, accessToken) {
+        const r = await fetch(`${this.backendUrl}/user/containers`,{
             method: "DELETE",
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
@@ -483,9 +462,9 @@ export class UserApi extends BaseApiClass {
         })
         return await this.checkErrorAndReturnJson(r)
     }
-    async deleteBills(numbers,accessToken){
-        const r = await fetch({
-            url: `${this.backendUrl}/user/bills`,
+
+    async deleteBills(numbers, accessToken) {
+        const r = await fetch(`${this.backendUrl}/user/bills`,{
             method: "DELETE",
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
