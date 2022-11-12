@@ -117,8 +117,8 @@ export default {
       const api = this.$store.state.api.authApi
       try {
         //TODO remove set timeout
-        setTimeout(() => {
-          api.register(this.email, this.username, this.password)
+        setTimeout(async () => {
+          await api.register(this.email, this.username, this.password)
           this.showLoading = false
           this.showError = false
           this.$emit(`show`, false)

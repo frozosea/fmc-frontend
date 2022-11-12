@@ -1,329 +1,499 @@
-export class AuthApi {
-    login(email, password) {
-        //TODO create login method
-        console.log(email, password)
-        return {
-            "refreshToken": "string",
-            "refreshTokenExpires": 0,
-            "token": "string",
-            "tokenExpires": 0,
-            "token_type": "string"
+import fetch from "cross-fetch";
+
+class BaseApiClass {
+    backendUrl;
+
+    constructor(backendUrl) {
+        if (!backendUrl) {
+            throw new Error("no backend url")
         }
+        this.backendUrl = backendUrl;
     }
 
-    register(email, username, password) {
-        //TODO create register method
-        console.log(email, username, password)
-        // throw new Error("example error if username or password is wrong")
+    async checkErrorAndReturnJson(r) {
+        const json = await r.json()
+        if (r.status > 205) {
+            throw new Error(`status code is: ${r.status} error: ${json.error}`)
+        }
+        return json
+    }
+}
+
+
+export class AuthApi extends BaseApiClass {
+    async login(email, password) {
+        const r = await fetch({
+            url: `${this.backendUrl}/login`,
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+            body: JSON.stringify({email: email, password: password})
+        })
+        return await this.checkErrorAndReturnJson(r)
     }
 
-    recovery(email) {
+    async register(email, username, password) {
+        const r = await fetch({
+            url: `${this.backendUrl}/register`,
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+            body: JSON.stringify({
+                "email": email,
+                "password": password,
+                "username": username
+            })
+        })
+        return await this.checkErrorAndReturnJson(r)
+
+    }
+
+    async recovery(email) {
         console.log(email)
         //TODO create recovery user method
     }
 
-    refreshToken() {
-        //TODO refresh token method
+    async refreshToken(refreshToken) {
+        const r = await fetch({
+            url: `${this.backendUrl}/refresh`,
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+            body: JSON.stringify({refreshToken: refreshToken})
+        })
+        return await this.checkErrorAndReturnJson(r)
+
     }
 }
 
-export class TrackingApi {
-    trackContainer(number, scac) {
-        console.log(number, scac)
-        return {
-            number: "MRKU6788432",
-            containerSize: "20HQ",
-            infoAboutMoving: [{
-                "time": "2022-20-20",
-                "operationName": "test opeartion",
-                "location": "nakhodka",
-                "vessel": ""
-            },
-                {
-                    "time": "2022-20-20",
-                    "operationName": "test opeartion",
-                    "location": "nakhodka",
-                    "vessel": ""
-                },
-                {
-                    "time": "2022-20-20",
-                    "operationName": "test opeartion",
-                    "location": "nakhodka",
-                    "vessel": ""
-                },
-                {
-                    "time": "2022-20-20",
-                    "operationName": "test opeartion",
-                    "location": "nakhodka",
-                    "vessel": ""
-                },{
-                    "time": "2022-20-20",
-                    "operationName": "test opeartion",
-                    "location": "nakhodka",
-                    "vessel": ""
-                },{
-                    "time": "2022-20-20",
-                    "operationName": "test opeartion",
-                    "location": "nakhodka",
-                    "vessel": ""
-                },{
-                    "time": "2022-20-20",
-                    "operationName": "test opeartion",
-                    "location": "nakhodka",
-                    "vessel": ""
-                }
-                ]
+export class TrackingApi extends BaseApiClass {
+    async trackContainer(number, scac, accessToken) {
+        const url = new URL(`${this.backendUrl}/tracking/container`)
+        url.set("number", number)
+        url.set("scac", scac)
+        const r = await fetch({
+            url: url,
+            method: "GET",
+            headers: {"Authorization": `Bearer ${accessToken}`}
+        })
+        const json = await r.json()
+        if (r.status >= 205) {
+            throw new Error(`status code is: ${r.status} error: ${json.error}`)
+        } else if (r.status === 204) {
+            throw new Error(`number not found`)
         }
-        //TODO create track container method
+        return json
+        // return {
+        //     number: "MRKU6788432",
+        //     containerSize: "20HQ",
+        //     infoAboutMoving: [{
+        //         "time": "2022-20-20",
+        //         "operationName": "test opeartion",
+        //         "location": "nakhodka",
+        //         "vessel": ""
+        //     },
+        //         {
+        //             "time": "2022-20-20",
+        //             "operationName": "test opeartion",
+        //             "location": "nakhodka",
+        //             "vessel": ""
+        //         },
+        //         {
+        //             "time": "2022-20-20",
+        //             "operationName": "test opeartion",
+        //             "location": "nakhodka",
+        //             "vessel": ""
+        //         },
+        //         {
+        //             "time": "2022-20-20",
+        //             "operationName": "test opeartion",
+        //             "location": "nakhodka",
+        //             "vessel": ""
+        //         }, {
+        //             "time": "2022-20-20",
+        //             "operationName": "test opeartion",
+        //             "location": "nakhodka",
+        //             "vessel": ""
+        //         }, {
+        //             "time": "2022-20-20",
+        //             "operationName": "test opeartion",
+        //             "location": "nakhodka",
+        //             "vessel": ""
+        //         }, {
+        //             "time": "2022-20-20",
+        //             "operationName": "test opeartion",
+        //             "location": "nakhodka",
+        //             "vessel": ""
+        //         }
+        //     ]
+        // }
     }
 
-    trackByBillNumber(number, scac) {
+    async trackByBillNumber(number, scac, accessToken) {
         //TODO create track bill number method
-
-        console.log(number, scac)
-        return {
-            number: "MRKU6788432",
-            containerSize: "20HQ",
-
-            infoAboutMoving: [{
-                "time": "2022-20-20",
-                "operationName": "test opeartion",
-                "location": "nakhodka",
-                "vessel": ""
-            },
-                {
-                    "time": "2022-20-20",
-                    "operationName": "test opeartion",
-                    "location": "nakhodka",
-                    "vessel": ""
-                },
-                {
-                    "time": "2022-20-20",
-                    "operationName": "test opeartion",
-                    "location": "nakhodka",
-                    "vessel": ""
-                }]
+        const url = new URL(`${this.backendUrl}/tracking/billNumber`)
+        url.set("number", number)
+        url.set("scac", scac)
+        const r = await fetch({
+            url: url,
+            method: "GET",
+            headers: {"Authorization": `Bearer ${accessToken}`}
+        })
+        const json = await r.json()
+        if (r.status >= 205) {
+            throw new Error(`status code is: ${r.status} error: ${json.error}`)
+        } else if (r.status === 204) {
+            throw new Error(`number not found`)
         }
+        return json
+        // console.log(number, scac)
+        // return {
+        //     number: "MRKU6788432",
+        //     containerSize: "20HQ",
+        //
+        //     infoAboutMoving: [{
+        //         "time": "2022-20-20",
+        //         "operationName": "test opeartion",
+        //         "location": "nakhodka",
+        //         "vessel": ""
+        //     },
+        //         {
+        //             "time": "2022-20-20",
+        //             "operationName": "test opeartion",
+        //             "location": "nakhodka",
+        //             "vessel": ""
+        //         },
+        //         {
+        //             "time": "2022-20-20",
+        //             "operationName": "test opeartion",
+        //             "location": "nakhodka",
+        //             "vessel": ""
+        //         }]
+        // }
 
     }
 
-    getAllLines() {
-        return [{scac: "FESO", fullName: "Fesco shipping line company"}, {
-            scac: "MAEU",
-            fullName: "Maersk co."
-        }]
+    async getAllLines() {
+        const r = await fetch({
+            url: `${this.backendUrl}/tracking/allScac`,
+            method: "GET",
+
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+        })
+        return await r.json()
     }
 }
 
 
-export class ScheduleTrackingApi {
-    addEmailOnTracking(number, emails) {
-        console.log(number, emails)
-        //TODO create add email on tracking method
+export class ScheduleTrackingApi extends BaseApiClass {
+    async deleteBillNosFromTracking(numbers, accessToken) {
+        const r = await fetch({
+            url: `${this.backendUrl}/schedule/billNumbers`,
+            method: "DELETE",
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8',
+                'Authorization': `Bearer ${accessToken}`
+            },
+            body: JSON.stringify(numbers)
+        })
+        return await this.checkErrorAndReturnJson(r)
     }
 
-    deleteBillNosFromTracking(numbers) {
-        console.log(numbers)
-        //TODO delete bill numbers from tracking method
+    async deleteContainerFromTracking(numbers, accessToken) {
+        const r = await fetch({
+            url: `${this.backendUrl}/schedule/containers`,
+            method: "DELETE",
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8',
+                'Authorization': `Bearer ${accessToken}`
+            },
+            body: JSON.stringify(numbers)
+        })
+        return await this.checkErrorAndReturnJson(r)
     }
 
-    addContainersOnTracking(numbers) {
-        console.log(numbers)
-        //TODO add containers on tracking method
-    }
-    addBillsOnTrack(numbers){
-        console.log(numbers)
-        //TODO add bill numbers on track method
-    }
-    deleteContainerFromTracking(numbers) {
-        console.log(numbers)
-        //TODO deleteContainerFromTracking
+    async addContainersOnTracking(req, accessToken) {
+        const r = await fetch({
+            url: `${this.backendUrl}/schedule/containers`,
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8',
+                'Authorization': `Bearer ${accessToken}`
+            },
+            body: JSON.stringify(req)
+        })
+        return await this.checkErrorAndReturnJson(r)
+
     }
 
-    deleteEmailsFromTrackingByNumber(number) {
-        console.log(number)
-        //TODO deleteEmailsFromTrackingByNumber
+    async addBillsOnTrack(req, accessToken) {
+        const r = await fetch({
+            url: `${this.backendUrl}/schedule/bills`,
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8',
+                'Authorization': `Bearer ${accessToken}`
+            },
+            body: JSON.stringify(req)
+        })
+        return await this.checkErrorAndReturnJson(r)
     }
 
-    changeEmailSubject(number) {
-        //TODO changeEmailSubject
-        console.log(number)
+    //TODO create update task func
+
+    async getInfoAboutTracking(number, accessToken) {
+        const url = new URL(this.backendUrl)
+        url.set("number", number)
+        const r = await fetch({
+            url: url,
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8',
+                'Authorization': `Bearer ${accessToken}`
+            },
+        })
+        return await this.checkErrorAndReturnJson(r)
     }
 
-    getInfoAboutTracking(number) {
-        //TODO getInfoAboutTracking
-        console.log(number)
-        return {
-            time: "15:00",
-            emails: [`3dteapot@gmail.com`, `subvenire@mail.com`, `logistic@ya.ru`],
-            subject: "боксы вмтп"
-        }
+    async getTimeZone() {
+        const r = await fetch({
+            url: `${this.backendUrl}/schedule/timezone`,
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+        })
+        return await this.checkErrorAndReturnJson(r)
     }
 
-    changeTimeOfTracking(numbers, newTime) {
-        console.log(numbers, newTime)
-        //TODO changeTimeOfTracking
+    async updateContainers(req, accessToken) {
+        const r = await fetch({
+            url: `${this.backendUrl}/schedule/containers`,
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8',
+                'Authorization': `Bearer ${accessToken}`
+            },
+            body: JSON.stringify(req)
+        })
+        return await this.checkErrorAndReturnJson(r)
     }
 
-    getTimeZone() {
-        //TODO getTimeZone
+    async updateBills(req, accessToken) {
+        const r = await fetch({
+            url: `${this.backendUrl}/schedule/bills`,
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8',
+                'Authorization': `Bearer ${accessToken}`
+            },
+            body: JSON.stringify(req)
+        })
+        return await this.checkErrorAndReturnJson(r)
     }
 }
 
 
-export class UserApi {
-    feedback(email, message) {
-        console.log(email, message)
-        //TODO implement feedback method in api
-    }
-
-    get() {
-        //TODO get bill and containers from user account
-
-        return {
-            containers: [{
-                number: "MRKU6782312",
-                isOnTrack: true,
-                isContainer: true,
-                scheduleTrackingInfo: {
-                    time: "4:20",
-                    emails: ["i20072004@gmail.com", "y20072004@gmail.com", "d20072004@gmail.com"],
-                    subject: "example subject"
-                }
+export class UserApi extends BaseApiClass {
+    async feedback(email, message) {
+        const r = await fetch({
+            url: `${this.backendUrl}/user/feedback`,
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
             },
-                {
-                    number: "CMDU1239876",
-                    isOnTrack: true,
-                    isContainer: true,
-                    scheduleTrackingInfo: {
-                        time: "4:20",
-                        emails: ["i20072004@gmail.com", "y20072004@gmail.com", "d20072004@gmail.com"],
-                        subject: "example subject"
-                    }
-                },
-                {
-                    number: "MAEU5672343",
-                    isOnTrack: true,
-                    isContainer: true,
-                    scheduleTrackingInfo: {
-                        time: "4:20",
-                        emails: ["i20072004@gmail.com", "y20072004@gmail.com", "d20072004@gmail.com"],
-                        subject: "example subject"
-                    }
-                },
-                {
-                    number: "MSKU7658790",
-                    isOnTrack: true,
-                    isContainer: true,
-                    scheduleTrackingInfo: {
-                        time: "4:20",
-                        emails: ["i20072004@gmail.com", "y20072004@gmail.com", "d20072004@gmail.com"],
-                        subject: "example subject"
-                    }
-                },
-                {
-                    number: "FESO2219273",
-                    isOnTrack: true,
-                    isContainer: true,
-                    scheduleTrackingInfo: {
-                        time: "4:20",
-                        emails: ["i20072004@gmail.com", "y20072004@gmail.com", "d20072004@gmail.com"],
-                        subject: "example subject"
-                    }
-                },
-                {
-                    number: "FESO2219271",
-                    isOnTrack: true,
-                    isContainer: true,
-                    scheduleTrackingInfo: {
-                        time: "4:20",
-                        emails: ["i20072004@gmail.com", "y20072004@gmail.com", "d20072004@gmail.com"],
-                        subject: "example subject"
-                    }
-                },
-                {
-                    number: "FESO2219270",
-                    isOnTrack: true,
-                    isContainer: true,
-                    scheduleTrackingInfo: {
-                        time: "4:20",
-                        emails: ["i20072004@gmail.com", "y20072004@gmail.com", "d20072004@gmail.com"],
-                        subject: "example subject"
-                    }
-                },
-                {
-                    number: "FESO2219272",
-                    isOnTrack: true,
-                    isContainer: true,
-                    scheduleTrackingInfo: {
-                        time: "4:20",
-                        emails: ["i20072004@gmail.com", "y20072004@gmail.com", "d20072004@gmail.com"],
-                        subject: "example subject"
-                    }
-                }],
-            billNumbers: [
-                {
-                    number: "ZHGO22222222",
-                    isOnTrack: true,
-                    isContainer: false,
-                    scheduleTrackingInfo: {
-                        time: "4:20",
-                        emails: ["i20072004@gmail.com", "y20072004@gmail.com", "d20072004@gmail.com"],
-                        subject: "example subject"
-                    }
-                },
-                {
-                    number: "MKRU1231231231",
-                    isOnTrack: false,
-                    isContainer: false,
-                    scheduleTrackingInfo: {}
-                },
-                {
-                    number: "FESO23123123",
-                    isOnTrack: true,
-                    isContainer: false,
-                    scheduleTrackingInfo: {
-                        time: "4:20",
-                        emails: ["i20072004@gmail.com", "y20072004@gmail.com", "d20072004@gmail.com"],
-                        subject: "example subject"
-                    }
-                },
-                {
-                    number: "CMDU23123123",
-                    isOnTrack: true,
-                    isContainer: false,
-                    scheduleTrackingInfo: {
-                        time: "4:20",
-                        emails: ["i20072004@gmail.com", "y20072004@gmail.com", "d20072004@gmail.com"],
-                        subject: "example subject"
-                    }
-                }
-            ]
-        }
+            body: JSON.stringify({email: email, message: message})
+        })
+        return await this.checkErrorAndReturnJson(r)
+    }
+
+    async get(accessToken) {
+        const r = await fetch({
+            url: `${this.backendUrl}/user/all`,
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8',
+                'Authorization': `Bearer ${accessToken}`
+            },
+        })
+        return await this.checkErrorAndReturnJson(r)
+        // return {
+        //     containers: [{
+        //         number: "MRKU6782312",
+        //         isOnTrack: true,
+        //         isContainer: true,
+        //         scheduleTrackingInfo: {
+        //             time: "4:20",
+        //             emails: ["i20072004@gmail.com", "y20072004@gmail.com", "d20072004@gmail.com"],
+        //             subject: "example subject"
+        //         }
+        //     },
+        //         {
+        //             number: "CMDU1239876",
+        //             isOnTrack: true,
+        //             isContainer: true,
+        //             scheduleTrackingInfo: {
+        //                 time: "4:20",
+        //                 emails: ["i20072004@gmail.com", "y20072004@gmail.com", "d20072004@gmail.com"],
+        //                 subject: "example subject"
+        //             }
+        //         },
+        //         {
+        //             number: "MAEU5672343",
+        //             isOnTrack: true,
+        //             isContainer: true,
+        //             scheduleTrackingInfo: {
+        //                 time: "4:20",
+        //                 emails: ["i20072004@gmail.com", "y20072004@gmail.com", "d20072004@gmail.com"],
+        //                 subject: "example subject"
+        //             }
+        //         },
+        //         {
+        //             number: "MSKU7658790",
+        //             isOnTrack: true,
+        //             isContainer: true,
+        //             scheduleTrackingInfo: {
+        //                 time: "4:20",
+        //                 emails: ["i20072004@gmail.com", "y20072004@gmail.com", "d20072004@gmail.com"],
+        //                 subject: "example subject"
+        //             }
+        //         },
+        //         {
+        //             number: "FESO2219273",
+        //             isOnTrack: true,
+        //             isContainer: true,
+        //             scheduleTrackingInfo: {
+        //                 time: "4:20",
+        //                 emails: ["i20072004@gmail.com", "y20072004@gmail.com", "d20072004@gmail.com"],
+        //                 subject: "example subject"
+        //             }
+        //         },
+        //         {
+        //             number: "FESO2219271",
+        //             isOnTrack: true,
+        //             isContainer: true,
+        //             scheduleTrackingInfo: {
+        //                 time: "4:20",
+        //                 emails: ["i20072004@gmail.com", "y20072004@gmail.com", "d20072004@gmail.com"],
+        //                 subject: "example subject"
+        //             }
+        //         },
+        //         {
+        //             number: "FESO2219270",
+        //             isOnTrack: true,
+        //             isContainer: true,
+        //             scheduleTrackingInfo: {
+        //                 time: "4:20",
+        //                 emails: ["i20072004@gmail.com", "y20072004@gmail.com", "d20072004@gmail.com"],
+        //                 subject: "example subject"
+        //             }
+        //         },
+        //         {
+        //             number: "FESO2219272",
+        //             isOnTrack: true,
+        //             isContainer: true,
+        //             scheduleTrackingInfo: {
+        //                 time: "4:20",
+        //                 emails: ["i20072004@gmail.com", "y20072004@gmail.com", "d20072004@gmail.com"],
+        //                 subject: "example subject"
+        //             }
+        //         }],
+        //     billNumbers: [
+        //         {
+        //             number: "ZHGO22222222",
+        //             isOnTrack: true,
+        //             isContainer: false,
+        //             scheduleTrackingInfo: {
+        //                 time: "4:20",
+        //                 emails: ["i20072004@gmail.com", "y20072004@gmail.com", "d20072004@gmail.com"],
+        //                 subject: "example subject"
+        //             }
+        //         },
+        //         {
+        //             number: "MKRU1231231231",
+        //             isOnTrack: false,
+        //             isContainer: false,
+        //             scheduleTrackingInfo: {}
+        //         },
+        //         {
+        //             number: "FESO23123123",
+        //             isOnTrack: true,
+        //             isContainer: false,
+        //             scheduleTrackingInfo: {
+        //                 time: "4:20",
+        //                 emails: ["i20072004@gmail.com", "y20072004@gmail.com", "d20072004@gmail.com"],
+        //                 subject: "example subject"
+        //             }
+        //         },
+        //         {
+        //             number: "CMDU23123123",
+        //             isOnTrack: true,
+        //             isContainer: false,
+        //             scheduleTrackingInfo: {
+        //                 time: "4:20",
+        //                 emails: ["i20072004@gmail.com", "y20072004@gmail.com", "d20072004@gmail.com"],
+        //                 subject: "example subject"
+        //             }
+        //         }
+        //     ]
+        // }
 
     }
 
-    getArchive() {
-        //TODO get archive of tracking from user account
+    async addBills(numbers, accessToken) {
+        const r = await fetch({
+            url: `${this.backendUrl}/user/bills`,
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8',
+                'Authorization': `Bearer ${accessToken}`
+            },
+            body: JSON.stringify(numbers)
+        })
+        return await this.checkErrorAndReturnJson(r)
+    }
 
-        return {
-            containers: [{
-                number: "FESO2213945",
-                scheduleTrackingInfo: {
-                    time: "4:20",
-                    emails: ["i20072004@gmail.com", "y20072004@gmail.com", "d20072004@gmail.com"],
-                    subject: "example subject"
-                }
-            }],
-            billNumbers: [{
-                number: "MSCU2312312321321",
-                scheduleTrackingInfo: {
-                    time: "4:20",
-                    emails: ["i20072004@gmail.com", "y20072004@gmail.com", "d20072004@gmail.com"],
-                    subject: "example subject"
-                }
-            }]
-        }
+    async addContainers(numbers, accessToken) {
+        const r = await fetch({
+            url: `${this.backendUrl}/user/containers`,
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8',
+                'Authorization': `Bearer ${accessToken}`
+            },
+            body: JSON.stringify(numbers)
+        })
+        return await this.checkErrorAndReturnJson(r)
+    }
+
+    async deleteContainers(numbers, accessToken){
+        const r = await fetch({
+            url: `${this.backendUrl}/user/containers`,
+            method: "DELETE",
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8',
+                'Authorization': `Bearer ${accessToken}`
+            },
+            body: JSON.stringify(numbers)
+        })
+        return await this.checkErrorAndReturnJson(r)
+    }
+    async deleteBills(numbers,accessToken){
+        const r = await fetch({
+            url: `${this.backendUrl}/user/bills`,
+            method: "DELETE",
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8',
+                'Authorization': `Bearer ${accessToken}`
+            },
+            body: JSON.stringify(numbers)
+        })
+        return await this.checkErrorAndReturnJson(r)
     }
 }
 

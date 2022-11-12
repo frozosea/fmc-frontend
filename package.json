@@ -10,6 +10,7 @@
   "dependencies": {
     "@saeris/vue-spinners": "^1.0.8",
     "core-js": "^3.8.3",
+    "cross-fetch": "^3.1.5",
     "vue": "^3.2.13",
     "vue-meta": "^2.4.0",
     "vue-router": "^4.1.5",

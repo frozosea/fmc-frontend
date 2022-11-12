@@ -90,7 +90,7 @@ export default {
   },
   computed: {},
   methods: {
-    trackByNumber(isContainer, num, scac) {
+    async trackByNumber(isContainer, num, scac) {
       this.isContainer = isContainer
       this.number = num
       this.scac = scac
@@ -101,8 +101,8 @@ export default {
         if (this.isContainer) {
           this.isLoading = true
           //TODO remove set timeout
-          setTimeout(() => {
-            const result = api.trackingApi.trackContainer(this.number.toUpperCase(), this.scac)
+          setTimeout(async () => {
+            const result = await api.trackingApi.trackContainer(this.number.toUpperCase(), this.scac)
             this.number = result.number
             this.trackingResult = result
             this.isFound = true
@@ -112,8 +112,8 @@ export default {
         } else {
           this.isLoading = true
           //TODO remove set timeout
-          setTimeout(() => {
-            const result = api.trackingApi.trackByBillNumber(this.number, this.scac)
+          setTimeout(async () => {
+            const result = await api.trackingApi.trackByBillNumber(this.number, this.scac)
             this.number = result.number
             this.trackingResult = result
             this.isFound = true
@@ -126,7 +126,7 @@ export default {
       }
       try {
         if (this.$store.state.user.isAuth) {
-          const scheduleTrackingResult = api.scheduleTrackingApi.getInfoAboutTracking(this.number)
+          const scheduleTrackingResult = await api.scheduleTrackingApi.getInfoAboutTracking(this.number)
           this.scheduleTrackingInfo = scheduleTrackingResult
           this.isOnTrack = true
         } else {
@@ -168,16 +168,16 @@ export default {
       this.scheduleTrackingInfo = null
       this.addTrackingVisible = false
     },
-    addOnTrack() {
+    async addOnTrack() {
       const api = this.$store.state.api
       try {
         if (this.isContainer) {
-          api.scheduleTrackingApi.addContainersOnTracking([this.number])
+          await api.scheduleTrackingApi.addContainersOnTracking([this.number])
         } else {
-          api.scheduleTrackingApi.addBillsOnTrack([this.number])
+          await api.scheduleTrackingApi.addBillsOnTrack([this.number])
         }
         this.isOnTrack = true
-        this.scheduleTrackingInfo = api.scheduleTrackingApi.getInfoAboutTracking(this.number)
+        this.scheduleTrackingInfo = await api.scheduleTrackingApi.getInfoAboutTracking(this.number)
       } catch (e) {
         this.isOnTrack = false
         this.scheduleTrackingInfo = {}

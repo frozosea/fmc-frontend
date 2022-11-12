@@ -57,17 +57,28 @@ export default {
       try {
         this.showLoading = true
         //TODO remove set timeout
-        setTimeout(() => {
-          const data = api.login(this.email, this.password)
-          this.$store.commit(`user/setAuthToken`, data.token)
-          this.$store.commit(`user/setRefreshToken`, data.refreshToken)
-          this.$store.commit(`user/setEmail`, this.email)
-          this.showLoading = false
-          this.showError = false
-          this.$store.commit(`user/setIsAuth`, true)
-          this.$emit(`show`, false)
+        setTimeout(async () => {
+          try {
+            const data = await api.login(this.email, this.password)
+            this.$store.commit(`user/setAuthToken`, data.token)
+            this.$store.commit(`user/setRefreshToken`, data.refreshToken)
+            this.$store.commit(`user/setEmail`, this.email)
+            this.showLoading = false
+            this.showError = false
+            this.$store.commit(`user/setIsAuth`, true)
+            this.$emit(`show`, false)
+          } catch (e) {
+            this.showLoading = false
+            // console.log(e)
+            this.error = "user was not found!"
+            this.showError = true
+            this.showLoading = false
+            this.$store.commit(`user/setIsAuth`, false)
+          }
         }, 1000)
       } catch (e) {
+        console.log(e)
+        this.showLoading = false
         // console.log(e)
         this.error = "user was not found!"
         this.showError = true
