@@ -16,6 +16,14 @@ export default {
     // NavBar,
     FmcHeader,
     FmcFooter
+  },
+  metaInfo: {
+    title: 'My Example App',
+    titleTemplate: '%s - Yay!',
+    htmlAttrs: {
+      lang: 'en',
+      amp: true
+    }
   }
 }
 </script>

@@ -1,7 +1,7 @@
 @charset "utf-8";
 /* CSS Document by Find my cargo */
 /*-------------------------------------------------------------------------*/
-html, body,#app {
+html, body, #app {
     max-width: 100%;
     overflow-x: hidden;
     font-family: MyriadPro-LightSemiExt;
@@ -1390,32 +1390,13 @@ html, body,#app {
     margin-bottom: 200px;
 }
 
-
-/*body {*/
-/*    !* Margin bottom by footer height *!*/
-/*    margin-bottom: 60px;*/
-/*}*/
-/*.footer {*/
-/*    position: absolute;*/
-/*    bottom: 0;*/
-/*    width: 100%;*/
-/*    !* Set the fixed height of the footer here *!*/
-/*    height: 60px;*/
-/*    line-height: 60px; !* Vertically center the text there *!*/
-/*    background-color: #f5f5f5;*/
-/*}*/
+.spinner_in_center_of_modal {
+    position: absolute;
+    top: 45%;
+    left: 45%;
+    margin-right: -45%;
+    transform: translate(-50%, -45%)
+}
 
 
-/*!* Custom page CSS*/
-/*-------------------------------------------------- *!*/
-/*!* Not required for template or sticky footer method. *!*/
-
-/*body > .container {*/
-/*    padding: 60px 15px 0;*/
-/*}*/
-
-/*.footer > .container {*/
-/*    padding-right: 15px;*/
-/*    padding-left: 15px;*/
-/*}*/
 

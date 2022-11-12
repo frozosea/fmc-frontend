@@ -140,6 +140,7 @@ export default {
     },
     deleteFromTrack() {
       this.$emit(`deleteFromTrack`, this.numberList)
+      this.$emit(`show`, false)
       //TODO create delete from tracking func
     }
     //TODO fix numbers with css

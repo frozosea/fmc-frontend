@@ -17,7 +17,7 @@
       <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
         <div class="action">
           <img src="@/assets/images/plus.svg" width="14">
-          <button class="title-7 borderless_button" @click="setAddTrackingVisible">&nbsp;Add tracking</button>
+          <button class="title-7 borderless_button" @click="setAddTrackingVisible">&nbsp;Schedule tracking</button>
           <img src="@/assets/images/delete.svg" width="14" class="pad-action">
           <button class="title-6 borderless_button" @click="deleteNumbersFromList">&nbsp;Remove</button>
         </div>
@@ -100,6 +100,7 @@ export default {
       try {
         if (this.isContainer) {
           this.isLoading = true
+          //TODO remove set timeout
           setTimeout(() => {
             const result = api.trackingApi.trackContainer(this.number.toUpperCase(), this.scac)
             this.number = result.number
@@ -110,6 +111,7 @@ export default {
           }, 6000)
         } else {
           this.isLoading = true
+          //TODO remove set timeout
           setTimeout(() => {
             const result = api.trackingApi.trackByBillNumber(this.number, this.scac)
             this.number = result.number

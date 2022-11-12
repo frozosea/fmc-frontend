@@ -11,30 +11,39 @@
             <button class="close borderless_button" @click="hideByButton">×</button>
           </div>
         </div>
+        <SpinnerLoader
+            :active="showLoading"
+            class="spinner_in_center_of_modal"
+        />
+        <div v-if="!showLoading">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <input type="text" class="input-css-grey input-modal" placeholder="Your E-mail" @input="handleEmail">
+            <input type="text" class="input-css-grey input-modal" placeholder="Create username"
+                   @input="username = $event.target.value">
+            <input type="password" class="input-css-grey input-modal" placeholder="Create password"
+                   @input="handlePasswordInput">
+            <input type="password" class="input-css-grey input-modal-end" placeholder="Password again"
+                   @input="handleRepeatedPasswordInput">
+          </div>
 
-        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-          <input type="text" class="input-css-grey input-modal" placeholder="Your E-mail" @input="handleEmail">
-          <input type="text" class="input-css-grey input-modal" placeholder="Create username"
-                 @input="username = $event.target.value">
-          <input type="password" class="input-css-grey input-modal" placeholder="Create password"
-                 @input="handlePasswordInput">
-          <input type="password" class="input-css-grey input-modal-end" placeholder="Password again"
-                 @input="handleRepeatedPasswordInput">
+          <div class="row g-0">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <div style="color: red; margin-left: auto; margin-top: auto" v-if="showError">{{ errorMessage }}</div>
+              <button type="submit" class="button-menu" :disabled="!valid" ref="button">Register</button>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-    <div class="row g-0">
-      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <div style="color: red; margin-left: auto; margin-top: auto" v-if="showError">{{ errorMessage }}</div>
-        <button type="submit" class="button-menu" :disabled="!valid" ref="button">Register</button>
       </div>
     </div>
   </form>
 </template>
 
 <script>
+import SpinnerLoader from "@/UI/loading"
+
 export default {
   name: "registrationForm",
+  components: {SpinnerLoader},
   data() {
     return {
       email: "",
@@ -44,6 +53,7 @@ export default {
       valid: true,
       showError: false,
       errorMessage: "",
+      showLoading: false
     }
   },
   methods: {
@@ -103,13 +113,16 @@ export default {
       this.$refs.button.classList.replace("disabled-button", "button-menu")
     },
     submitForm() {
+      this.showLoading = true
       const api = this.$store.state.api.authApi
       try {
-        this.showLoading = true
-        api.register(this.email, this.username, this.password)
-        this.showLoading = false
-        this.showError = false
-        this.$emit(`show`, false)
+        //TODO remove set timeout
+        setTimeout(() => {
+          api.register(this.email, this.username, this.password)
+          this.showLoading = false
+          this.showError = false
+          this.$emit(`show`, false)
+        }, 1000)
       } catch (e) {
         this.error = "user with this username or email already exist!"
         this.showError = true

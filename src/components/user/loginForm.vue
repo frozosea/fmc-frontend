@@ -11,51 +11,62 @@
             <button class="close borderless_button" @click="hideByButton">×</button>
           </div>
         </div>
+        <SpinnerLoader
+            :active="showLoading"
+            class="spinner_in_center_of_modal"
+        />
+        <div v-if="!showLoading">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <input type="email" class="input-css-grey input-modal" placeholder="E-mail"
+                   @input="email = $event.target.value">
+            <input type="password" class="input-css-grey input-modal-end" placeholder="*************"
+                   @input="password = $event.target.value">
+          </div>
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div v-if="showError" style="color: red"> {{ error }}</div>
+            <button type="submit" class="button-menu" :disabled="showLoading" ref="button">log in</button>
+            <button type="button" class="button-menu-line password-pad" @click="setShowRemindForm"
+                    :disabled="showLoading">Remind password
+            </button>
+          </div>
+        </div>
 
-        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-          <input type="email" class="input-css-grey input-modal" placeholder="E-mail"
-                 @input="email = $event.target.value">
-          <input type="password" class="input-css-grey input-modal-end" placeholder="*************"
-                 @input="password = $event.target.value">
-        </div>
-        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-          <div v-if="showError" style="color: red"> {{ error }}</div>
-          <button type="submit" class="button-menu" :disabled="showLoading" ref="button">log in</button>
-          <button type="button" class="button-menu-line password-pad" @click="setShowRemindForm"
-                  :disabled="showLoading">Remind password
-          </button>
-        </div>
       </div>
     </div>
   </form>
 </template>
 
 <script>
+import SpinnerLoader from "@/UI/loading";
 
 export default {
   name: "loginForm",
+  components: {SpinnerLoader},
   data() {
     return {
       email: "i20072004@gmail.com",
       password: "",
       showLoading: false,
       error: "",
-      showError: false
+      showError: false,
     }
   },
   methods: {
-    submitForm() {
+    async submitForm() {
       const api = this.$store.state.api.authApi
       try {
         this.showLoading = true
-        const data = api.login(this.email, this.password)
-        this.$store.commit(`user/setAuthToken`, data.token)
-        this.$store.commit(`user/setRefreshToken`, data.refreshToken)
-        this.$store.commit(`user/setEmail`, this.email)
-        this.showLoading = false
-        this.showError = false
-        this.$store.commit(`user/setIsAuth`, true)
-        this.$emit(`show`, false)
+        //TODO remove set timeout
+        setTimeout(() => {
+          const data = api.login(this.email, this.password)
+          this.$store.commit(`user/setAuthToken`, data.token)
+          this.$store.commit(`user/setRefreshToken`, data.refreshToken)
+          this.$store.commit(`user/setEmail`, this.email)
+          this.showLoading = false
+          this.showError = false
+          this.$store.commit(`user/setIsAuth`, true)
+          this.$emit(`show`, false)
+        }, 1000)
       } catch (e) {
         // console.log(e)
         this.error = "user was not found!"
@@ -99,5 +110,5 @@ export default {
 </script>
 
 <style scoped>
-
+@import "@/assets/style.css";
 </style>

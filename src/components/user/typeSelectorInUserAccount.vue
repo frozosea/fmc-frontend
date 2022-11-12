@@ -9,18 +9,18 @@
 
       <div class="col-xl-2 col-lg-3 col-md-3 col-sm-12 col-xs-12 order-md-1 order-2">
         <div class="action container flex-test-wrap">
-          <button class="title-7 borderless_button" @click="setAddTrackingVisible">
+          <button class="title-7 borderless_button flex-test" @click="setAddTrackingVisible">
             <img src="@/assets/images/plus.svg" width="14">
-            <span>&nbsp;Add tracking</span>
+            <span>&nbsp;Schedule tracking</span>
           </button>
-          <button class="title-6 borderless_button" @click="deleteNumbers">
+          <button class="title-6 borderless_button flex-test" @click="deleteNumbers">
             <img src="@/assets/images/delete.svg" width="14" class="pad-action">
             <span>&nbsp;Remove</span>
           </button>
-          <button class="title-6 borderless_button flex-test" @click="deleteNumbersFromTracking">
-            <img src="@/assets/images/delete.svg" width="14" class="pad-action">
-            <span>&nbsp;Remove from tracking</span>
-          </button>
+<!--          <button class="title-6 borderless_button flex-test" @click="deleteNumbersFromTracking">-->
+<!--            <img src="@/assets/images/delete.svg" width="14" class="pad-action">-->
+<!--            <span>&nbsp;Remove from tracking</span>-->
+<!--          </button>-->
         </div>
       </div>
 
@@ -53,9 +53,9 @@ export default {
     setAddTrackingVisible() {
       this.$emit("addOnTrackVisible", true)
     },
-    deleteNumbersFromTracking() {
-      this.$emit(`deleteNumbersFromTracking`, true)
-    }
+    // deleteNumbersFromTracking() {
+    //   this.$emit(`deleteNumbersFromTracking`, true)
+    // }
   }
 }
 </script>

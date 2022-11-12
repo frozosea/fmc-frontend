@@ -6,7 +6,6 @@
                                  @updateNumberType="updateNumberType($event)"
                                  @addOnTrackVisible="addTrackingVisible = $event"
                                  @deleteNumbers="deleteNumbers"
-                                 @deleteNumbersFromTracking="deleteFromTrackingNotInModal"
   />
   <CustomModal v-model:show="addTrackingVisible">
     <add-on-track-form v-if="numberType === `containers`"
