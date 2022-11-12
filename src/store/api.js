@@ -1,12 +1,12 @@
 import Api, {AuthApi, ScheduleTrackingApi, TrackingApi, UserApi} from "@/api";
-
+import * as config from "@/config.json";
 export default {
     state: {
-        authApi: new AuthApi(process.env.backendUrl),
-        trackingApi: new TrackingApi(process.env.backendUrl),
-        scheduleTrackingApi: new ScheduleTrackingApi(process.env.backendUrl),
-        userApi: new UserApi(process.env.backendUrl),
-        api: new Api(new AuthApi(process.env.backendUrl), new TrackingApi(process.env.backendUrl), new ScheduleTrackingApi(process.env.backendUrl), new UserApi(process.env.backendUrl))
+        authApi: new AuthApi(config.backendUrl),
+        trackingApi: new TrackingApi(config.backendUrl),
+        scheduleTrackingApi: new ScheduleTrackingApi(config.backendUrl),
+        userApi: new UserApi(config.backendUrl),
+        api: new Api(new AuthApi(config.backendUrl), new TrackingApi(config.backendUrl), new ScheduleTrackingApi(config.backendUrl), new UserApi(config.backendUrl))
     },
 
 }
