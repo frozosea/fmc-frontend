@@ -70,6 +70,7 @@ export default {
         this.showError = false
         this.errorMessage = ""
         this.enableButton()
+        this.email = email
       }
 
     },
