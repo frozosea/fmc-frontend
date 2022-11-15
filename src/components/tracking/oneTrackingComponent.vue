@@ -1,8 +1,8 @@
 <template>
   <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12">
     <div class="container-font path-font article">
-      <span class="item"><strong class="bold">{{ name }}</strong>: {{ variable }}</span>
-      <span class="dots"></span>
+      <span class=""><strong class="bold">{{ name }}</strong>: {{ variable }}</span>
+<!--      <span class="dots"></span>-->
     </div>
   </div>
 </template>

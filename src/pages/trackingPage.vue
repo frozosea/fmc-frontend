@@ -5,7 +5,8 @@
       @submitTrack="trackByNumber"
       @changeNumber="number = $event"
       @changeScac="scac = $event"
-      :scac="this.$store.state.api.trackingApi.getAllLines()"
+      :container-scac="containerScac"
+      :bill-scac="billScac"
   />
   <short-dotted-line/>
   <div class="container g-3 actions-pad">
@@ -82,11 +83,15 @@ export default {
       addTrackingVisible: false,
       numbers: [],
       scheduleTrackingInfo: {},
-      scac: ""
+      scac: "AUTO",
+      containerScac: [],
+      billScac: []
     }
   },
-  mounted() {
-    console.log(this.$store.state.api)
+  async mounted() {
+    console.log(await this.$store.state.api.trackingApi.getContainerLines())
+    this.containerScac = await this.$store.state.api.trackingApi.getContainerLines()
+    this.billScac = await this.$store.state.api.trackingApi.getBillLines()
   },
   computed: {},
   methods: {
@@ -95,24 +100,28 @@ export default {
       this.number = num
       this.scac = scac
       this.isLoading = true
-      // console.log(this.isLoading)
       const api = this.$store.state.api
       try {
         if (this.isContainer) {
           this.isLoading = true
-          //TODO remove set timeout
-          setTimeout(async () => {
-            const result = await api.trackingApi.trackContainer(this.number.toUpperCase(), this.scac)
-            this.number = result.number
-            this.trackingResult = result
-            this.isFound = true
-            this.hasContainers = true
-            this.isLoading = false
-          }, 6000)
+          const result = await api.trackingApi.trackContainer(this.number.toUpperCase(), this.scac === "" ? "AUTO" : this.scac)
+          for (let item of result.infoAboutMoving) {
+            item.time = this.$store.getters["utils/getTime"].humanizeTime(item.time)
+          }
+          this.number = result.number
+          this.trackingResult = result
+          this.isFound = true
+          this.hasContainers = true
+          this.isLoading = false
+
         } else {
           this.isLoading = true
-          //TODO remove set timeout
-          const result = await api.trackingApi.trackByBillNumber(this.number.toUpperCase(), this.scac)
+          const result = await api.trackingApi.trackByBillNumber(this.number.toUpperCase(), this.scac === "" ? "AUTO" : this.scac)
+          for (let item of result.infoAboutMoving) {
+            item.time = this.$store.getters["utils/getTime"].humanizeTime(item.time)
+          }
+          // console.log(result.eta)
+          result.eta = this.$store.getters["utils/getTime"].humanizeTime(result.eta)
           this.number = result.number
           this.trackingResult = result
           this.isFound = true
@@ -121,10 +130,12 @@ export default {
         }
       } catch (e) {
         this.isFound = false
+        this.isLoading = false
+        this.hasContainers = false
       }
       try {
         if (this.$store.state.user.isAuth) {
-          const scheduleTrackingResult = await api.scheduleTrackingApi.getInfoAboutTracking(this.number,this.$store.getters[`user/getAuthToken`])
+          const scheduleTrackingResult = await api.scheduleTrackingApi.getInfoAboutTracking(this.number, this.$store.getters[`user/getAuthToken`])
           this.scheduleTrackingInfo = scheduleTrackingResult
           this.isOnTrack = true
         } else {
