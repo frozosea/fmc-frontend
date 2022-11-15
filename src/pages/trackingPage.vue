@@ -13,12 +13,11 @@
     <div class="row g-0">
       <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12 number">
         Tracking your cargo by number:
-        <!--        {{ isContainer ? `Track by container` : `Track by bill number` }}-->
       </div>
       <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
         <div class="action">
           <img src="@/assets/images/plus.svg" width="14">
-          <button class="title-7 borderless_button" @click="setAddTrackingVisible">&nbsp;Schedule tracking</button>
+          <button class="title-7 borderless_button" @click="setAddTrackingVisible" :disabled="!this.$store.getters[`user/getIsAuth`]">&nbsp;Schedule tracking</button>
           <img src="@/assets/images/delete.svg" width="14" class="pad-action">
           <button class="title-6 borderless_button" @click="deleteNumbersFromList">&nbsp;Remove</button>
         </div>
@@ -148,6 +147,7 @@ export default {
     changeNumToSelectedList(number, value) {
       const index = this.numbers.indexOf(number)
       if (value) {
+        console.log(value)
         if (index === -1) {
           this.numbers.push(number)
         }
@@ -187,8 +187,15 @@ export default {
           await api.userApi.addBills([this.number], this.$store.getters[`user/getAuthToken`])
           await api.scheduleTrackingApi.addBillsOnTrack([this.number], this.$store.getters[`user/getAuthToken`])
         }
-        this.isOnTrack = true
-        this.scheduleTrackingInfo = await api.scheduleTrackingApi.getInfoAboutTracking(this.number, this.$store.getters[`user/getAuthToken`])
+      } catch (e) {
+        this.isOnTrack = false
+        this.scheduleTrackingInfo = {}
+      }
+      try {
+        if (this.$store.getters["user/getIsAuth"]) {
+          this.isOnTrack = true
+          this.scheduleTrackingInfo = await api.scheduleTrackingApi.getInfoAboutTracking(this.number, this.$store.getters[`user/getAuthToken`])
+        }
       } catch (e) {
         this.isOnTrack = false
         this.scheduleTrackingInfo = {}

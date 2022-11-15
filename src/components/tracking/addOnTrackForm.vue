@@ -14,13 +14,13 @@
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <input type="text" class="input-css-grey input-modal" placeholder="E-mail for mailings / separated by commas"
                @input="handleEmails"
-               :value="scheduleTrackingObject ? scheduleTrackingObject.emails.join(`,`) : ``">
+               :value="Object.keys(scheduleTrackingObject).length !== 0 ? scheduleTrackingObject.emails.join(`,`) : ``">
         <input type="text" class="input-css-grey input-modal" placeholder="Subject name"
                @input="subject = $event.target.value"
-               :value="scheduleTrackingObject ? scheduleTrackingObject.subject : ``">
+               :value="Object.keys(scheduleTrackingObject).length !== 0 ? scheduleTrackingObject.subject : ``">
         <input type="text" class="input-css-grey input-modal" placeholder="Time (in format 01:44)"
                @input="handleTime"
-               :value="scheduleTrackingObject? scheduleTrackingObject.time : ``"
+               :value="Object.keys(scheduleTrackingObject).length !== 0 ? scheduleTrackingObject.time : ``"
         >
       </div>
     </div>
