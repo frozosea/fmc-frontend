@@ -3,7 +3,7 @@ import trackingPage from "@/pages/trackingPage";
 import companyPage from "@/pages/companyPage";
 import {createRouter, createWebHistory} from "vue-router";
 import FreightPage from "@/pages/freight";
-
+import RecoveryUserPage from "@/pages/recoveryUserPage"
 
 export const routes = [
     {
@@ -25,6 +25,10 @@ export const routes = [
     {
         path: `/freight`,
         component: FreightPage
+    },
+    {
+        path: `/recovery`,
+        component: RecoveryUserPage
     }
 ]
 

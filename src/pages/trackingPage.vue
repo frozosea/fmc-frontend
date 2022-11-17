@@ -17,7 +17,9 @@
       <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
         <div class="action">
           <img src="@/assets/images/plus.svg" width="14">
-          <button class="title-7 borderless_button" @click="setAddTrackingVisible" :disabled="!this.$store.getters[`user/getIsAuth`]">&nbsp;Schedule tracking</button>
+          <button class="title-7 borderless_button" @click="setAddTrackingVisible"
+                  :disabled="!this.$store.getters[`user/getIsAuth`]">&nbsp;Schedule tracking
+          </button>
           <img src="@/assets/images/delete.svg" width="14" class="pad-action">
           <button class="title-6 borderless_button" @click="deleteNumbersFromList">&nbsp;Remove</button>
         </div>
@@ -88,7 +90,6 @@ export default {
     }
   },
   async mounted() {
-    console.log(await this.$store.state.api.trackingApi.getContainerLines())
     this.containerScac = await this.$store.state.api.trackingApi.getContainerLines()
     this.billScac = await this.$store.state.api.trackingApi.getBillLines()
   },
@@ -181,10 +182,18 @@ export default {
       const api = this.$store.state.api
       try {
         if (this.isContainer) {
-          await api.userApi.addContainers([this.number], this.$store.getters[`user/getAuthToken`])
+          try {
+            await api.userApi.addContainers([this.number], this.$store.getters[`user/getAuthToken`])
+          } catch (e) {
+            console.log()
+          }
           await api.scheduleTrackingApi.addContainersOnTracking([this.number], this.$store.getters[`user/getAuthToken`])
         } else {
-          await api.userApi.addBills([this.number], this.$store.getters[`user/getAuthToken`])
+          try {
+            await api.userApi.addBills([this.number], this.$store.getters[`user/getAuthToken`])
+          } catch (e) {
+            console.log()
+          }
           await api.scheduleTrackingApi.addBillsOnTrack([this.number], this.$store.getters[`user/getAuthToken`])
         }
       } catch (e) {

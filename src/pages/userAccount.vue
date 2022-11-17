@@ -16,6 +16,7 @@
                        @show="addTrackingVisible=false"
                        @submitForm="changeNumberSignature($event)"
                        @deleteFromTrack="deleteFromTracking($event)"
+                       :schedule-tracking-object="{}"
     />
     <add-on-track-form v-if="numberType === `bills`"
                        :numberList="toBaseNumbers(false)"
@@ -25,6 +26,7 @@
                        @show="addTrackingVisible = $event"
                        @submitForm="changeNumberSignature($event)"
                        @deleteFromTrack="deleteFromTracking($event)"
+                       :schedule-tracking-object="{}"
     />
   </CustomModal>
   <div class="spinner" v-if="isLoading">
@@ -38,7 +40,8 @@
     Number(s) not
     found!
   </div>
-  <containers-or-bills-list :numbers=" numberType === `containers` ? filterContainerNumbers : filterBillNumbers"
+  <containers-or-bills-list v-if="!isShowNumbersNotFound"
+                            :numbers=" numberType === `containers` ? filterContainerNumbers : filterBillNumbers"
                             @addToSelectedNumbers="numberType === `containers` ? selectContainer($event) : selectBill($event)"
                             @unselectToSelectedNumbers="numberType === `containers` ? unselectContainerNumbers($event) : unselectBillNumbers($event)"
   />
@@ -382,10 +385,12 @@ export default {
     this.isLoading = true
     //TODO remove set timeout
     const allBillsContainer = this.$store.state.api.userApi.get(this.$store.getters[`user/getAuthToken`])
+    if (!allBillsContainer.containers) {
+      this.isShowNumbersNotFound = true
+    }
     this.billNumbers = allBillsContainer.billNumbers
     this.containerNumbers = allBillsContainer.containers
     this.numberType = "containers"
-    this.isShowNumbersNotFound = this.checkNumbersExists()
     this.isLoading = false
   }
 }

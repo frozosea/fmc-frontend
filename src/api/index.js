@@ -48,9 +48,15 @@ export class AuthApi extends BaseApiClass {
 
     }
 
-    async recovery(email) {
-        console.log(email)
-        //TODO create recovery user method
+    async remindPassword(email) {
+        const r = await fetch(`${this.backendUrl}/auth/remind`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+            body: JSON.stringify({email: email})
+        })
+        return await this.checkErrorAndReturnJson(r)
     }
 
     async refreshToken(refreshToken) {
@@ -63,6 +69,17 @@ export class AuthApi extends BaseApiClass {
         })
         return await this.checkErrorAndReturnJson(r)
 
+    }
+
+    async recoveryPassword(token, password) {
+        const r = await fetch(`${this.backendUrl}/auth/reset`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+            body: JSON.stringify({token: token, password: password})
+        })
+        return await this.checkErrorAndReturnJson(r)
     }
 }
 
@@ -299,6 +316,7 @@ export class UserApi extends BaseApiClass {
             // url: `${this.backendUrl}/user/feedback`,
             method: "POST",
             headers: {
+                'Accept': 'encoding/json',
                 'Content-Type': 'application/json;charset=utf-8'
             },
             body: JSON.stringify({email: email, message: message})

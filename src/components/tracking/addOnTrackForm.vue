@@ -14,7 +14,7 @@
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <input type="text" class="input-css-grey input-modal" placeholder="E-mail for mailings / separated by commas"
                @input="handleEmails"
-               :value="Object.keys(scheduleTrackingObject).length !== 0 ? scheduleTrackingObject.emails.join(`,`) : ``">
+               :value="scheduleTrackingObject ? Object.keys(scheduleTrackingObject).length !== 0 ? scheduleTrackingObject.emails.join(`,`) : `` : ``">
         <input type="text" class="input-css-grey input-modal" placeholder="Subject name"
                @input="subject = $event.target.value"
                :value="Object.keys(scheduleTrackingObject).length !== 0 ? scheduleTrackingObject.subject : ``">
