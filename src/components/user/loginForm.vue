@@ -11,10 +11,12 @@
             <button class="close borderless_button" @click="hideByButton">×</button>
           </div>
         </div>
-        <SpinnerLoader
-            :active="showLoading"
-            class="spinner_in_center_of_modal"
-        />
+        <div v-if="showLoading">
+          <SpinnerLoader
+              :active="showLoading"
+              class="spinner_in_center_of_modal"
+          />
+        </div>
         <div v-if="!showLoading">
           <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <input type="email" class="input-css-grey input-modal" placeholder="E-mail"
@@ -69,13 +71,16 @@ export default {
         this.$store.commit(`user/setIsAuth`, true)
         this.$emit(`show`, false)
       } catch (e) {
-        console.log(e)
         this.showLoading = false
         // console.log(e)
         this.error = "user was not found!"
         this.showError = true
         this.showLoading = false
         this.$store.commit(`user/setIsAuth`, false)
+        console.log(this.$store.getters[`user/getIsAuth`]);
+        this.$store.commit(`user/setAuthToken`, "")
+        this.$store.commit(`user/setRefreshToken`, "")
+        this.$store.commit(`user/setEmail`, "")
       }
       // this.$store.state.isAuth = true
       // this.$emit(`close`, false)

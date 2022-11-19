@@ -6,6 +6,7 @@
                                        :number="item.number"
                                        :is-container="item.isContainer"
                                        @selectCheckBox="$event ? selectNumber(item.number) : unSelectNumber(item.number)"
+                                       @removeFromTracking="this.$emit(`removeFromTracking`,$event)"
     />
   </div>
 

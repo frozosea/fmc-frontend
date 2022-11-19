@@ -32,6 +32,7 @@
                  class="svg-exit img-hover">
           </button>
         </div>
+
         <div class="login" v-if="!this.$store.getters[`user/getIsAuth`]">
           <img src="@/assets/images/exit.svg" class="svg-enter"
                @click="this.$store.commit(`user/logout`); this.$router.push(`/`)">
@@ -138,7 +139,10 @@ export default {
 
     }
   },
-  computed: mapMutations(["user/logout"])
+  computed: mapMutations(["user/logout"]),
+  mounted() {
+    console.log(this.$store.getters[`user/getIsAuth`]);
+  }
 
 }
 </script>

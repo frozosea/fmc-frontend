@@ -44,6 +44,7 @@
                             :numbers=" numberType === `containers` ? filterContainerNumbers : filterBillNumbers"
                             @addToSelectedNumbers="numberType === `containers` ? selectContainer($event) : selectBill($event)"
                             @unselectToSelectedNumbers="numberType === `containers` ? unselectContainerNumbers($event) : unselectBillNumbers($event)"
+                            @removeFromTracking="removeFromTrackingOneNumber"
   />
   <CustomModal v-model:show="isShowLogin" @update:show="isShowLogin = $event; this.$router.push(`/`)">
     <login-form @close="isShowLogin = $event; this.$router.push(`/`)"
@@ -346,6 +347,15 @@ export default {
     },
     ShowNumbersNotFound(value) {
       this.isShowNumbersNotFound = value
+    },
+    removeFromTrackingOneNumber(event) {
+      if (this.numberType === `containers`) {
+        this.selectedAddOnTrackContainerNumbers.push(event);
+        this.deleteFromTracking()
+      } else {
+        this.selectedAddOnTrackBillNumbers.push(event)
+        this.deleteFromTracking()
+      }
     }
 
   },
@@ -377,14 +387,13 @@ export default {
     //   return null
     // }
   },
-  mounted() {
+  async mounted() {
     if (!this.$store.state.user.isAuth) {
       this.isShowLogin = true
       return
     }
     this.isLoading = true
-    //TODO remove set timeout
-    const allBillsContainer = this.$store.state.api.userApi.get(this.$store.getters[`user/getAuthToken`])
+    const allBillsContainer = await this.$store.state.api.userApi.get(this.$store.getters[`user/getAuthToken`])
     if (!allBillsContainer.containers) {
       this.isShowNumbersNotFound = true
     }

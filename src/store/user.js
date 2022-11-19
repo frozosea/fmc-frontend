@@ -1,19 +1,27 @@
 import createPersistedState from "vuex-persistedstate";
-// import {createStore} from "vuex";
 
 const getItem = (state, item) => {
-    try {
-        const fromLocal = localStorage.getItem(item)
-        console.log(fromLocal)
-        if (fromLocal !== null) {
-            state[item] = fromLocal
-            return state[item]
-        } else {
-            throw new Error();
-        }
-    } catch (e) {
+    const fromLocal = localStorage.getItem(item)
+    if (fromLocal !== state[item] && fromLocal !== null) {
+        console.log(fromLocal, state[item])
+        state[item] = fromLocal
+        return fromLocal
+    } else {
         return state[item]
     }
+    // try {
+    //     const fromLocal = localStorage.getItem(item)
+    //     console.log(fromLocal, fromLocal !== null)
+    //     if (fromLocal !== state[item] && fromLocal !== null) {
+    //         state[item] = fromLocal
+    //         return state[item]
+    //     } else {
+    //         throw new Error();
+    //     }
+    // } catch (e) {
+    //     console.log(state[item])
+    //     return state[item]
+    // }
 }
 
 
@@ -67,11 +75,11 @@ export default {
         getEmail(state) {
             return getItem(state, "email")
         },
-        getAuthToken(state){
-            return getItem(state,"authToken")
+        getAuthToken(state) {
+            return getItem(state, "authToken")
         },
-        getRefreshToken(state){
-            return getItem(state,"refreshToken")
+        getRefreshToken(state) {
+            return getItem(state, "refreshToken")
         }
     },
     plugins: [createPersistedState({

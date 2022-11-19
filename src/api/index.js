@@ -145,7 +145,6 @@ export class TrackingApi extends BaseApiClass {
     }
 
     async trackByBillNumber(number, scac) {
-        //TODO create track bill number method
         const r = await fetch(`${this.backendUrl}/tracking/bill?number=${number}&scac=${scac}`,
             {
                 method: "GET",
@@ -259,8 +258,6 @@ export class ScheduleTrackingApi extends BaseApiClass {
         })
         return await this.checkErrorAndReturnJson(r)
     }
-
-    //TODO create update task func
 
     async getInfoAboutTracking(number, accessToken) {
         const r = await fetch(`${this.backendUrl}/schedule/info?number=${number}`, {
