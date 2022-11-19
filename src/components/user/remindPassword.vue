@@ -21,6 +21,8 @@
 
     <div class="row g-0">
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div v-if="showError" style="color: red"> {{ error }}</div>
+        <div v-if="showSuccessMessage"> Recovery user message was send to your email! </div>
         <button type="submit" class="button-menu">Remind password</button>
       </div>
     </div>
@@ -33,15 +35,26 @@ export default {
   data() {
     return {
       email: "",
-      showLoading: false
+      showLoading: false,
+      showError: false,
+      error: "",
+      showSuccessMessage: false
     }
   },
   props: {
     show: Boolean
   },
   methods: {
-    submitForm() {
-      //TODO submit login form
+    async submitForm() {
+      this.showLoading = true
+      const api = this.$store.state.api.authApi
+      try {
+        await api.remindPassword(this.email)
+      } catch (e) {
+        this.showLoading = false
+        this.error = "user with this email doesn't exists"
+        this.showError = true
+      }
     },
     handleModal() {
       let panel = this.$refs.form.nextElementSibling;

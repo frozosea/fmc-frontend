@@ -78,6 +78,7 @@
             @show="isShowRegister = $event"
         />
       </CustomModal>
+
       <CustomModal v-model:show="isShowLogin">
         <login-form @show="isShowLogin = $event"
                     @showRemindPassword="isShowRemindPassword = $event; isShowLogin=false"
