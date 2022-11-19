@@ -31,7 +31,7 @@
     <add-on-track-form
         :number-list="[this.number]"
         :schedule-tracking-object="scheduleTrackingInfo"
-        @submitForm="addOnTrack"
+        @submitForm="addOnTrack($event)"
         @changeNumbers="deleteNumberFromListAddOnTrackList($event)"
         @show="addTrackingVisible = $event"
         @deleteFromTrack="deleteFromTracking($event)"
@@ -178,38 +178,39 @@ export default {
       this.scheduleTrackingInfo = null
       this.addTrackingVisible = false
     },
-    async addOnTrack() {
+    async addOnTrack(e) {
       const api = this.$store.state.api
-      try {
-        if (this.isContainer) {
-          try {
-            await api.userApi.addContainers([this.number], this.$store.getters[`user/getAuthToken`])
-          } catch (e) {
-            console.log()
-          }
+      if (this.isContainer) {
+        try {
+          await api.userApi.addContainers([this.number], this.$store.getters[`user/getAuthToken`])
+        } catch (e) {
+          this.isOnTrack = false
+          this.scheduleTrackingInfo = {}
+        }
+        try {
           await api.scheduleTrackingApi.addContainersOnTracking([this.number], this.$store.getters[`user/getAuthToken`])
-        } else {
-          try {
-            await api.userApi.addBills([this.number], this.$store.getters[`user/getAuthToken`])
-          } catch (e) {
-            console.log()
-          }
-          await api.scheduleTrackingApi.addBillsOnTrack([this.number], this.$store.getters[`user/getAuthToken`])
-        }
-      } catch (e) {
-        this.isOnTrack = false
-        this.scheduleTrackingInfo = {}
-      }
-      try {
-        if (this.$store.getters["user/getIsAuth"]) {
           this.isOnTrack = true
-          this.scheduleTrackingInfo = await api.scheduleTrackingApi.getInfoAboutTracking(this.number, this.$store.getters[`user/getAuthToken`])
+          this.scheduleTrackingInfo = e
+        } catch (e) {
+          this.isOnTrack = false
+          this.scheduleTrackingInfo = {}
         }
-      } catch (e) {
-        this.isOnTrack = false
-        this.scheduleTrackingInfo = {}
+
+      } else {
+        try {
+          await api.userApi.addBills([this.number], this.$store.getters[`user/getAuthToken`])
+        } catch (e) {
+          console.log()
+        }
+        try {
+          await api.scheduleTrackingApi.addBillsOnTrack([this.number], this.$store.getters[`user/getAuthToken`])
+          this.isOnTrack = true
+          this.scheduleTrackingInfo = e
+        } catch (e) {
+          this.isOnTrack = false
+          this.scheduleTrackingInfo = {}
+        }
       }
-      //TODO add on track in tracking page modal
     }
   }
 }
