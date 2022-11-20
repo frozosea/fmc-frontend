@@ -17,11 +17,11 @@
                :value="scheduleTrackingObject ? Object.keys(scheduleTrackingObject).length !== 0 ? scheduleTrackingObject.emails.join(`,`) : `` : ``">
         <input type="text" class="input-css-grey input-modal" placeholder="Subject name"
                @input="subject = $event.target.value"
-               :value="Object.keys(scheduleTrackingObject).length !== 0 ? scheduleTrackingObject.subject : ``">
+               :value="scheduleTrackingObject ? Object.keys(scheduleTrackingObject).length !== 0 ? scheduleTrackingObject.subject : `` : ``">
         <input type="text" class="input-css-grey input-modal"
                :placeholder="timePlaceholder"
                @input="handleTime"
-               :value="Object.keys(scheduleTrackingObject).length !== 0 ? scheduleTrackingObject.time : ``"
+               :value="scheduleTrackingObject ? Object.keys(scheduleTrackingObject).length !== 0 ? scheduleTrackingObject.time : ``: ``"
         >
       </div>
     </div>
@@ -94,12 +94,18 @@ export default {
       //TODO email validator
       const value = ev.target.value
       let emails = value.replace(/\s/g, '').split(",");
+      console.log(emails)
+      console.log(this.emails)
       // const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      if (this.scheduleTrackingObject) {
-        this.emails = emails
-      } else {
-        this.emails += emails
-      }
+      // console.log(emails)
+      // if (this.scheduleTrackingObject) {
+      //   this.emails = [...emails]
+      // } else {
+      //   console.log(emails)
+      this.emails = emails
+      //   console.log(this.emails)
+      // }
+      console.log(this.emails)
       // for (let i = 0; i < emails.length; i++) {
       //   if (emails[i] == "" || !regex.test(emails[i])) {
       //     this.valid = false;
