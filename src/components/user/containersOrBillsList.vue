@@ -1,4 +1,9 @@
 <template>
+  <div class="not_found_numbers"
+       v-if="!numbers.length">
+    Number(s) not
+    found!
+  </div>
   <div v-if="numbers.length">
     <container-or-bill-in-user-account v-for="item in numbers" :key="item.number"
                                        :isOnTrack="item.isOnTrack"
@@ -7,6 +12,7 @@
                                        :is-container="item.isContainer"
                                        @selectCheckBox="$event ? selectNumber(item.number) : unSelectNumber(item.number)"
                                        @removeFromTracking="this.$emit(`removeFromTracking`,$event)"
+                                       @updateScheduleTrackingInfo="item.scheduleTrackingInfo = $event"
     />
   </div>
 

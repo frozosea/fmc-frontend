@@ -26,6 +26,7 @@
                                   :number="number"
                                   :schedule-tracking-object="scheduleTrackingInfo"
                                   @showModal="showModal"
+                                  :disabled="!this.$store.getters[`user/getIsAuth`]"
 
               />
 

@@ -29,7 +29,7 @@
   </div>
   <CustomModal v-model:show="addTrackingVisible">
     <add-on-track-form
-        :number-list="[this.number]"
+        :number-list="this.number !== `` ? [this.number] : []"
         :schedule-tracking-object="scheduleTrackingInfo"
         @submitForm="addOnTrack($event)"
         @changeNumbers="deleteNumberFromListAddOnTrackList($event)"

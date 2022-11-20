@@ -528,3 +528,4 @@ export default class Api {
         this._userApi = userApi;
     }
 }
+

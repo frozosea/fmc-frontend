@@ -35,11 +35,6 @@
         class="spinner"
     />
   </div>
-  <div class="not_found_numbers"
-       v-if="isShowNumbersNotFound">
-    Number(s) not
-    found!
-  </div>
   <containers-or-bills-list v-if="!isShowNumbersNotFound"
                             :numbers=" numberType === `containers` ? filterContainerNumbers : filterBillNumbers"
                             @addToSelectedNumbers="numberType === `containers` ? selectContainer($event) : selectBill($event)"
@@ -206,21 +201,6 @@ export default {
         }
       }
     },
-    // selectArchiveContainer(number) {
-    //   this.isShowNumbersNotFound = this.checkNumbersExists()
-    //   this.archive.containerNumbers.push(number)
-    // },
-    // unselectArchiveContainerNumbers(number) {
-    //   this.isShowNumbersNotFound = this.checkNumbersExists()
-    //   this.archive.containerNumbers = this.archive.containerNumbers.filter(n => n.number !== number);
-    // },
-    // selectArchiveBill(number) {
-    //   this.isShowNumbersNotFound = this.checkNumbersExists()
-    //   this.archive.billNumbers.push(number)
-    // },
-    // unselectArchiveBillNumbers(number) {
-    //   this.archive.billNumbers = this.archive.billNumbers.filter(n => n.number !== number);
-    // },
     deleteNumberFromArray(number, isContainer) {
       if (isContainer) {
         for (const item of this.containerNumbers) {
@@ -334,8 +314,8 @@ export default {
       for (const num of obj.numbers) {
         if (this.numberType === `containers`) {
           const index = this.findInArray(num, true)
-          this.containerNumbers[index].scheduleTrackingInfo = {time: obj.time, subject: obj.subject, emails: obj.emails}
           this.containerNumbers[index].isOnTrack = true
+          this.containerNumbers[index].scheduleTrackingInfo = {time: obj.time, subject: obj.subject, emails: obj.emails}
         }
         if (this.numberType === `bills`) {
           const index = this.findInArray(num, false)
@@ -361,31 +341,15 @@ export default {
   },
   computed: {
     filterContainerNumbers() {
+      if (this.searchQuery === "") return this.containerNumbers
       const nums = utils.findInUserAccountBySearchQuery(this.containerNumbers, this.searchQuery);
-      if (!nums.length) {
-        this.ShowNumbersNotFound(true)
-        // this.isShowNumbersNotFound = true
-        return nums
-      }
-      this.ShowNumbersNotFound(false)
+      // this.ShowNumbersNotFound(false)
       return nums
     },
     filterBillNumbers() {
       return utils.findInUserAccountBySearchQuery(this.billNumbers, this.searchQuery)
 
     }
-    // filterNumbers() {
-    //   if (this.searchType === `actual ` && this.numberType === `bills`) {
-    //     return this.billNumbers.filter(b => b.number.toLowerCase().includes(this.searchType.toLowerCase()))
-    //   } else if (this.searchType === `archive ` && this.numberType === `bills`) {
-    //     return this.archive.billNumbers.filter(b => b.number.toLowerCase().includes(this.searchType.toLowerCase()))
-    //   } else if (this.searchType === `actual` && this.numberType === `container`) {
-    //     return this.containerNumbers.filter(b => b.number.toLowerCase().includes(this.searchType.toLowerCase()))
-    //   } else if (this.searchType === `archive` && this.numberType === `container`) {
-    //     return this.archive.containerNumbers.filter(b => b.number.toLowerCase().includes(this.searchType.toLowerCase()))
-    //   }
-    //   return null
-    // }
   },
   async mounted() {
     if (!this.$store.state.user.isAuth) {

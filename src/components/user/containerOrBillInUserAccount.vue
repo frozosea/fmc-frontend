@@ -1,15 +1,18 @@
 <template>
   <CustomModal v-model:show="addTrackingVisible">
-    <AddOnTrackForm :schedule-tracking-object="scheduleTrackingInfo" @show="addTrackingVisible = $event"
+    <AddOnTrackForm :schedule-tracking-object="scheduleTrackingInfo"
+                    @show="addTrackingVisible = $event"
                     @close="addTrackingVisible = false" :number-list="[number]"
-                    @deleteFromTrack="deleteFromTracking($event)"/>
+                    @deleteFromTrack="deleteFromTracking($event)"
+                    @submitForm="updateScheduleTrackingInfo($event)"
+    />
   </CustomModal>
   <div class="container g-3">
     <div class="row g-0">
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" :ref="`b_${this.number}`">
         <button :class="isOnTrack ? `accordion` : `accordion back-accordion`" @click="onClick" ref="button"
                 :id="this.number"
-                :disabled="!isOnTrack">
+                >
           <div class="container g-3">
             <div class="row g-0">
               <container-picture :is-on-track="isOnTrack" :is-container="isContainer"/>
@@ -19,8 +22,12 @@
                   :is-in-account="true"
               />
               <tracking-latest-move :empty="true"/>
-              <binaculars-picture :schedule-tracking-object="scheduleTrackingInfo" :is-on-track="isOnTrack"
-                                  :number="number" :is-found="true" @showModal="addTrackingVisible = $event"/>
+              <binaculars-picture :schedule-tracking-object="scheduleTrackingInfo"
+                                  :is-on-track="isOnTrack"
+                                  :number="number"
+                                  :is-found="true"
+                                  @showModal="addTrackingVisible = $event"
+                                  :disabled="false"/>
 
               <CustomCheckBox class-name="col-xl-1 col-lg-1 col-md-12 col-sm-12 col-xs-12"
                               :change-func="selectCheckBox"/>
@@ -82,16 +89,21 @@ export default {
       this.$emit('selectCheckBox', this.isSelectCheckBox)
     },
     onClick() {
-      let panel = this.$refs[`b_${this.number}`].firstChild.nextElementSibling;
-      this.$refs[`b_${this.number}`].firstChild.classList.toggle("act-long");
-      if (panel.style.maxHeight) {
-        panel.style.maxHeight = null;
-      } else {
-        panel.style.maxHeight = panel.scrollHeight + "px";
+      if (this.isOnTrack) {
+        let panel = this.$refs[`b_${this.number}`].firstChild.nextElementSibling;
+        this.$refs[`b_${this.number}`].firstChild.classList.toggle("act-long");
+        if (panel.style.maxHeight) {
+          panel.style.maxHeight = null;
+        } else {
+          panel.style.maxHeight = panel.scrollHeight + "px";
+        }
       }
     },
-    deleteFromTracking(){
-      this.$emit(`removeFromTracking`,this.number)
+    deleteFromTracking() {
+      this.$emit(`removeFromTracking`, this.number)
+    },
+    updateScheduleTrackingInfo(e) {
+      this.$emit(`updateScheduleTrackingInfo`, e)
     }
   }
 }

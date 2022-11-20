@@ -2,7 +2,7 @@
   <div class="container g-0">
     <div class="row g-0">
       <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-xs-12">
-        <div class="title-8 input-modal-title">Add tracking</div>
+        <div class="title-8 input-modal-title">Schedule tracking</div>
       </div>
 
       <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-12">
@@ -18,7 +18,8 @@
         <input type="text" class="input-css-grey input-modal" placeholder="Subject name"
                @input="subject = $event.target.value"
                :value="Object.keys(scheduleTrackingObject).length !== 0 ? scheduleTrackingObject.subject : ``">
-        <input type="text" class="input-css-grey input-modal" placeholder="Time (in format 01:44)"
+        <input type="text" class="input-css-grey input-modal"
+               :placeholder="timePlaceholder"
                @input="handleTime"
                :value="Object.keys(scheduleTrackingObject).length !== 0 ? scheduleTrackingObject.time : ``"
         >
@@ -54,11 +55,13 @@ export default {
   data() {
     return {
       valid: true,
-      subject: "",
-      emails: [],
-      time: "",
+      subject: this.scheduleTrackingObject ? this.scheduleTrackingObject.subject : "",
+      emails: this.scheduleTrackingObject ? this.scheduleTrackingObject.emails : [],
+      time: this.scheduleTrackingObject ? this.scheduleTrackingObject.time : "",
       error: "",
-      showError: false
+      showError: false,
+      timeZone: "",
+      timePlaceholder: "Time in format 01:44"
     }
   },
   props: {
@@ -92,8 +95,11 @@ export default {
       const value = ev.target.value
       let emails = value.replace(/\s/g, '').split(",");
       // const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      this.emails += emails
-
+      if (this.scheduleTrackingObject) {
+        this.emails = emails
+      } else {
+        this.emails += emails
+      }
       // for (let i = 0; i < emails.length; i++) {
       //   if (emails[i] == "" || !regex.test(emails[i])) {
       //     this.valid = false;
@@ -142,15 +148,19 @@ export default {
       this.$emit(`deleteFromTrack`, this.numberList)
       this.$emit(`show`, false)
       //TODO create delete from tracking func
-    }
+    },
     //TODO fix numbers with css
   },
-  mounted() {
+  async mounted() {
     if (this.numberList.length === 0) {
       this.disableButton()
       this.error = "add container or bill numbers!"
       this.showError = true
     }
+    const api = this.$store.state.api
+    const raw = await api.scheduleTrackingApi.getTimeZone()
+    this.timeZone = raw.timeZone
+    this.timePlaceholder += `, timezone is ${this.timeZone}`
   }
 }
 </script>
