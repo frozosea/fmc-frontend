@@ -94,8 +94,6 @@ export default {
       //TODO email validator
       const value = ev.target.value
       let emails = value.replace(/\s/g, '').split(",");
-      console.log(emails)
-      console.log(this.emails)
       // const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       // console.log(emails)
       // if (this.scheduleTrackingObject) {
@@ -105,7 +103,6 @@ export default {
       this.emails = emails
       //   console.log(this.emails)
       // }
-      console.log(this.emails)
       // for (let i = 0; i < emails.length; i++) {
       //   if (emails[i] == "" || !regex.test(emails[i])) {
       //     this.valid = false;

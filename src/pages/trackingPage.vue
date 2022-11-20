@@ -54,6 +54,7 @@
                                  v-if="hasContainers"
                                  :schedule-tracking-info="scheduleTrackingInfo"
                                  :number="trackingResult.number"
+                                 id="result"
   />
 </template>
 
@@ -173,10 +174,13 @@ export default {
       this.isFound = false;
       this.hasContainers = false
     },
-    deleteFromTracking() {
+    async deleteFromTracking() {
       this.isOnTrack = false
       this.scheduleTrackingInfo = null
       this.addTrackingVisible = false
+      const api = this.$store.state.api
+      await api.scheduleTrackingApi.deleteContainerFromTracking([this.number],this.$store.getters["user/getIsAuth"])
+      document.getElementById("result").click()
     },
     async addOnTrack(e) {
       const api = this.$store.state.api
@@ -191,6 +195,7 @@ export default {
           await api.scheduleTrackingApi.addContainersOnTracking([this.number], this.$store.getters[`user/getAuthToken`])
           this.isOnTrack = true
           this.scheduleTrackingInfo = e
+          document.getElementById("result").click()
         } catch (e) {
           this.isOnTrack = false
           this.scheduleTrackingInfo = {}
@@ -206,6 +211,7 @@ export default {
           await api.scheduleTrackingApi.addBillsOnTrack([this.number], this.$store.getters[`user/getAuthToken`])
           this.isOnTrack = true
           this.scheduleTrackingInfo = e
+          document.getElementById("result").click()
         } catch (e) {
           this.isOnTrack = false
           this.scheduleTrackingInfo = {}
