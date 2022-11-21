@@ -2,8 +2,8 @@
   <div class="col-xl-1 col-lg-1 col-md-12 col-sm-12 col-xs-12">
     <div class="container-tracking" v-if="isFound">
       <button class="borderless_button" @click="handleModal(true)" :disabled="disabled">
-        <img src="@/assets/images/binoculars.svg" class="svg-binoculars img-hover" v-if="isOnTrack"/>
-        <img src="@/assets/images/binoculars-grey.svg" class="svg-binoculars" v-if="!isOnTrack"/>
+        <img src="@/assets/images/binoculars.svg" class="svg-binoculars img-hover" v-if="!showGrey"/>
+        <img src="@/assets/images/binoculars-grey.svg" class="svg-binoculars" v-if="showGrey"/>
       </button>
     </div>
   </div>
@@ -26,7 +26,8 @@ export default {
       required: false
     },
     number: String,
-    disabled: Boolean
+    disabled: Boolean,
+    showGrey: Boolean
   }
 }
 </script>

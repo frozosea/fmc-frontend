@@ -22,11 +22,13 @@
               <!--              />-->
               <tracking-latest-move :is-found="isFound" :tracking-response="trackingResponse" v-if="!isLoading"/>
 
-              <binaculars-picture :is-found="isFound" v-if="!isLoading"
+              <binaculars-picture :is-found="isFound"
+                                  v-if="!isLoading"
                                   :number="number"
                                   :schedule-tracking-object="scheduleTrackingInfo"
                                   @showModal="showModal"
                                   :disabled="!this.$store.getters[`user/getIsAuth`]"
+                                  :show-grey="!this.$store.getters[`user/getIsAuth`]"
 
               />
 
