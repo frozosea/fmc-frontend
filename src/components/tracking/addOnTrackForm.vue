@@ -181,8 +181,15 @@ export default {
         this.emails = this.scheduleTrackingObject.emails
         this.time = this.scheduleTrackingObject.time
         this.subject = this.scheduleTrackingObject.subject
+      } else {
+        this.error = ""
+        this.showError = true
+        this.disableButton()
       }
     } catch (e) {
+      this.error = "enter data!"
+      this.showError = true
+      this.disableButton()
       //linter
     }
     const api = this.$store.state.api
