@@ -12,17 +12,30 @@
       </div>
 
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <input type="text" class="input-css-grey input-modal" placeholder="E-mail for mailings / separated by commas"
-               @input="handleEmails"
-               :value="scheduleTrackingObject ? Object.keys(scheduleTrackingObject).length !== 0 ? scheduleTrackingObject.emails.join(`,`) : `` : ``">
-        <input type="text" class="input-css-grey input-modal" placeholder="Subject name"
-               @input="subject = $event.target.value"
-               :value="scheduleTrackingObject ? Object.keys(scheduleTrackingObject).length !== 0 ? scheduleTrackingObject.subject : `` : ``">
-        <input type="text" class="input-css-grey input-modal"
-               :placeholder="timePlaceholder"
-               @input="handleTime"
-               :value="scheduleTrackingObject ? Object.keys(scheduleTrackingObject).length !== 0 ? scheduleTrackingObject.time : ``: ``"
-        >
+        <!--        <input type="text" class="input-css-grey input-modal" placeholder="E-mail for mailings / separated by commas"-->
+        <!--               @input="handleEmails"-->
+        <!--               :value="scheduleTrackingObject ? Object.keys(scheduleTrackingObject).length !== 0 ? scheduleTrackingObject.emails.join(`,`) : `` : ``">-->
+        <!--        <input type="text" class="input-css-grey input-modal" placeholder="Subject name"-->
+        <!--               @input="subject = $event.target.value"-->
+        <!--               :value="scheduleTrackingObject ? Object.keys(scheduleTrackingObject).length !== 0 ? scheduleTrackingObject.subject : `` : ``">-->
+        <!--        <input type="text" class="input-css-grey input-modal"-->
+        <!--               :placeholder="timePlaceholder"-->
+        <!--               @input="handleTime"-->
+        <!--               :value="scheduleTrackingObject ? Object.keys(scheduleTrackingObject).length !== 0 ? scheduleTrackingObject.time : ``: ``"-->
+        <!--        >-->
+        <div>
+          <input type="text" class="input-css-grey input-modal" placeholder="E-mail for mailings / separated by commas"
+                 @input="handleEmails"
+                 :value="emails.join(`,`)">
+          <input type="text" class="input-css-grey input-modal" placeholder="Subject name"
+                 @input="subject = $event.target.value"
+                 :value="subject">
+          <input type="text" class="input-css-grey input-modal"
+                 :placeholder="timePlaceholder"
+                 @input="handleTime"
+                 :value="time"
+          >
+        </div>
       </div>
     </div>
 
@@ -55,9 +68,9 @@ export default {
   data() {
     return {
       valid: true,
-      subject: this.scheduleTrackingObject ? this.scheduleTrackingObject.subject : "",
-      emails: this.scheduleTrackingObject ? this.scheduleTrackingObject.emails : [],
-      time: this.scheduleTrackingObject ? this.scheduleTrackingObject.time : "",
+      subject: "",
+      emails: [],
+      time: "",
       error: "",
       showError: false,
       timeZone: "",
@@ -81,6 +94,21 @@ export default {
     addOnTrack() {
       //TODO submit add on tracking form
       // this.submit()
+      const emailRegex = /^[^\s@]+@([^\s@.,]+\.)+[^\s@.,]{2,}$/;
+
+      for (let email of this.emails) {
+        if (!emailRegex.test(email)) {
+          console.log("Not valid")
+          this.valid = false
+          this.error = "please input valid emails"
+          this.showError = true
+          this.disableButton()
+        } else {
+          this.error = ""
+          this.showError = false
+          this.enableButton()
+        }
+      }
       this.$emit(`submitForm`, {numbers: this.numberList, time: this.time, emails: this.emails, subject: this.subject})
       this.$emit(`show`, false)
     },
@@ -94,33 +122,21 @@ export default {
       //TODO email validator
       const value = ev.target.value
       let emails = value.replace(/\s/g, '').split(",");
-      // const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      // console.log(emails)
-      // if (this.scheduleTrackingObject) {
-      //   this.emails = [...emails]
-      // } else {
-      //   console.log(emails)
+      const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      for (const email of emails) {
+        if (!regex.test(email)) {
+          this.disableButton()
+          this.error = "please, enter valid email(s)"
+          this.valid = false
+          this.showError = true
+        } else {
+          this.enableButton()
+          this.error = ""
+          this.valid = true
+          this.showError = false
+        }
+      }
       this.emails = emails
-      //   console.log(this.emails)
-      // }
-      // for (let i = 0; i < emails.length; i++) {
-      //   if (emails[i] == "" || !regex.test(emails[i])) {
-      //     this.valid = false;
-      //     this.error = "please enter valid email(s)!"
-      //     this.showError = true
-      //     this.disableButton()
-      //   } else {
-      //     this.valid = true;
-      //     this.error = ""
-      //     this.showError = false
-      //     this.enableButton()
-      //     this.emails.push(emails[i])
-      //   }
-      // }
-      // const re = /^([\w+-.%]+@[\w-.]+\.[A-Za-z]{2,}(\s*,?\s*)*)+$ /
-      // if (!re.test(emails)) {
-      //   this.disableButton()
-      // }
     },
     disableButton() {
       this.valid = false
@@ -134,18 +150,18 @@ export default {
     handleTime(ev) {
       const time = ev.target.value;
       this.time = time
-      // if (!/\d{1,2}:\d{1,2}/g.test(time)) {
-      //   this.disableButton()
-      //   this.error = "please, enter valid time in format `hh:mm` "
-      //   this.valid = false
-      //   this.showError = true
-      // }else{
-      //   this.error = ""
-      //   this.valid = true
-      //   this.showError = false
-      //   this.time = time
-      //   this.enableButton()
-      // }
+      if (!/\d{1,2}:\d{1,2}/g.test(time)) {
+        this.disableButton()
+        this.error = "please, enter valid time in format `hh:mm` "
+        this.valid = false
+        this.showError = true
+      } else {
+        this.error = ""
+        this.valid = true
+        this.showError = false
+        this.time = time
+        this.enableButton()
+      }
     },
     deleteFromTrack() {
       this.$emit(`deleteFromTrack`, this.numberList)
@@ -159,6 +175,15 @@ export default {
       this.disableButton()
       this.error = "add container or bill numbers!"
       this.showError = true
+    }
+    try {
+      if (Object.keys(this.scheduleTrackingObject).length !== 0) {
+        this.emails = this.scheduleTrackingObject.emails
+        this.time = this.scheduleTrackingObject.time
+        this.subject = this.scheduleTrackingObject.subject
+      }
+    } catch (e) {
+      //linter
     }
     const api = this.$store.state.api
     const raw = await api.scheduleTrackingApi.getTimeZone()
