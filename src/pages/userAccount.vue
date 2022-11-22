@@ -39,6 +39,11 @@
         class="spinner"
     />
   </div>
+  <div class="not_found_numbers"
+       v-if="isShowNumbersNotFound">
+    Number(s) not
+    found!
+  </div>
   <containers-or-bills-list v-if="!isShowNumbersNotFound"
                             :numbers=" numberType === `containers` ? filterContainerNumbers : filterBillNumbers"
                             @addToSelectedNumbers="numberType === `containers` ? selectContainer($event) : selectBill($event)"
@@ -87,7 +92,7 @@ export default {
       addTrackingVisible: false,
       archive: {billNumbers: [], containerNumbers: []},
       searchQuery: "",
-      isShowNumbersNotFound: this.checkNumbersExists(),
+      isShowNumbersNotFound: false,
       isShowLogin: false,
       isShowRemindPassword: false,
       isLoading: false,
@@ -370,14 +375,24 @@ export default {
       return
     }
     this.isLoading = true
-    const allBillsContainer = await this.$store.state.api.userApi.get(this.$store.getters[`user/getAuthToken`])
-    if (!allBillsContainer.containers) {
+    try {
+      const allBillsContainer = await this.$store.state.api.userApi.get(this.$store.getters[`user/getAuthToken`])
+      if (!allBillsContainer.containers) {
+        this.isLoading = false
+        this.isShowNumbersNotFound = true
+        return
+      }
+      this.billNumbers = allBillsContainer.billNumbers
+      this.containerNumbers = allBillsContainer.containers
+    } catch (e) {
+      this.isLoading = false
       this.isShowNumbersNotFound = true
+
     }
-    this.billNumbers = allBillsContainer.billNumbers
-    this.containerNumbers = allBillsContainer.containers
+
     this.numberType = "containers"
     this.isLoading = false
+
   }
 }
 </script>
