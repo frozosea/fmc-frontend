@@ -152,22 +152,21 @@ export default {
         this.selectedBillNumbers = this.selectedBillNumbers.filter(n => n.number === number);
       }
     },
-    async addNumbersOnTrack() {
-      const api = this.$store.state.api
-      // this.isShowNumbersNotFound = this.checkNumbersExists()
-      const request = {
-        "emailSubject": this.emailSubject,
-        "emails": this.emails,
-        "numbers": this.numberType === `containers` ? this.selectedAddOnTrackContainerNumbers : this.selectedAddOnTrackBillNumbers,
-        "time": this.time
-      }
-      try {
-        await api.scheduleTrackingApi.addContainersOnTracking(request, this.$store.getters[`user/getAuthToken`])
-      } catch (e) {
-        this.isShowAddOnTrackError = true
-        this.addOnTrackError = String(e)
-      }
-    },
+    // async addNumbersOnTrack() {
+    //   const api = this.$store.state.api
+    //   const request = {
+    //     "emailSubject": this.emailSubject,
+    //     "emails": this.emails,
+    //     "numbers": this.numberType === `containers` ? this.selectedAddOnTrackContainerNumbers : this.selectedAddOnTrackBillNumbers,
+    //     "time": this.time
+    //   }
+    //   try {
+    //     await api.scheduleTrackingApi.addContainersOnTracking(request, this.$store.getters[`user/getAuthToken`])
+    //   } catch (e) {
+    //     this.isShowAddOnTrackError = true
+    //     this.addOnTrackError = String(e)
+    //   }
+    // },
     toBaseNumbers(isContainer) {
       const ar = [];
       if (isContainer) {
@@ -324,8 +323,8 @@ export default {
     }
     ,
     async changeNumberSignature(obj) {
-      await this.addNumbersOnTrack()
       for (const num of obj.numbers) {
+        console.log(num)
         if (this.numberType === `containers`) {
           const index = this.findInArray(num, true)
           this.containerNumbers[index].isOnTrack = true

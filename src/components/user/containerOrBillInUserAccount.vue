@@ -2,9 +2,11 @@
   <CustomModal v-model:show="addTrackingVisible">
     <AddOnTrackForm :schedule-tracking-object="scheduleTrackingInfo"
                     @show="addTrackingVisible = $event"
-                    @close="addTrackingVisible = false" :number-list="[number]"
+                    @close="addTrackingVisible = false"
+                    :number-list="[number]"
                     @deleteFromTrack="deleteFromTracking($event)"
                     @submitForm="updateScheduleTrackingInfo($event)"
+                    :is-container="isContainer"
     />
   </CustomModal>
   <div class="container g-3">
@@ -12,7 +14,7 @@
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" :ref="`b_${this.number}`">
         <button :class="isOnTrack ? `accordion` : `accordion back-accordion`" @click="onClick" ref="button"
                 :id="this.number"
-                >
+        >
           <div class="container g-3">
             <div class="row g-0">
               <container-picture :is-on-track="isOnTrack" :is-container="isContainer"/>
@@ -75,7 +77,7 @@ export default {
     isOnTrack: Boolean,
     scheduleTrackingInfo: Object,
     number: String,
-    isContainer: Boolean
+    isContainer: Boolean,
     // selectCheckBox: Function
   },
   data() {

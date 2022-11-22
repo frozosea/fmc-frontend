@@ -5,14 +5,15 @@
     found!
   </div>
   <div v-if="numbers.length">
-    <container-or-bill-in-user-account v-for="item in numbers" :key="item.number"
+    <container-or-bill-in-user-account v-for="item in numbers"
+                                       :key="item.number"
                                        :isOnTrack="item.isOnTrack"
                                        :scheduleTrackingInfo="item.scheduleTrackingInfo"
                                        :number="item.number"
                                        :is-container="item.isContainer"
                                        @selectCheckBox="$event ? selectNumber(item.number) : unSelectNumber(item.number)"
                                        @removeFromTracking="this.$emit(`removeFromTracking`,$event)"
-                                       @updateScheduleTrackingInfo="item.scheduleTrackingInfo = $event"
+                                       @updateScheduleTrackingInfo="updateScheduleTrackingInfo($event,item)"
     />
   </div>
 
@@ -38,6 +39,10 @@ export default {
     },
     unSelectNumber(number) {
       this.$emit("unselectToSelectedNumbers", number)
+    },
+    async updateScheduleTrackingInfo(e, item) {
+      item.scheduleTrackingInfo = e
+      item.isOnTrack = true
     }
   }
 }

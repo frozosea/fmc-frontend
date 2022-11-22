@@ -12,17 +12,6 @@
       </div>
 
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <!--        <input type="text" class="input-css-grey input-modal" placeholder="E-mail for mailings / separated by commas"-->
-        <!--               @input="handleEmails"-->
-        <!--               :value="scheduleTrackingObject ? Object.keys(scheduleTrackingObject).length !== 0 ? scheduleTrackingObject.emails.join(`,`) : `` : ``">-->
-        <!--        <input type="text" class="input-css-grey input-modal" placeholder="Subject name"-->
-        <!--               @input="subject = $event.target.value"-->
-        <!--               :value="scheduleTrackingObject ? Object.keys(scheduleTrackingObject).length !== 0 ? scheduleTrackingObject.subject : `` : ``">-->
-        <!--        <input type="text" class="input-css-grey input-modal"-->
-        <!--               :placeholder="timePlaceholder"-->
-        <!--               @input="handleTime"-->
-        <!--               :value="scheduleTrackingObject ? Object.keys(scheduleTrackingObject).length !== 0 ? scheduleTrackingObject.time : ``: ``"-->
-        <!--        >-->
         <div>
           <input type="text" class="input-css-grey input-modal" placeholder="E-mail for mailings / separated by commas"
                  @input="handleEmails"
@@ -89,12 +78,11 @@ export default {
       type: String,
       required: false
     },
-    submitError: String,
-    showSubmitError: Boolean
+    isContainer: Boolean
     // submit: Function,
   },
   methods: {
-    addOnTrack() {
+    async addOnTrack() {
       //TODO submit add on tracking form
       // this.submit()
       const emailRegex = /^[^\s@]+@([^\s@.,]+\.)+[^\s@.,]{2,}$/;
@@ -111,7 +99,27 @@ export default {
           this.enableButton()
         }
       }
-      this.$emit(`submitForm`, {numbers: this.numberList, time: this.time, emails: this.emails, subject: this.subject})
+      const api = this.$store.state.api
+      const request = {
+        "emailSubject": this.emailSubject,
+        "emails": this.emails,
+        "numbers": this.numberList,
+        "time": this.time
+      }
+      try {
+        const token = this.$store.getters[`user/getAuthToken`]
+        this.isContainer ? await api.scheduleTrackingApi.addContainersOnTracking(request, token) : await api.scheduleTrackingApi.addBillsOnTrack(request, token)
+        this.$emit(`submitForm`, {
+          numbers: this.numberList,
+          time: this.time,
+          emails: this.emails,
+          subject: this.subject
+        })
+        this.$emit(`show`, false)
+      } catch (e) {
+        this.showError = true
+        this.error = String(e)
+      }
       // this.$emit(`show`, false)
     },
     hideByButton() {
@@ -171,18 +179,6 @@ export default {
       //TODO create delete from tracking func
     },
     //TODO fix numbers with css
-  },
-  watch: {
-    numbersList() {
-      if (!this.numberList.length) {
-        this.disableButton()
-        this.error = "add container or bill numbers!"
-        this.showError = true
-        return []
-        // this.disableButton()
-      }
-      return this.numberList
-    }
   },
   async mounted() {
     const api = this.$store.state.api

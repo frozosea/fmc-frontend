@@ -31,6 +31,7 @@
     <add-on-track-form
         :number-list="this.number !== `` ? [this.number] : []"
         :schedule-tracking-object="scheduleTrackingInfo"
+        :is-container="isContainer"
         @submitForm="addOnTrack($event)"
         @changeNumbers="deleteNumberFromListAddOnTrackList($event)"
         @show="addTrackingVisible = $event"
@@ -179,7 +180,7 @@ export default {
       this.scheduleTrackingInfo = null
       this.addTrackingVisible = false
       const api = this.$store.state.api
-      await api.scheduleTrackingApi.deleteContainerFromTracking([this.number],this.$store.getters["user/getIsAuth"])
+      await api.scheduleTrackingApi.deleteContainerFromTracking([this.number], this.$store.getters["user/getIsAuth"])
       document.getElementById("result").click()
     },
     async addOnTrack(e) {
@@ -192,11 +193,11 @@ export default {
           this.scheduleTrackingInfo = {}
         }
         try {
-          await api.scheduleTrackingApi.addContainersOnTracking([this.number], this.$store.getters[`user/getAuthToken`])
           this.isOnTrack = true
           this.scheduleTrackingInfo = e
           document.getElementById("result").click()
         } catch (e) {
+          console.log(e)
           this.isOnTrack = false
           this.scheduleTrackingInfo = {}
         }
@@ -208,7 +209,6 @@ export default {
           console.log()
         }
         try {
-          await api.scheduleTrackingApi.addBillsOnTrack([this.number], this.$store.getters[`user/getAuthToken`])
           this.isOnTrack = true
           this.scheduleTrackingInfo = e
           document.getElementById("result").click()
