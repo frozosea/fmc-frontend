@@ -274,7 +274,7 @@ export default {
             this.containerNumbers[index].isOnTrack = false
             this.containerNumbers[index].scheduleTrackingInfo = {};
             (async () => {
-              await api.scheduleTrackingApi.deleteContainerFromTracking(this.selectedAddOnTrackContainerNumbers)
+              await api.scheduleTrackingApi.deleteContainerFromTracking(this.selectedAddOnTrackContainerNumbers, this.$store.getters[`user/getAuthToken`])
             })()
             try {
               let panel = document.getElementById(this.selectedAddOnTrackContainerNumbers[index]).nextElementSibling;
