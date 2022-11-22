@@ -51,6 +51,7 @@
     <div class="row g-0">
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div style="color: red" v-if="showError"> {{ error }}</div>
+        <div style="color: red" v-if="showSubmitError"> {{ submitError }}</div>
         <button type="button" class="button-menu" @click="addOnTrack" ref="button" :disabled="!valid">Add on track
         </button>
         <button type="button" class="button-menu-line password-pad" @click="deleteFromTrack">Remove tracking</button>
@@ -88,6 +89,8 @@ export default {
       type: String,
       required: false
     },
+    submitError: String,
+    showSubmitError: Boolean
     // submit: Function,
   },
   methods: {
@@ -98,7 +101,6 @@ export default {
 
       for (let email of this.emails) {
         if (!emailRegex.test(email)) {
-          console.log("Not valid")
           this.valid = false
           this.error = "please input valid emails"
           this.showError = true
@@ -110,7 +112,7 @@ export default {
         }
       }
       this.$emit(`submitForm`, {numbers: this.numberList, time: this.time, emails: this.emails, subject: this.subject})
-      this.$emit(`show`, false)
+      // this.$emit(`show`, false)
     },
     hideByButton() {
       this.$emit(`show`, false)
@@ -170,11 +172,28 @@ export default {
     },
     //TODO fix numbers with css
   },
+  watch: {
+    numbersList() {
+      if (!this.numberList.length) {
+        this.disableButton()
+        this.error = "add container or bill numbers!"
+        this.showError = true
+        return []
+        // this.disableButton()
+      }
+      return this.numberList
+    }
+  },
   async mounted() {
-    if (this.numberList.length === 0) {
+    const api = this.$store.state.api
+    const raw = await api.scheduleTrackingApi.getTimeZone()
+    this.timeZone = raw.timeZone
+    this.timePlaceholder += `, timezone is ${this.timeZone}`
+    if (!this.numberList.length) {
       this.disableButton()
       this.error = "add container or bill numbers!"
       this.showError = true
+      return
     }
     try {
       if (Object.keys(this.scheduleTrackingObject).length !== 0) {
@@ -190,12 +209,7 @@ export default {
       this.error = "enter data!"
       this.showError = true
       this.disableButton()
-      //linter
     }
-    const api = this.$store.state.api
-    const raw = await api.scheduleTrackingApi.getTimeZone()
-    this.timeZone = raw.timeZone
-    this.timePlaceholder += `, timezone is ${this.timeZone}`
   }
 }
 </script>

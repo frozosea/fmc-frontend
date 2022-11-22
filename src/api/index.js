@@ -13,7 +13,7 @@ class BaseApiClass {
     async checkErrorAndReturnJson(r) {
         const json = await r.json()
         if (r.status > 205) {
-            throw new Error(`status code is: ${r.status} error: ${json.error}`)
+            throw new Error(json.error)
         }
         return json
     }

@@ -12,21 +12,25 @@
                        :numberList="toBaseNumbers(true)"
                        @changeNumbers="unselectAddOnTrackContainerNumbers($event)"
                        @close="addTrackingVisible=false"
-                       :submit="addContainersOnTrack"
+                       :submit="addNumbersOnTrack"
                        @show="addTrackingVisible=false"
                        @submitForm="changeNumberSignature($event)"
                        @deleteFromTrack="deleteFromTracking($event)"
                        :schedule-tracking-object="{}"
+                       :submit-error="addOnTrackError"
+                       :show-submit-error="isShowAddOnTrackError"
     />
     <add-on-track-form v-if="numberType === `bills`"
-                       :numberList="toBaseNumbers(false)"
-                       @changeNumbers="unselectAddOnTrackBillNumbers($event)"
+                       :numberList="numberType === `bills` ? toBaseNumbers(false) :toBaseNumbers(true) "
+                       @changeNumbers="numberType === `bills` ? unselectAddOnTrackBillNumbers($event) : unselectAddOnTrackContainerNumbers($event)"
                        @close="addTrackingVisible=false"
-                       :submit="addBillsOnTrack"
+                       :submit="addNumbersOnTrack"
                        @show="addTrackingVisible = $event"
                        @submitForm="changeNumberSignature($event)"
                        @deleteFromTrack="deleteFromTracking($event)"
                        :schedule-tracking-object="{}"
+                       :submit-error="addOnTrackError"
+                       :show-submit-error="isShowAddOnTrackError"
     />
   </CustomModal>
   <div class="spinner" v-if="isLoading">
@@ -86,7 +90,9 @@ export default {
       isShowNumbersNotFound: this.checkNumbersExists(),
       isShowLogin: false,
       isShowRemindPassword: false,
-      isLoading: false
+      isLoading: false,
+      addOnTrackError: "",
+      isShowAddOnTrackError: false
     }
   },
   components: {
@@ -146,14 +152,21 @@ export default {
         this.selectedBillNumbers = this.selectedBillNumbers.filter(n => n.number === number);
       }
     },
-    addBillsOnTrack() {
-      this.isShowNumbersNotFound = this.checkNumbersExists()
-      //TODO add bill on track in user account
-    },
-    addContainersOnTrack() {
-      this.isShowNumbersNotFound = this.checkNumbersExists()
-      //TODO add containers on track in user account
-
+    async addNumbersOnTrack() {
+      const api = this.$store.state.api
+      // this.isShowNumbersNotFound = this.checkNumbersExists()
+      const request = {
+        "emailSubject": this.emailSubject,
+        "emails": this.emails,
+        "numbers": this.numberType === `containers` ? this.selectedAddOnTrackContainerNumbers : this.selectedAddOnTrackBillNumbers,
+        "time": this.time
+      }
+      try {
+        await api.scheduleTrackingApi.addContainersOnTracking(request, this.$store.getters[`user/getAuthToken`])
+      } catch (e) {
+        this.isShowAddOnTrackError = true
+        this.addOnTrackError = String(e)
+      }
     },
     toBaseNumbers(isContainer) {
       const ar = [];
@@ -310,7 +323,8 @@ export default {
       }
     }
     ,
-    changeNumberSignature(obj) {
+    async changeNumberSignature(obj) {
+      await this.addNumbersOnTrack()
       for (const num of obj.numbers) {
         if (this.numberType === `containers`) {
           const index = this.findInArray(num, true)
