@@ -1,10 +1,16 @@
-FROM node:lts-alpine
-RUN npm install -g http-server
-WORKDIR /app
-COPY package*.json ./
-RUN npm install
-COPY . .
-RUN npm run build
+FROM node:12.18.2 as build
 
-EXPOSE 8080
-CMD [ "http-server", "dist" ]
+
+WORKDIR /app
+
+COPY ./package.json /app/package.json
+COPY ./package-lock.json /app/package-lock.json
+
+RUN yarn install
+COPY . .
+RUN yarn build
+
+
+FROM nginx
+COPY ./deploy/nginx/nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=build /app/build /usr/share/nginx/html
