@@ -234,7 +234,6 @@ export default {
       }
     },
     checkNumbersExists() {
-      //TODO write func which can check containers or bills in archive and actual numbers
       if (this.numberType === `bills`) {
         if (this.searchType === `actual`) {
           return this.billNumbers.length === 0

@@ -60,7 +60,6 @@ export default {
   },
   methods: {
     submitForm() {
-      //TODO tracking form request sender
       this.$emit(`submitTrack`, this.isContainer, this.number, this.selectedScac)
     },
     changeTrackingSignature(e) {

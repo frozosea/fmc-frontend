@@ -83,7 +83,6 @@ export default {
   },
   methods: {
     async addOnTrack() {
-      //TODO submit add on tracking form
       // this.submit()
       const emailRegex = /^[^\s@]+@([^\s@.,]+\.)+[^\s@.,]{2,}$/;
 
@@ -129,7 +128,6 @@ export default {
       this.$emit("changeNumbers", number)
     },
     handleEmails(ev) {
-      //TODO email validator
       const value = ev.target.value
       let emails = value.replace(/\s/g, '').split(",");
       const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -176,9 +174,7 @@ export default {
     deleteFromTrack() {
       this.$emit(`deleteFromTrack`, this.numberList)
       this.$emit(`show`, false)
-      //TODO create delete from tracking func
     },
-    //TODO fix numbers with css
   },
   async mounted() {
     const api = this.$store.state.api

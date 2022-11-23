@@ -82,9 +82,6 @@ export default {
         this.$store.commit(`user/setRefreshToken`, "")
         this.$store.commit(`user/setEmail`, "")
       }
-      // this.$store.state.isAuth = true
-      // this.$emit(`close`, false)
-      //TODO submit login form
     },
     handleModal() {
       let panel = this.$refs.form.nextElementSibling;
@@ -110,7 +107,6 @@ export default {
       this.$refs.button.classList.replace("disabled-button", "button-menu")
     },
     setShowRemindForm() {
-      //TODO create show remind password modal method,
       this.$emit("showRemindPassword", true)
     }
   }
