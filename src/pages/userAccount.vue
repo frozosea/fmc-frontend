@@ -157,21 +157,21 @@ export default {
         this.selectedBillNumbers = this.selectedBillNumbers.filter(n => n.number === number);
       }
     },
-    // async addNumbersOnTrack() {
-    //   const api = this.$store.state.api
-    //   const request = {
-    //     "emailSubject": this.emailSubject,
-    //     "emails": this.emails,
-    //     "numbers": this.numberType === `containers` ? this.selectedAddOnTrackContainerNumbers : this.selectedAddOnTrackBillNumbers,
-    //     "time": this.time
-    //   }
-    //   try {
-    //     await api.scheduleTrackingApi.addContainersOnTracking(request, this.$store.getters[`user/getAuthToken`])
-    //   } catch (e) {
-    //     this.isShowAddOnTrackError = true
-    //     this.addOnTrackError = String(e)
-    //   }
-    // },
+    async addNumbersOnTrack() {
+      const api = this.$store.state.api
+      const request = {
+        "emailSubject": this.emailSubject,
+        "emails": this.emails,
+        "numbers": this.numberType === `containers` ? this.selectedAddOnTrackContainerNumbers : this.selectedAddOnTrackBillNumbers,
+        "time": this.time
+      }
+      try {
+        await api.scheduleTrackingApi.addContainersOnTracking(request, this.$store.getters[`user/getAuthToken`])
+      } catch (e) {
+        this.isShowAddOnTrackError = true
+        this.addOnTrackError = String(e)
+      }
+    },
     toBaseNumbers(isContainer) {
       const ar = [];
       if (isContainer) {
@@ -278,12 +278,17 @@ export default {
           if (index !== -1) {
             this.containerNumbers[index].isOnTrack = false
             this.containerNumbers[index].scheduleTrackingInfo = {};
-            (async () => {
-              await api.scheduleTrackingApi.deleteContainerFromTracking(this.selectedAddOnTrackContainerNumbers, this.$store.getters[`user/getAuthToken`])
-            })()
             try {
-              let panel = document.getElementById(this.selectedAddOnTrackContainerNumbers[index]).nextElementSibling;
-              document.getElementById(this.selectedAddOnTrackContainerNumbers[index]).classList.remove("act-long");
+              (async () => {
+                await api.scheduleTrackingApi.deleteContainerFromTracking(this.selectedAddOnTrackContainerNumbers, this.$store.getters[`user/getAuthToken`])
+              })()
+            } catch (e) {
+              console.log(e)
+            }
+            try {
+              console.log(document.getElementById(item.number))
+              let panel = document.getElementById(this.containerNumbers[index]).nextElementSibling;
+              document.getElementById(this.containerNumbers[index]).classList.remove("act-long");
               panel.style.maxHeight = null;
             } catch (e) {
               console.log(e)

@@ -13,7 +13,7 @@
     <div class="row g-0">
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" :ref="`b_${this.number}`">
         <button :class="isOnTrack ? `accordion` : `accordion back-accordion`" @click="onClick" ref="button"
-                :id="this.number"
+                :id="number"
         >
           <div class="container g-3">
             <div class="row g-0">
@@ -39,7 +39,8 @@
         </button>
 
         <div :class="isOnTrack ? `panel` : `panel back-accordion`">
-          <schedule-tracking-info-in-bill-or-container :scheduleTrackingInfo="scheduleTrackingInfo"
+          <schedule-tracking-info-in-bill-or-container v-if="isOnTrack"
+                                                       :scheduleTrackingInfo="scheduleTrackingInfo"
                                                        @showTrackingModal="addTrackingVisible = $event"
                                                        :is-on-track="isOnTrack"
           />
