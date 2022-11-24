@@ -1,12 +1,19 @@
 import Api, {AuthApi, ScheduleTrackingApi, TrackingApi, UserApi} from "@/api";
-import * as config from "@/config.json";
+
+const BACKEND_URL = process.env.VUE_APP_BACKEND_URL
+
+const authApi = new AuthApi(BACKEND_URL)
+const trackingApi = new TrackingApi(BACKEND_URL)
+const scheduleTrackingApi = new ScheduleTrackingApi(BACKEND_URL)
+const userApi = new UserApi(BACKEND_URL)
+
 export default {
     state: {
-        authApi: new AuthApi(config.backendUrl),
-        trackingApi: new TrackingApi(config.backendUrl),
-        scheduleTrackingApi: new ScheduleTrackingApi(config.backendUrl),
-        userApi: new UserApi(config.backendUrl),
-        api: new Api(new AuthApi(config.backendUrl), new TrackingApi(config.backendUrl), new ScheduleTrackingApi(config.backendUrl), new UserApi(config.backendUrl))
+        authApi: authApi,
+        trackingApi: trackingApi,
+        scheduleTrackingApi: scheduleTrackingApi,
+        userApi: userApi,
+        api: new Api(authApi, trackingApi, scheduleTrackingApi, userApi)
     },
 
 }

@@ -4,9 +4,6 @@ class BaseApiClass {
     backendUrl;
 
     constructor(backendUrl) {
-        // if (!backendUrl) {
-        //     throw new Error("no backend url")
-        // }
         this.backendUrl = backendUrl;
     }
 

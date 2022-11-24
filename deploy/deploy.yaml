@@ -4,6 +4,8 @@ services:
     image: frozosea/fmc-frontend:latest
     ports:
       - "8080:8080"
+    environment:
+      VUE_APP_BACKEND_URL: https://api.findmycargo.ru
   nginx:
     image: nginx
     ports:
