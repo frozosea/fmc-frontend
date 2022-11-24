@@ -1,16 +1,22 @@
-FROM node:12.18.2 as build
+FROM node:16-alpine
 
+# install simple http server for serving static content
+RUN npm install -g http-server
 
+# make the 'app' folder the current working directory
 WORKDIR /app
 
-COPY ./package.json /app/package.json
-COPY ./package-lock.json /app/package-lock.json
+# copy both 'package.json' and 'package-lock.json' (if available)
+COPY package*.json ./
 
-RUN yarn install
+# install project dependencies
+RUN npm install
+
+# copy project files and folders to the current working directory (i.e. 'app' folder)
 COPY . .
-RUN yarn build
 
+# build app for production with minification
+RUN npm run build
 
-FROM nginx
-COPY ./deploy/nginx/nginx.conf /etc/nginx/conf.d/default.conf
-COPY --from=build /app/build /usr/share/nginx/html
+EXPOSE 8080
+CMD [ "http-server", "dist" ]
