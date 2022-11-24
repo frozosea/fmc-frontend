@@ -72,12 +72,10 @@ export default {
         this.$emit(`show`, false)
       } catch (e) {
         this.showLoading = false
-        // console.log(e)
         this.error = "user was not found!"
         this.showError = true
         this.showLoading = false
         this.$store.commit(`user/setIsAuth`, false)
-        console.log(this.$store.getters[`user/getIsAuth`]);
         this.$store.commit(`user/setAuthToken`, "")
         this.$store.commit(`user/setRefreshToken`, "")
         this.$store.commit(`user/setEmail`, "")

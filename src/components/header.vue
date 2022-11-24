@@ -25,9 +25,11 @@
             }}
           </router-link>
           <router-link to="/user">
-            <img src="@/assets/images/avatar.png" class="pad-avatar"></router-link>
+            <img src="@/assets/images/avatar.png" class="pad-avatar">
+          </router-link>
           <button class="borderless_button"
-                  @click="this.$store.commit(`user/logout`); this.$router.push(`/`)">
+                  @click="this.$store.commit(`user/logout`); this.$router.push(`/`)"
+                  v-if="this.$store.getters[`user/getIsAuth`]">
             <img src="@/assets/images/exit.svg"
                  class="svg-exit img-hover">
           </button>
@@ -141,7 +143,7 @@ export default {
   },
   computed: mapMutations(["user/logout"]),
   mounted() {
-    console.log(this.$store.getters[`user/getIsAuth`]);
+    console.log(this.$store.getters[`user/getIsAuth`])
   }
 
 }

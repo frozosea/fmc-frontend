@@ -104,7 +104,6 @@ export default {
         this.showError = false
         this.$emit(`show`, false)
       } catch (e) {
-        console.log(e)
         this.error = "something went wrong, try again later"
         this.showError = true
         this.showLoading = false

@@ -122,7 +122,6 @@ export default {
           for (let item of result.infoAboutMoving) {
             item.time = this.$store.getters["utils/getTime"].humanizeTime(item.time)
           }
-          // console.log(result.eta)
           result.eta = this.$store.getters["utils/getTime"].humanizeTime(result.eta)
           this.number = result.number
           this.trackingResult = result
@@ -150,7 +149,6 @@ export default {
     changeNumToSelectedList(number, value) {
       const index = this.numbers.indexOf(number)
       if (value) {
-        console.log(value)
         if (index === -1) {
           this.numbers.push(number)
         }
@@ -197,7 +195,6 @@ export default {
           this.scheduleTrackingInfo = e
           document.getElementById("result").click()
         } catch (e) {
-          console.log(e)
           this.isOnTrack = false
           this.scheduleTrackingInfo = {}
         }
@@ -206,7 +203,7 @@ export default {
         try {
           await api.userApi.addBills([this.number], this.$store.getters[`user/getAuthToken`])
         } catch (e) {
-          console.log()
+          //
         }
         try {
           this.isOnTrack = true

@@ -197,7 +197,7 @@ export default {
               document.getElementById(this.containerNumbers[index].number).classList.remove("act-long");
               panel.style.maxHeight = null;
             } catch (e) {
-              console.log(e)
+              //
             }
           }
         }
@@ -212,7 +212,7 @@ export default {
               document.getElementById(this.billNumbers[index].number).classList.remove("act-long");
               panel.style.maxHeight = null;
             } catch (e) {
-              console.log(e)
+              //
             }
           }
         }
@@ -282,15 +282,14 @@ export default {
                 await api.scheduleTrackingApi.deleteContainerFromTracking(this.selectedAddOnTrackContainerNumbers, this.$store.getters[`user/getAuthToken`])
               })()
             } catch (e) {
-              console.log(e)
+              //
             }
             try {
-              console.log(document.getElementById(item.number))
               let panel = document.getElementById(this.containerNumbers[index]).nextElementSibling;
               document.getElementById(this.containerNumbers[index]).classList.remove("act-long");
               panel.style.maxHeight = null;
             } catch (e) {
-              console.log(e)
+              //
             }
           }
         }
@@ -308,7 +307,7 @@ export default {
               document.getElementById(this.selectedAddOnTrackBillNumbers[index]).classList.remove("act-long");
               panel.style.maxHeight = null;
             } catch (e) {
-              console.log(e)
+              //
             }
           }
         }
@@ -333,7 +332,6 @@ export default {
     ,
     async changeNumberSignature(obj) {
       for (const num of obj.numbers) {
-        console.log(num)
         if (this.numberType === `containers`) {
           const index = this.findInArray(num, true)
           this.containerNumbers[index].isOnTrack = true

@@ -159,30 +159,6 @@ export class TrackingApi extends BaseApiClass {
             throw new Error(`number not found`)
         }
         return json
-        // console.log(number, scac)
-        // return {
-        //     number: "MRKU6788432",
-        //     containerSize: "20HQ",
-        //
-        //     infoAboutMoving: [{
-        //         "time": "2022-20-20",
-        //         "operationName": "test opeartion",
-        //         "location": "nakhodka",
-        //         "vessel": ""
-        //     },
-        //         {
-        //             "time": "2022-20-20",
-        //             "operationName": "test opeartion",
-        //             "location": "nakhodka",
-        //             "vessel": ""
-        //         },
-        //         {
-        //             "time": "2022-20-20",
-        //             "operationName": "test opeartion",
-        //             "location": "nakhodka",
-        //             "vessel": ""
-        //         }]
-        // }
 
     }
 
