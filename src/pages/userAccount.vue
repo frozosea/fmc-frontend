@@ -40,7 +40,7 @@
     />
   </div>
   <div class="not_found_numbers"
-       v-if="isShowNumbersNotFound">
+       v-if="isShowNumbersNotFound && !isLoading">
     Number(s) not
     found!
   </div>
@@ -49,6 +49,7 @@
                             @addToSelectedNumbers="numberType === `containers` ? selectContainer($event) : selectBill($event)"
                             @unselectToSelectedNumbers="numberType === `containers` ? unselectContainerNumbers($event) : unselectBillNumbers($event)"
                             @removeFromTracking="removeFromTrackingOneNumber"
+                            :is-loading="isLoading"
   />
   <CustomModal v-model:show="isShowLogin" @update:show="isShowLogin = $event; this.$router.push(`/`)">
     <login-form @close="isShowLogin = $event; this.$router.push(`/`)"

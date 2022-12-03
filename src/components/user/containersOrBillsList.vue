@@ -1,6 +1,6 @@
 <template>
   <div class="not_found_numbers"
-       v-if="!numbers.length">
+       v-if="!numbers.length && !isLoading">
     Number(s) not
     found!
   </div>
@@ -32,6 +32,7 @@ export default {
   },
   props: {
     numbers: Array,
+    isLoading: Boolean
   },
   methods: {
     selectNumber(number) {
