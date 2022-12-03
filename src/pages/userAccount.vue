@@ -269,7 +269,7 @@ export default {
       }
 
     },
-    deleteFromTracking() {
+    async deleteFromTracking() {
       const api = this.$store.state.api
       if (this.numberType === `containers`) {
         for (const item of this.selectedAddOnTrackContainerNumbers) {
@@ -278,9 +278,7 @@ export default {
             this.containerNumbers[index].isOnTrack = false
             this.containerNumbers[index].scheduleTrackingInfo = {};
             try {
-              (async () => {
-                await api.scheduleTrackingApi.deleteContainerFromTracking(this.selectedAddOnTrackContainerNumbers, this.$store.getters[`user/getAuthToken`])
-              })()
+              await api.scheduleTrackingApi.deleteContainerFromTracking(this.selectedAddOnTrackContainerNumbers, this.$store.getters[`user/getAuthToken`])
             } catch (e) {
               //
             }
@@ -299,9 +297,7 @@ export default {
           if (index !== -1) {
             this.billNumbers[index].isOnTrack = false
             this.billNumbers[index].scheduleTrackingInfo = {};
-            (async () => {
-              await api.scheduleTrackingApi.deleteBillNosFromTracking(this.selectedAddOnTrackContainerNumbers)
-            })()
+            await api.scheduleTrackingApi.deleteBillNosFromTracking(this.selectedAddOnTrackContainerNumbers)
             try {
               let panel = document.getElementById(this.selectedAddOnTrackBillNumbers[index]).nextElementSibling;
               document.getElementById(this.selectedAddOnTrackBillNumbers[index]).classList.remove("act-long");
@@ -376,6 +372,7 @@ export default {
       this.isShowLogin = true
       return
     }
+    this.isShowNumbersNotFound = false
     this.isLoading = true
     try {
       const allBillsContainer = await this.$store.state.api.userApi.get(this.$store.getters[`user/getAuthToken`])
@@ -389,7 +386,6 @@ export default {
     } catch (e) {
       this.isLoading = false
       this.isShowNumbersNotFound = true
-
     }
 
     this.numberType = "containers"
