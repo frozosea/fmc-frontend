@@ -17,14 +17,14 @@
       <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-xs-12" v-if="isContainer">
         <select class="select-css-grey" @change="changeScac">
           <option value="AUTO" selected>Automatically</option>
-          <option :key="line" :value="line.scac.toUpperCase()" v-for="line in billScac">{{ line.fullName }}</option>
+          <option :key="line" :value="line.scacCode.toUpperCase()" v-for="line in billScac">{{ line.fullName }}</option>
         </select>
       </div>
 
       <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-xs-12" v-if="!isContainer">
         <select class="select-css-grey" @change="changeScac">
           <option value="AUTO" selected>Automatically</option>
-          <option :key="line" :value="line.scac.toUpperCase()" v-for="line in containerScac">{{
+          <option :key="line" :value="line.scacCode.toUpperCase()" v-for="line in containerScac">{{
               line.fullName
             }}
           </option>
