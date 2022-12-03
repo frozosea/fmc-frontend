@@ -1,7 +1,7 @@
 import Api, {AuthApi, ScheduleTrackingApi, TrackingApi, UserApi} from "@/api";
 
 const BACKEND_URL = process.env.VUE_APP_BACKEND_URL
-
+console.log(BACKEND_URL)
 const authApi = new AuthApi(BACKEND_URL)
 const trackingApi = new TrackingApi(BACKEND_URL)
 const scheduleTrackingApi = new ScheduleTrackingApi(BACKEND_URL)

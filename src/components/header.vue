@@ -142,9 +142,6 @@ export default {
     }
   },
   computed: mapMutations(["user/logout"]),
-  mounted() {
-    console.log(this.$store.getters[`user/getIsAuth`])
-  }
 
 }
 </script>
