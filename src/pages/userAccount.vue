@@ -21,8 +21,8 @@
                        :show-submit-error="isShowAddOnTrackError"
     />
     <add-on-track-form v-if="numberType === `bills`"
-                       :numberList="numberType === `bills` ? toBaseNumbers(false) :toBaseNumbers(true) "
-                       @changeNumbers="numberType === `bills` ? unselectAddOnTrackBillNumbers($event) : unselectAddOnTrackContainerNumbers($event)"
+                       :numberList="toBaseNumbers(false)"
+                       @changeNumbers="unselectAddOnTrackBillNumbers($event)"
                        @close="addTrackingVisible=false"
                        :submit="addNumbersOnTrack"
                        @show="addTrackingVisible = $event"
