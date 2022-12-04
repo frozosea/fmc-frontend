@@ -2,13 +2,44 @@ import fetch from "cross-fetch";
 
 class BaseApiClass {
     backendUrl;
+    refreshTokenFunc;
 
     constructor(backendUrl) {
         this.backendUrl = backendUrl;
+        // this.refreshTokenFunc = refreshTokenFunc
+    }
+
+    async refreshToken(refreshToken) {
+        const r = await fetch(`${this.backendUrl}/auth/refresh`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+            body: JSON.stringify({refreshToken: refreshToken})
+        })
+        return await this.checkErrorAndReturnJson(r)
+
     }
 
     async checkErrorAndReturnJson(r) {
         const json = await r.json()
+        try {
+            const refreshToken = localStorage.getItem("refreshToken")
+            if (refreshToken !== null) {
+                const response = await fetch(`${this.backendUrl}/auth/refresh`, {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json;charset=utf-8'
+                    },
+                    body: JSON.stringify({refreshToken: refreshToken})
+                })
+                const obj = await response.json()
+                localStorage.setItem("refreshToken", obj.refreshToken)
+                localStorage.setItem("accessToken", obj.token)
+            }
+        } catch (e) {
+            //
+        }
         if (r.status > 205) {
             throw new Error(json.error)
         }
@@ -56,17 +87,6 @@ export class AuthApi extends BaseApiClass {
         return await this.checkErrorAndReturnJson(r)
     }
 
-    async refreshToken(refreshToken) {
-        const r = await fetch(`${this.backendUrl}/auth/refresh`, {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8'
-            },
-            body: JSON.stringify({refreshToken: refreshToken})
-        })
-        return await this.checkErrorAndReturnJson(r)
-
-    }
 
     async recoveryPassword(token, password) {
         const r = await fetch(`${this.backendUrl}/auth/reset`, {

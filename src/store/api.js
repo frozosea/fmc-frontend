@@ -7,12 +7,14 @@ const scheduleTrackingApi = new ScheduleTrackingApi(BACKEND_URL)
 const userApi = new UserApi(BACKEND_URL)
 
 export default {
-    state: {
-        authApi: authApi,
-        trackingApi: trackingApi,
-        scheduleTrackingApi: scheduleTrackingApi,
-        userApi: userApi,
-        api: new Api(authApi, trackingApi, scheduleTrackingApi, userApi)
+    state: () => {
+        return {
+            authApi: authApi,
+            trackingApi: trackingApi,
+            scheduleTrackingApi: scheduleTrackingApi,
+            userApi: userApi,
+            api: new Api(authApi, trackingApi, scheduleTrackingApi, userApi)
+        }
     },
 
 }

@@ -91,7 +91,7 @@ export default {
       billScac: []
     }
   },
-  async mounted() {
+  async beforeMount() {
     this.containerScac = await this.$store.state.api.trackingApi.getContainerLines()
     this.billScac = await this.$store.state.api.trackingApi.getBillLines()
   },

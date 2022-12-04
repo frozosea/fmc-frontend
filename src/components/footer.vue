@@ -27,10 +27,10 @@
     </div>
   </div>
   <CustomModal v-model:show="isShowServices">
-    <services-modal @close="isShowServices = $event"/>
+    <services-modal @show="isShowServices = $event"/>
   </CustomModal>
   <CustomModal v-model:show="isShowFeedBack">
-    <feed-back-modal @close="isShowFeedBack=$event"/>
+    <feed-back-modal @show="isShowFeedBack=$event"/>
   </CustomModal>
 </template>
 
