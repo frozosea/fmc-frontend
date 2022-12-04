@@ -2,44 +2,31 @@ import fetch from "cross-fetch";
 
 class BaseApiClass {
     backendUrl;
-    refreshTokenFunc;
 
     constructor(backendUrl) {
         this.backendUrl = backendUrl;
         // this.refreshTokenFunc = refreshTokenFunc
     }
 
-    async refreshToken(refreshToken) {
-        const r = await fetch(`${this.backendUrl}/auth/refresh`, {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8'
-            },
-            body: JSON.stringify({refreshToken: refreshToken})
-        })
-        return await this.checkErrorAndReturnJson(r)
+    async refreshToken() {
+        const refreshToken = localStorage.getItem("refreshToken")
+        if (refreshToken !== null) {
+            const response = await fetch(`${this.backendUrl}/auth/refresh`, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                },
+                body: JSON.stringify({refreshToken: refreshToken})
+            })
+            const obj = await response.json()
+            localStorage.setItem("refreshToken", obj.refreshToken)
+            localStorage.setItem("accessToken", obj.token)
+        }
 
     }
 
     async checkErrorAndReturnJson(r) {
         const json = await r.json()
-        try {
-            const refreshToken = localStorage.getItem("refreshToken")
-            if (refreshToken !== null) {
-                const response = await fetch(`${this.backendUrl}/auth/refresh`, {
-                    method: "POST",
-                    headers: {
-                        'Content-Type': 'application/json;charset=utf-8'
-                    },
-                    body: JSON.stringify({refreshToken: refreshToken})
-                })
-                const obj = await response.json()
-                localStorage.setItem("refreshToken", obj.refreshToken)
-                localStorage.setItem("accessToken", obj.token)
-            }
-        } catch (e) {
-            //
-        }
         if (r.status > 205) {
             throw new Error(json.error)
         }
@@ -97,6 +84,19 @@ export class AuthApi extends BaseApiClass {
             body: JSON.stringify({token: token, password: password})
         })
         return await this.checkErrorAndReturnJson(r)
+    }
+
+    async refresh(refreshToken) {
+        if (refreshToken !== null) {
+            const response = await fetch(`${this.backendUrl}/auth/refresh`, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                },
+                body: JSON.stringify({refreshToken: refreshToken})
+            })
+            return await response.json()
+        }
     }
 }
 
@@ -208,7 +208,7 @@ export class ScheduleTrackingApi extends BaseApiClass {
             method: "DELETE",
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
-                'Authorization': `Bearer ${accessToken}`
+                'authorization': `Bearer ${accessToken}`
             },
             body: JSON.stringify({numbers: numbers})
         })
@@ -220,7 +220,7 @@ export class ScheduleTrackingApi extends BaseApiClass {
             method: "DELETE",
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
-                'Authorization': `Bearer ${accessToken}`
+                'authorization': `Bearer ${accessToken}`
             },
             body: JSON.stringify({numbers: numbers})
         })
@@ -232,7 +232,7 @@ export class ScheduleTrackingApi extends BaseApiClass {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
-                'Authorization': `Bearer ${accessToken}`
+                'authorization': `Bearer ${accessToken}`
             },
             body: JSON.stringify(req)
         })
@@ -245,7 +245,7 @@ export class ScheduleTrackingApi extends BaseApiClass {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
-                'Authorization': `Bearer ${accessToken}`
+                'authorization': `Bearer ${accessToken}`
             },
             body: JSON.stringify(req)
         })
@@ -287,7 +287,6 @@ export class ScheduleTrackingApi extends BaseApiClass {
 
     async updateBills(req, accessToken) {
         const r = await fetch(`${this.backendUrl}/schedule/bills`, {
-            // url: `${this.backendUrl}/schedule/bills`,
             method: "PUT",
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
@@ -316,7 +315,6 @@ export class UserApi extends BaseApiClass {
 
     async get(accessToken) {
         const r = await fetch(`${this.backendUrl}/user/all`, {
-            // url: `${this.backendUrl}/user/all`,
             method: "GET",
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
@@ -324,127 +322,6 @@ export class UserApi extends BaseApiClass {
             },
         })
         return await this.checkErrorAndReturnJson(r)
-        // return {
-        //     containers: [{
-        //         number: "MRKU6782312",
-        //         isOnTrack: true,
-        //         isContainer: true,
-        //         scheduleTrackingInfo: {
-        //             time: "4:20",
-        //             emails: ["i20072004@gmail.com", "y20072004@gmail.com", "d20072004@gmail.com"],
-        //             subject: "example subject"
-        //         }
-        //     },
-        //         {
-        //             number: "CMDU1239876",
-        //             isOnTrack: true,
-        //             isContainer: true,
-        //             scheduleTrackingInfo: {
-        //                 time: "4:20",
-        //                 emails: ["i20072004@gmail.com", "y20072004@gmail.com", "d20072004@gmail.com"],
-        //                 subject: "example subject"
-        //             }
-        //         },
-        //         {
-        //             number: "MAEU5672343",
-        //             isOnTrack: true,
-        //             isContainer: true,
-        //             scheduleTrackingInfo: {
-        //                 time: "4:20",
-        //                 emails: ["i20072004@gmail.com", "y20072004@gmail.com", "d20072004@gmail.com"],
-        //                 subject: "example subject"
-        //             }
-        //         },
-        //         {
-        //             number: "MSKU7658790",
-        //             isOnTrack: true,
-        //             isContainer: true,
-        //             scheduleTrackingInfo: {
-        //                 time: "4:20",
-        //                 emails: ["i20072004@gmail.com", "y20072004@gmail.com", "d20072004@gmail.com"],
-        //                 subject: "example subject"
-        //             }
-        //         },
-        //         {
-        //             number: "FESO2219273",
-        //             isOnTrack: true,
-        //             isContainer: true,
-        //             scheduleTrackingInfo: {
-        //                 time: "4:20",
-        //                 emails: ["i20072004@gmail.com", "y20072004@gmail.com", "d20072004@gmail.com"],
-        //                 subject: "example subject"
-        //             }
-        //         },
-        //         {
-        //             number: "FESO2219271",
-        //             isOnTrack: true,
-        //             isContainer: true,
-        //             scheduleTrackingInfo: {
-        //                 time: "4:20",
-        //                 emails: ["i20072004@gmail.com", "y20072004@gmail.com", "d20072004@gmail.com"],
-        //                 subject: "example subject"
-        //             }
-        //         },
-        //         {
-        //             number: "FESO2219270",
-        //             isOnTrack: true,
-        //             isContainer: true,
-        //             scheduleTrackingInfo: {
-        //                 time: "4:20",
-        //                 emails: ["i20072004@gmail.com", "y20072004@gmail.com", "d20072004@gmail.com"],
-        //                 subject: "example subject"
-        //             }
-        //         },
-        //         {
-        //             number: "FESO2219272",
-        //             isOnTrack: true,
-        //             isContainer: true,
-        //             scheduleTrackingInfo: {
-        //                 time: "4:20",
-        //                 emails: ["i20072004@gmail.com", "y20072004@gmail.com", "d20072004@gmail.com"],
-        //                 subject: "example subject"
-        //             }
-        //         }],
-        //     billNumbers: [
-        //         {
-        //             number: "ZHGO22222222",
-        //             isOnTrack: true,
-        //             isContainer: false,
-        //             scheduleTrackingInfo: {
-        //                 time: "4:20",
-        //                 emails: ["i20072004@gmail.com", "y20072004@gmail.com", "d20072004@gmail.com"],
-        //                 subject: "example subject"
-        //             }
-        //         },
-        //         {
-        //             number: "MKRU1231231231",
-        //             isOnTrack: false,
-        //             isContainer: false,
-        //             scheduleTrackingInfo: {}
-        //         },
-        //         {
-        //             number: "FESO23123123",
-        //             isOnTrack: true,
-        //             isContainer: false,
-        //             scheduleTrackingInfo: {
-        //                 time: "4:20",
-        //                 emails: ["i20072004@gmail.com", "y20072004@gmail.com", "d20072004@gmail.com"],
-        //                 subject: "example subject"
-        //             }
-        //         },
-        //         {
-        //             number: "CMDU23123123",
-        //             isOnTrack: true,
-        //             isContainer: false,
-        //             scheduleTrackingInfo: {
-        //                 time: "4:20",
-        //                 emails: ["i20072004@gmail.com", "y20072004@gmail.com", "d20072004@gmail.com"],
-        //                 subject: "example subject"
-        //             }
-        //         }
-        //     ]
-        // }
-
     }
 
     async addBills(numbers, accessToken) {
@@ -452,7 +329,7 @@ export class UserApi extends BaseApiClass {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
-                'Authorization': `Bearer ${accessToken}`
+                'authorization': `Bearer ${accessToken}`
             },
             body: JSON.stringify(numbers)
         })
@@ -464,7 +341,7 @@ export class UserApi extends BaseApiClass {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
-                'Authorization': `Bearer ${accessToken}`
+                'authorization': `Bearer ${accessToken}`
             },
             body: JSON.stringify(numbers)
         })
@@ -476,7 +353,7 @@ export class UserApi extends BaseApiClass {
             method: "DELETE",
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
-                'Authorization': `Bearer ${accessToken}`
+                'authorization': `Bearer ${accessToken}`
             },
             body: JSON.stringify(numbers)
         })
@@ -488,7 +365,7 @@ export class UserApi extends BaseApiClass {
             method: "DELETE",
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
-                'Authorization': `Bearer ${accessToken}`
+                'authorization': `Bearer ${accessToken}`
             },
             body: JSON.stringify(numbers)
         })

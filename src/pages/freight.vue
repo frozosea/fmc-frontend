@@ -5,19 +5,25 @@
 
 <script>
 import longDottedLine from "@/UI/longDottedLine";
+
 export default {
   name: "FreightPage",
-  components: {longDottedLine}
+  components: {longDottedLine},
+  async mounted() {
+    if (this.$store.getters[`user/getIsAuth`]) {
+      await this.$store.commit(`refreshToken`)
+    }
+  }
 }
 </script>
 
 <style scoped>
-.inProgress{
+.inProgress {
   width: 200px;
   height: 100px;
 
   position: absolute;
-  top:0;
+  top: 0;
   bottom: 0;
   left: 0;
   right: 0;

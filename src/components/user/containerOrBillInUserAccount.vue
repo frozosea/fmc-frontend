@@ -108,6 +108,9 @@ export default {
     updateScheduleTrackingInfo(e) {
       this.$emit(`updateScheduleTrackingInfo`, e)
     }
+  },
+  mounted() {
+    console.log(this.isContainer)
   }
 }
 </script>

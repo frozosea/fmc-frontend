@@ -13,5 +13,15 @@ export default createStore({
         utils: utils,
         scheduleTracking: scheduleTracking
     },
+    mutations: {
+        async refreshToken(state) {
+            const fromLocal = localStorage.getItem("refreshToken")
+            if (fromLocal !== null) {
+                const obj = await state.api.authApi.refresh(fromLocal)
+                this.commit(`user/setAuthToken`, obj.token)
+                this.commit(`user/setRefreshToken`, obj.refreshToken)
+            }
+        }
+    }
 })
 

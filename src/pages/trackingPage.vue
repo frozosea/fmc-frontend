@@ -91,7 +91,10 @@ export default {
       billScac: []
     }
   },
-  async beforeMount() {
+  async mounted() {
+    if (this.$store.getters[`user/getIsAuth`]) {
+      await this.$store.commit(`refreshToken`)
+    }
     this.containerScac = await this.$store.state.api.trackingApi.getContainerLines()
     this.billScac = await this.$store.state.api.trackingApi.getBillLines()
   },

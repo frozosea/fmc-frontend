@@ -40,7 +40,6 @@
     <div class="row g-0">
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div style="color: red" v-if="showError"> {{ error }}</div>
-        <div style="color: red" v-if="showSubmitError"> {{ submitError }}</div>
         <button type="button" class="button-menu" @click="addOnTrack" ref="button" :disabled="!valid">Add on track
         </button>
         <button type="button" class="button-menu-line password-pad" @click="deleteFromTrack">Remove tracking</button>
@@ -78,7 +77,11 @@ export default {
       type: String,
       required: false
     },
-    isContainer: Boolean
+    isContainer: Boolean,
+    isUpdate: {
+      type: Boolean,
+      required: false
+    }
     // submit: Function,
   },
   methods: {
@@ -107,7 +110,13 @@ export default {
       }
       try {
         const token = this.$store.getters[`user/getAuthToken`]
-        this.isContainer ? await api.scheduleTrackingApi.addContainersOnTracking(request, token) : await api.scheduleTrackingApi.addBillsOnTrack(request, token)
+        if (Object.keys(this.scheduleTrackingObject).length !== 0) {
+          if (!this.scheduleTrackingObject.time || !this.scheduleTrackingObject.emails) {
+            this.isContainer ? await api.scheduleTrackingApi.addContainersOnTracking(request, token) : await api.scheduleTrackingApi.addBillsOnTrack(request, token)
+          }
+        } else {
+          this.isContainer ? await api.scheduleTrackingApi.updateContainers(request, token) : await api.scheduleTrackingApi.updateBills(request, token)
+        }
         this.$emit(`submitForm`, {
           numbers: this.numberList,
           time: this.time,

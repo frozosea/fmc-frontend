@@ -18,11 +18,16 @@ export default {
     FmcFooter
   },
   metaInfo: {
-    title: 'My Example App',
+    title: 'FindMyCargo',
     titleTemplate: '%s - Yay!',
     htmlAttrs: {
       lang: 'en',
       amp: true
+    }
+  },
+  async mounted() {
+    if (this.$store.getters[`user/getIsAuth`]) {
+      await this.$store.commit(`refreshToken`)
     }
   }
 }

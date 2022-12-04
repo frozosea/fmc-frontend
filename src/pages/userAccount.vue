@@ -252,19 +252,29 @@ export default {
         if (this.searchType === `actual`) {
           for (const item of this.selectedBillNumbers) {
             this.deleteNumberFromArray(item, false);
-            (async () => {
-              await api.userApi.deleteBills(this.selectedBillNumbers, this.$store.getters[`user/getAuthToken`])
-            })();
           }
+          (async () => {
+            try {
+              await api.scheduleTrackingApi.deleteBillNosFromTracking(this.selectedBillNumbers, this.$store.getters[`user/getAuthToken`])
+            } catch (e) {
+              //
+            }
+            await api.userApi.deleteBills(this.selectedBillNumbers, this.$store.getters[`user/getAuthToken`])
+          })();
         }
       } else {
         if (this.searchType === `actual`) {
           for (const item of this.selectedContainerNumbers) {
             this.deleteNumberFromArray(item, true);
-            (async () => {
-              await api.userApi.deleteContainers(this.selectedContainerNumbers, this.$store.getters[`user/getAuthToken`])
-            })();
           }
+          (async () => {
+            try {
+              await api.scheduleTrackingApi.deleteContainerFromTracking(this.selectedBillNumbers, this.$store.getters[`user/getAuthToken`])
+            } catch (e) {
+              //
+            }
+            await api.userApi.deleteContainers(this.selectedContainerNumbers, this.$store.getters[`user/getAuthToken`])
+          })();
           // this.containerNumbers.splice(this.containerNumbers.indexOf())
         }
       }
@@ -373,6 +383,7 @@ export default {
       this.isShowLogin = true
       return
     }
+    await this.$store.commit(`refreshToken`)
     this.isShowNumbersNotFound = false
     this.isLoading = true
     try {
