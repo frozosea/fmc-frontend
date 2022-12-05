@@ -57,7 +57,7 @@ export default {
     getters: {
         getIsAuth(state) {
             const fromLocal = localStorage.getItem("isAuth")
-            if (fromLocal !== null) {
+            if (fromLocal !== null || fromLocal !== undefined) {
                 const booleanIsLogin = Boolean(fromLocal)
                 if (booleanIsLogin !== state.isAuth) {
                     state.isAuth = booleanIsLogin

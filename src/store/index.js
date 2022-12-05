@@ -16,7 +16,7 @@ export default createStore({
     mutations: {
         async refreshToken(state) {
             const fromLocal = localStorage.getItem("refreshToken")
-            if (fromLocal !== null) {
+            if (fromLocal) {
                 const obj = await state.api.authApi.refresh(fromLocal)
                 this.commit(`user/setAuthToken`, obj.token)
                 this.commit(`user/setRefreshToken`, obj.refreshToken)

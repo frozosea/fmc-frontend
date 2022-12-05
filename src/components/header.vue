@@ -65,6 +65,8 @@
             <li><a class="menu-item" @click="showLogin" v-if="!this.$store.getters[`user/getIsAuth`]">Login →</a></li>
             <li><a class="menu-item" @click="showRegister"
                    v-if="!this.$store.getters[`user/getIsAuth`]">Registration</a></li>
+            <li><a class="menu-item" v-if="this.$store.getters[`user/getIsAuth`]"
+                   @click="this.$store.commit(`user/logout`); this.$router.push(`/`)">Logout →</a></li>
             <div class="menu-font">© {{ new Date().getFullYear() }} <b>«Find my Cargo»</b>
               <p>Support: <a href="" class="title-5">{{ this.$store.state.info.supportEmail }}</a></p></div>
             <div class="menu-font">

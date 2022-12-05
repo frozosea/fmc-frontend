@@ -32,7 +32,6 @@
         :number-list="this.number !== `` ? [this.number] : []"
         :schedule-tracking-object="scheduleTrackingInfo"
         :is-container="isContainer"
-        @submitForm="addOnTrack($event)"
         @changeNumbers="deleteNumberFromListAddOnTrackList($event)"
         @show="addTrackingVisible = $event"
         @deleteFromTrack="deleteFromTracking($event)"
@@ -140,7 +139,7 @@ export default {
       try {
         if (this.$store.state.user.isAuth) {
           const scheduleTrackingResult = await api.scheduleTrackingApi.getInfoAboutTracking(this.number, this.$store.getters[`user/getAuthToken`])
-          this.scheduleTrackingInfo = scheduleTrackingResult
+          this.scheduleTrackingInfo = scheduleTrackingResult.scheduleTrackingInfo
           this.isOnTrack = true
         } else {
           throw new Error();
@@ -181,14 +180,18 @@ export default {
       this.scheduleTrackingInfo = null
       this.addTrackingVisible = false
       const api = this.$store.state.api
-      await api.scheduleTrackingApi.deleteContainerFromTracking([this.number], this.$store.getters["user/getIsAuth"])
+      const token = this.$store.getters["user/getAuthToken"]
+      this.isContainer
+          ? await api.scheduleTrackingApi.deleteContainerFromTracking([this.number], token)
+          : await api.scheduleTrackingApi.deleteBillNosFromTracking([this.number], token)
+
       document.getElementById("result").click()
     },
     async addOnTrack(e) {
       const api = this.$store.state.api
       if (this.isContainer) {
         try {
-          await api.userApi.addContainers([this.number], this.$store.getters[`user/getAuthToken`])
+          await api.userApi.addContainers({numbers: [this.number]}, this.$store.getters[`user/getAuthToken`])
         } catch (e) {
           this.isOnTrack = false
           this.scheduleTrackingInfo = {}
@@ -196,7 +199,13 @@ export default {
         try {
           this.isOnTrack = true
           this.scheduleTrackingInfo = e
-          document.getElementById("result").click()
+          try {
+            let panel = document.getElementById("result").nextElementSibling;
+            document.getElementById("result").classList.remove("act-long");
+            panel.style.maxHeight = null;
+          } catch (e) {
+            //
+          }
         } catch (e) {
           this.isOnTrack = false
           this.scheduleTrackingInfo = {}
@@ -211,7 +220,13 @@ export default {
         try {
           this.isOnTrack = true
           this.scheduleTrackingInfo = e
-          document.getElementById("result").click()
+          try {
+            let panel = document.getElementById("result").nextElementSibling;
+            document.getElementById("result").classList.remove("act-long");
+            panel.style.maxHeight = null;
+          } catch (e) {
+            //
+          }
         } catch (e) {
           this.isOnTrack = false
           this.scheduleTrackingInfo = {}

@@ -108,12 +108,11 @@ export default {
         "numbers": this.numberList,
         "time": this.time
       }
+      this.isContainer ? await api.userApi.addContainers({numbers: this.numberList}, this.$store.getters[`user/getAuthToken`]) : await api.userApi.addBills({numbers: this.numberList}, this.$store.getters[`user/getAuthToken`])
       try {
         const token = this.$store.getters[`user/getAuthToken`]
-        if (Object.keys(this.scheduleTrackingObject).length !== 0) {
-          if (!this.scheduleTrackingObject.time || !this.scheduleTrackingObject.emails) {
-            this.isContainer ? await api.scheduleTrackingApi.addContainersOnTracking(request, token) : await api.scheduleTrackingApi.addBillsOnTrack(request, token)
-          }
+        if (!this.scheduleTrackingObject || !this.scheduleTrackingObject.time || !this.scheduleTrackingObject.emails || !this.scheduleTrackingObject.emails) {
+          this.isContainer ? await api.scheduleTrackingApi.addContainersOnTracking(request, token) : await api.scheduleTrackingApi.addBillsOnTrack(request, token)
         } else {
           this.isContainer ? await api.scheduleTrackingApi.updateContainers(request, token) : await api.scheduleTrackingApi.updateBills(request, token)
         }
@@ -125,6 +124,7 @@ export default {
         })
         this.$emit(`show`, false)
       } catch (e) {
+        console.log(e)
         this.showError = true
         this.error = String(e)
       }
@@ -186,6 +186,7 @@ export default {
     },
   },
   async mounted() {
+    await this.$store.commit(`refreshToken`)
     const api = this.$store.state.api
     const raw = await api.scheduleTrackingApi.getTimeZone()
     this.timeZone = raw.timeZone
