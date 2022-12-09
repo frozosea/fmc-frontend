@@ -370,12 +370,18 @@ export default {
     filterContainerNumbers() {
       if (this.searchQuery === "") return this.containerNumbers
       const nums = utils.findInUserAccountBySearchQuery(this.containerNumbers, this.searchQuery);
+      if (!nums) {
+        return []
+      }
       // this.ShowNumbersNotFound(false)
       return nums
     },
     filterBillNumbers() {
       if (this.searchQuery === "") return this.billNumbers
       const nums = utils.findInUserAccountBySearchQuery(this.billNumbers, this.searchQuery);
+      if (!nums) {
+        return []
+      }
       return nums
     }
   },
@@ -394,8 +400,8 @@ export default {
         this.isShowNumbersNotFound = true
         return
       }
-      this.billNumbers = allBillsContainer.billNumbers
-      this.containerNumbers = allBillsContainer.containers
+      this.billNumbers = allBillsContainer.billNumbers  ?  allBillsContainer.billNumbers : []
+      this.containerNumbers = allBillsContainer.containers ? allBillsContainer.containers : []
     } catch (e) {
       this.isLoading = false
       this.isShowNumbersNotFound = true

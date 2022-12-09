@@ -1,10 +1,10 @@
 <template>
   <div class="not_found_numbers"
-       v-if="!numbers || (!numbers.length && !isLoading)">
+       v-if="!numbers.length && !isLoading">
     Number(s) not
     found!
   </div>
-  <div v-if="numbers.length">
+  <div v-if="numbers || numbers.length">
     <container-or-bill-in-user-account v-for="item in numbers"
                                        :key="item.number"
                                        :isOnTrack="item.isOnTrack"
