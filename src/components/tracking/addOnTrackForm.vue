@@ -103,7 +103,7 @@ export default {
       }
       const api = this.$store.state.api
       const request = {
-        "emailSubject": this.subject,
+        "emailSubject": this.subject ? this.subject : " ",
         "emails": this.emails,
         "numbers": this.numberList,
         "time": this.time
