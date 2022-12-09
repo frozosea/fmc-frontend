@@ -1,6 +1,6 @@
 <template>
   <div class="not_found_numbers"
-       v-if="!numbers.length && !isLoading">
+       v-if="!numbers || (!numbers.length && !isLoading)">
     Number(s) not
     found!
   </div>

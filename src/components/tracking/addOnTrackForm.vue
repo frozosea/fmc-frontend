@@ -124,11 +124,9 @@ export default {
         })
         this.$emit(`show`, false)
       } catch (e) {
-        console.log(e)
         this.showError = true
         this.error = String(e)
       }
-      // this.$emit(`show`, false)
     },
     hideByButton() {
       this.$emit(`show`, false)

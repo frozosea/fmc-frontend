@@ -374,8 +374,9 @@ export default {
       return nums
     },
     filterBillNumbers() {
-      return utils.findInUserAccountBySearchQuery(this.billNumbers, this.searchQuery)
-
+      if (this.searchQuery === "") return this.billNumbers
+      const nums = utils.findInUserAccountBySearchQuery(this.billNumbers, this.searchQuery);
+      return nums
     }
   },
   async mounted() {

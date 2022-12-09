@@ -29,6 +29,9 @@ export default {
     if (this.$store.getters[`user/getIsAuth`]) {
       await this.$store.commit(`refreshToken`)
     }
+    if (!this.$store.getters[`user/getAuthToken`] || !this.$store.getters[`user/getRefreshToken`]) {
+      this.$store.commit(`user/setIsAuth`, false)
+    }
   }
 }
 </script>

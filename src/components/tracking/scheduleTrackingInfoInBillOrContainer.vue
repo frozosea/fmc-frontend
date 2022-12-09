@@ -28,9 +28,6 @@ export default {
       this.$emit("showTrackingModal", true)
     }
   },
-  mounted() {
-    console.log(this.scheduleTrackingInfo.scheduleTrackingInfo)
-  }
 }
 </script>
 
