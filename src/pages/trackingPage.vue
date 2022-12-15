@@ -35,6 +35,7 @@
         @changeNumbers="deleteNumberFromListAddOnTrackList($event)"
         @show="addTrackingVisible = $event"
         @deleteFromTrack="deleteFromTracking($event)"
+        @submitForm="addOnTrack"
     />
   </CustomModal>
   <div class="spinner" v-if="isLoading">
@@ -188,24 +189,17 @@ export default {
       document.getElementById("result").click()
     },
     async addOnTrack(e) {
-      const api = this.$store.state.api
       if (this.isContainer) {
         try {
-          await api.userApi.addContainers({numbers: [this.number]}, this.$store.getters[`user/getAuthToken`])
+          let panel = document.getElementById("result").nextElementSibling;
+          document.getElementById("result").classList.remove("act-long");
+          panel.style.maxHeight = null;
         } catch (e) {
-          this.isOnTrack = false
-          this.scheduleTrackingInfo = {}
+          //
         }
         try {
           this.isOnTrack = true
           this.scheduleTrackingInfo = e
-          try {
-            let panel = document.getElementById("result").nextElementSibling;
-            document.getElementById("result").classList.remove("act-long");
-            panel.style.maxHeight = null;
-          } catch (e) {
-            //
-          }
         } catch (e) {
           this.isOnTrack = false
           this.scheduleTrackingInfo = {}
@@ -213,20 +207,15 @@ export default {
 
       } else {
         try {
-          await api.userApi.addBills([this.number], this.$store.getters[`user/getAuthToken`])
+          let panel = document.getElementById("result").nextElementSibling;
+          document.getElementById("result").classList.remove("act-long");
+          panel.style.maxHeight = null;
         } catch (e) {
           //
         }
         try {
           this.isOnTrack = true
           this.scheduleTrackingInfo = e
-          try {
-            let panel = document.getElementById("result").nextElementSibling;
-            document.getElementById("result").classList.remove("act-long");
-            panel.style.maxHeight = null;
-          } catch (e) {
-            //
-          }
         } catch (e) {
           this.isOnTrack = false
           this.scheduleTrackingInfo = {}

@@ -26,11 +26,11 @@ export default {
     }
   },
   async mounted() {
+    if (this.$store.getters[`user/getAuthToken`]=== "undefined" || this.$store.getters[`user/getRefreshToken`]=== "undefined") {
+      this.$forceUpdate();
+      this.$store.commit(`user/logout`)    }
     if (this.$store.getters[`user/getIsAuth`]) {
       await this.$store.commit(`refreshToken`)
-    }
-    if (!this.$store.getters[`user/getAuthToken`] || !this.$store.getters[`user/getRefreshToken`]) {
-      this.$store.commit(`user/setIsAuth`, false)
     }
   }
 }

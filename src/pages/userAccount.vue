@@ -259,7 +259,11 @@ export default {
             } catch (e) {
               //
             }
-            await api.userApi.deleteBills(this.selectedBillNumbers, this.$store.getters[`user/getAuthToken`])
+            try {
+              await api.userApi.deleteBills(this.selectedBillNumbers, this.$store.getters[`user/getAuthToken`])
+            } catch (e) {
+              //
+            }
           })();
         }
       } else {
@@ -273,9 +277,12 @@ export default {
             } catch (e) {
               //
             }
-            await api.userApi.deleteContainers(this.selectedContainerNumbers, this.$store.getters[`user/getAuthToken`])
+            try {
+              await api.userApi.deleteContainers(this.selectedContainerNumbers, this.$store.getters[`user/getAuthToken`])
+            } catch (e) {
+              //
+            }
           })();
-          // this.containerNumbers.splice(this.containerNumbers.indexOf())
         }
       }
 
@@ -348,12 +355,8 @@ export default {
           const index = this.findInArray(num, false)
           this.billNumbers[index].isOnTrack = true
           this.billNumbers[index].scheduleTrackingInfo = {time: obj.time, subject: obj.subject, emails: obj.emails}
-          // this.$refs[`button_${num}`].click()
         }
       }
-    },
-    ShowNumbersNotFound(value) {
-      this.isShowNumbersNotFound = value
     },
     removeFromTrackingOneNumber(event) {
       if (this.numberType === `containers`) {
@@ -373,7 +376,6 @@ export default {
       if (!nums) {
         return []
       }
-      // this.ShowNumbersNotFound(false)
       return nums
     },
     filterBillNumbers() {
@@ -400,7 +402,7 @@ export default {
         this.isShowNumbersNotFound = true
         return
       }
-      this.billNumbers = allBillsContainer.billNumbers  ?  allBillsContainer.billNumbers : []
+      this.billNumbers = allBillsContainer.billNumbers ? allBillsContainer.billNumbers : []
       this.containerNumbers = allBillsContainer.containers ? allBillsContainer.containers : []
     } catch (e) {
       this.isLoading = false
