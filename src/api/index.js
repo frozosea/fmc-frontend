@@ -331,7 +331,7 @@ export class UserApi extends BaseApiClass {
                 'Content-Type': 'application/json;charset=utf-8',
                 'authorization': `Bearer ${accessToken}`
             },
-            body: JSON.stringify(numbers)
+            body: JSON.stringify({numbers:numbers})
         })
         return await this.checkErrorAndReturnJson(r)
     }
@@ -343,7 +343,7 @@ export class UserApi extends BaseApiClass {
                 'Content-Type': 'application/json;charset=utf-8',
                 'authorization': `Bearer ${accessToken}`
             },
-            body: JSON.stringify(numbers)
+            body: JSON.stringify({numbers:numbers})
         })
         return await this.checkErrorAndReturnJson(r)
     }
@@ -355,7 +355,7 @@ export class UserApi extends BaseApiClass {
                 'Content-Type': 'application/json;charset=utf-8',
                 'authorization': `Bearer ${accessToken}`
             },
-            body: JSON.stringify(numbers)
+            body: JSON.stringify({numbers:numbers})
         })
         return await this.checkErrorAndReturnJson(r)
     }
@@ -367,7 +367,7 @@ export class UserApi extends BaseApiClass {
                 'Content-Type': 'application/json;charset=utf-8',
                 'authorization': `Bearer ${accessToken}`
             },
-            body: JSON.stringify(numbers)
+            body: JSON.stringify({numbers:numbers})
         })
         return await this.checkErrorAndReturnJson(r)
     }

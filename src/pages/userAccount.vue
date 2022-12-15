@@ -275,6 +275,7 @@ export default {
             try {
               await api.scheduleTrackingApi.deleteContainerFromTracking(this.selectedBillNumbers, this.$store.getters[`user/getAuthToken`])
             } catch (e) {
+              console.log(e)
               //
             }
             try {

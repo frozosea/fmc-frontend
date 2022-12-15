@@ -108,7 +108,7 @@ export default {
         "numbers": this.numberList,
         "time": this.time
       }
-      this.isContainer ? await api.userApi.addContainers({numbers: this.numberList}, this.$store.getters[`user/getAuthToken`]) : await api.userApi.addBills({numbers: this.numberList}, this.$store.getters[`user/getAuthToken`])
+      this.isContainer ? await api.userApi.addContainers(this.numberList, this.$store.getters[`user/getAuthToken`]) : await api.userApi.addBills(this.numberList, this.$store.getters[`user/getAuthToken`])
       try {
         const token = this.$store.getters[`user/getAuthToken`]
         if (!this.scheduleTrackingObject || !this.scheduleTrackingObject.time || !this.scheduleTrackingObject.emails || !this.scheduleTrackingObject.emails) {
