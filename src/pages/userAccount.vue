@@ -273,9 +273,8 @@ export default {
           }
           (async () => {
             try {
-              await api.scheduleTrackingApi.deleteContainerFromTracking(this.selectedBillNumbers, this.$store.getters[`user/getAuthToken`])
+              await api.scheduleTrackingApi.deleteContainerFromTracking(this.selectedContainerNumbers, this.$store.getters[`user/getAuthToken`])
             } catch (e) {
-              console.log(e)
               //
             }
             try {
