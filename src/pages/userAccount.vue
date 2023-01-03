@@ -120,6 +120,7 @@ export default {
     },
     updateNumberType(type) {
       this.numberType = type;
+      console.log(this.numberType)
     },
     selectContainer(number) {
       if (this.selectedContainerNumbers.indexOf(number) === -1) {
@@ -181,6 +182,7 @@ export default {
         }
       } else {
         for (const item of this.selectedAddOnTrackBillNumbers) {
+          console.log(item)
           ar.push(item.toUpperCase())
         }
       }
@@ -379,6 +381,7 @@ export default {
       return nums
     },
     filterBillNumbers() {
+      console.log(this.billNumbers)
       if (this.searchQuery === "") return this.billNumbers
       const nums = utils.findInUserAccountBySearchQuery(this.billNumbers, this.searchQuery);
       if (!nums) {
@@ -397,11 +400,6 @@ export default {
     this.isLoading = true
     try {
       const allBillsContainer = await this.$store.state.api.userApi.get(this.$store.getters[`user/getAuthToken`])
-      if (!allBillsContainer.containers) {
-        this.isLoading = false
-        this.isShowNumbersNotFound = true
-        return
-      }
       this.billNumbers = allBillsContainer.billNumbers ? allBillsContainer.billNumbers : []
       this.containerNumbers = allBillsContainer.containers ? allBillsContainer.containers : []
     } catch (e) {
