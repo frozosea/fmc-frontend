@@ -5,7 +5,6 @@ class BaseApiClass {
 
     constructor(backendUrl) {
         this.backendUrl = backendUrl;
-        // this.refreshTokenFunc = refreshTokenFunc
     }
 
     async refreshToken() {
@@ -115,50 +114,6 @@ export class TrackingApi extends BaseApiClass {
             throw new Error(`number not found`)
         }
         return json
-        // return {
-        //     number: "MRKU6788432",
-        //     containerSize: "20HQ",
-        //     infoAboutMoving: [{
-        //         "time": "2022-20-20",
-        //         "operationName": "test opeartion",
-        //         "location": "nakhodka",
-        //         "vessel": ""
-        //     },
-        //         {
-        //             "time": "2022-20-20",
-        //             "operationName": "test opeartion",
-        //             "location": "nakhodka",
-        //             "vessel": ""
-        //         },
-        //         {
-        //             "time": "2022-20-20",
-        //             "operationName": "test opeartion",
-        //             "location": "nakhodka",
-        //             "vessel": ""
-        //         },
-        //         {
-        //             "time": "2022-20-20",
-        //             "operationName": "test opeartion",
-        //             "location": "nakhodka",
-        //             "vessel": ""
-        //         }, {
-        //             "time": "2022-20-20",
-        //             "operationName": "test opeartion",
-        //             "location": "nakhodka",
-        //             "vessel": ""
-        //         }, {
-        //             "time": "2022-20-20",
-        //             "operationName": "test opeartion",
-        //             "location": "nakhodka",
-        //             "vessel": ""
-        //         }, {
-        //             "time": "2022-20-20",
-        //             "operationName": "test opeartion",
-        //             "location": "nakhodka",
-        //             "vessel": ""
-        //         }
-        //     ]
-        // }
     }
 
     async trackByBillNumber(number, scac) {
@@ -183,8 +138,7 @@ export class TrackingApi extends BaseApiClass {
         const r = await fetch(`${this.backendUrl}/scac/containers`, {
             method: "GET",
             headers: {
-                'content-type': 'application/json;charset=utf-8',
-                'Access-Control-Allow-Origin': '*'
+                'Content-type': 'application/json;charset=utf-8',
             },
         })
         return await r.json()
@@ -194,7 +148,7 @@ export class TrackingApi extends BaseApiClass {
         const r = await fetch(`${this.backendUrl}/scac/bills`, {
             method: "GET",
             headers: {
-                'content-type': 'application/json;charset=utf-8',
+                'Content-type': 'application/json;charset=utf-8',
             },
         })
         return await r.json()
@@ -208,7 +162,7 @@ export class ScheduleTrackingApi extends BaseApiClass {
             method: "DELETE",
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
-                'authorization': `Bearer ${accessToken}`
+                'Authorization': `Bearer ${accessToken}`
             },
             body: JSON.stringify({numbers: numbers})
         })
@@ -220,7 +174,7 @@ export class ScheduleTrackingApi extends BaseApiClass {
             method: "DELETE",
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
-                'authorization': `Bearer ${accessToken}`
+                'Authorization': `Bearer ${accessToken}`
             },
             body: JSON.stringify({numbers: numbers})
         })
@@ -232,7 +186,7 @@ export class ScheduleTrackingApi extends BaseApiClass {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
-                'authorization': `Bearer ${accessToken}`
+                'Authorization': `Bearer ${accessToken}`
             },
             body: JSON.stringify(req)
         })
@@ -245,7 +199,7 @@ export class ScheduleTrackingApi extends BaseApiClass {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
-                'authorization': `Bearer ${accessToken}`
+                'Authorization': `Bearer ${accessToken}`
             },
             body: JSON.stringify(req)
         })
@@ -329,7 +283,7 @@ export class UserApi extends BaseApiClass {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
-                'authorization': `Bearer ${accessToken}`
+                'Authorization': `Bearer ${accessToken}`
             },
             body: JSON.stringify({numbers:numbers})
         })
@@ -341,7 +295,7 @@ export class UserApi extends BaseApiClass {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
-                'authorization': `Bearer ${accessToken}`
+                'Authorization': `Bearer ${accessToken}`
             },
             body: JSON.stringify({numbers:numbers})
         })
@@ -353,7 +307,7 @@ export class UserApi extends BaseApiClass {
             method: "DELETE",
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
-                'authorization': `Bearer ${accessToken}`
+                'Authorization': `Bearer ${accessToken}`
             },
             body: JSON.stringify({numbers:numbers})
         })
@@ -365,7 +319,7 @@ export class UserApi extends BaseApiClass {
             method: "DELETE",
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
-                'authorization': `Bearer ${accessToken}`
+                'Authorization': `Bearer ${accessToken}`
             },
             body: JSON.stringify({numbers:numbers})
         })
