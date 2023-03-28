@@ -2,7 +2,7 @@
   <div class="col-xl-3 col-lg-4 col-md-12 col-sm-12 col-xs-12">
     <div class="container-title" v-if="isFound && !isLoading && !isInAccount">
       {{
-        isContainer ? `${this.number.toUpperCase()}/${this.trackingResponse.containerSize}` : `${this.number.toUpperCase()}/ETA: ${this.trackingResponse.eta ? this.trackingResponse.eta : `` }`
+        isContainer ? `${this.number.toUpperCase()}/${this.trackingResponse.containerSize}` : `${this.number.toUpperCase()}/ETA: ${this.trackingResponse.etaFinalDelivery ? this.trackingResponse.etaFinalDelivery : `` }`
       }}
     </div>
     <div class="container-title" v-if="!isFound && !isLoading">

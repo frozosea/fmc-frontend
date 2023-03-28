@@ -54,7 +54,7 @@
                                  :is-loading="isLoading"
                                  v-if="hasContainers"
                                  :schedule-tracking-info="scheduleTrackingInfo"
-                                 :number="trackingResult.number"
+                                 :number="number"
                                  id="result"
   />
 </template>
@@ -113,7 +113,8 @@ export default {
           for (let item of result.infoAboutMoving) {
             item.time = this.$store.getters["utils/getTime"].humanizeTime(item.time)
           }
-          this.number = result.number
+          // console.log(result)
+          this.number = result.container
           this.trackingResult = result
           this.isFound = true
           this.hasContainers = true
@@ -126,7 +127,7 @@ export default {
             item.time = this.$store.getters["utils/getTime"].humanizeTime(item.time)
           }
           result.eta = this.$store.getters["utils/getTime"].humanizeTime(result.eta)
-          this.number = result.number
+          this.number = result.billNo
           this.trackingResult = result
           this.isFound = true
           this.hasContainers = true
@@ -138,7 +139,7 @@ export default {
         this.hasContainers = false
       }
       try {
-        if (this.$store.state.user.isAuth) {
+        if (this.$store.getters["user/getIsAuth"]) {
           const scheduleTrackingResult = await api.scheduleTrackingApi.getInfoAboutTracking(this.number, this.$store.getters[`user/getAuthToken`])
           this.scheduleTrackingInfo = scheduleTrackingResult.scheduleTrackingInfo
           this.isOnTrack = true
@@ -146,6 +147,7 @@ export default {
           throw new Error();
         }
       } catch (e) {
+        console.log(e)
         this.isOnTrack = false
       }
     },

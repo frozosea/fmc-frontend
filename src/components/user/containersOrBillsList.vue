@@ -8,7 +8,7 @@
     <container-or-bill-in-user-account v-for="item in numbers"
                                        :key="item.number"
                                        :isOnTrack="item.isOnTrack"
-                                       :scheduleTrackingInfo="item.scheduleTrackingInfo"
+                                       :scheduleTrackingInfo="item.scheduleTrackingObject"
                                        :number="item.number"
                                        :is-container="item.isContainer"
                                        @selectCheckBox="$event ? selectNumber(item.number) : unSelectNumber(item.number)"

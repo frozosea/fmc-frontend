@@ -18,8 +18,9 @@ class BaseApiClass {
                 body: JSON.stringify({refreshToken: refreshToken})
             })
             const obj = await response.json()
+            console.log(obj)
             localStorage.setItem("refreshToken", obj.refreshToken)
-            localStorage.setItem("accessToken", obj.token)
+            localStorage.setItem("authToken", obj.token)
         }
 
     }
@@ -30,6 +31,19 @@ class BaseApiClass {
             throw new Error(json.error)
         }
         return json
+    }
+
+    async getUserId(accessToken) {
+        const r = await fetch(`${this.backendUrl}/auth/user`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8',
+                Authorization: `Bearer ${accessToken}`
+            },
+        })
+        const j = await r.json()
+        console.log(j)
+        return j.userId
     }
 }
 
@@ -101,11 +115,15 @@ export class AuthApi extends BaseApiClass {
 
 export class TrackingApi extends BaseApiClass {
     async trackContainer(number, scac) {
-        const r = await fetch(`${this.backendUrl}/tracking/container?number=${number}&scac=${scac}`, {
-            method: "GET",
+        const r = await fetch(`${this.backendUrl}/tracking/container`, {
+            method: "POST",
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'
             },
+            body: JSON.stringify({
+                "number": number,
+                "scac": scac
+            })
         })
         const json = await r.json()
         if (r.status >= 205) {
@@ -117,13 +135,18 @@ export class TrackingApi extends BaseApiClass {
     }
 
     async trackByBillNumber(number, scac) {
-        const r = await fetch(`${this.backendUrl}/tracking/bill?number=${number}&scac=${scac}`,
+        const r = await fetch(`${this.backendUrl}/tracking/bill`,
             {
-                method: "GET",
+                method: "POST",
                 headers: {
                     'Content-Type': 'application/json;charset=utf-8'
                 },
-            })
+                body: JSON.stringify({
+                    "number": number,
+                    "scac": scac
+                })
+            }
+        )
         const json = await r.json()
         if (r.status >= 205) {
             throw new Error(`status code is: ${r.status} error: ${json.error}`)
@@ -135,13 +158,14 @@ export class TrackingApi extends BaseApiClass {
     }
 
     async getContainerLines() {
-        const r = await fetch(`${this.backendUrl}/scac/containers`, {
+        const r = await fetch(`${this.backendUrl}/scac/container`, {
             method: "GET",
             headers: {
                 'Content-type': 'application/json;charset=utf-8',
             },
         })
-        return await r.json()
+        const j = await r.json()
+        return j.data
     }
 
     async getBillLines() {
@@ -151,7 +175,8 @@ export class TrackingApi extends BaseApiClass {
                 'Content-type': 'application/json;charset=utf-8',
             },
         })
-        return await r.json()
+        const j = await r.json()
+        return j.data
     }
 }
 
@@ -162,7 +187,7 @@ export class ScheduleTrackingApi extends BaseApiClass {
             method: "DELETE",
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
-                'Authorization': `Bearer ${accessToken}`
+                Authorization: `Bearer ${accessToken}`
             },
             body: JSON.stringify({numbers: numbers})
         })
@@ -174,7 +199,7 @@ export class ScheduleTrackingApi extends BaseApiClass {
             method: "DELETE",
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
-                'Authorization': `Bearer ${accessToken}`
+                Authorization: `Bearer ${accessToken}`
             },
             body: JSON.stringify({numbers: numbers})
         })
@@ -186,7 +211,7 @@ export class ScheduleTrackingApi extends BaseApiClass {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
-                'Authorization': `Bearer ${accessToken}`
+                Authorization: `Bearer ${accessToken}`
             },
             body: JSON.stringify(req)
         })
@@ -199,7 +224,7 @@ export class ScheduleTrackingApi extends BaseApiClass {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
-                'Authorization': `Bearer ${accessToken}`
+                Authorization: `Bearer ${accessToken}`
             },
             body: JSON.stringify(req)
         })
@@ -207,11 +232,13 @@ export class ScheduleTrackingApi extends BaseApiClass {
     }
 
     async getInfoAboutTracking(number, accessToken) {
-        const r = await fetch(`${this.backendUrl}/schedule/info?number=${number}`, {
+        const userId = await this.getUserId(accessToken)
+        console.log(userId)
+        const r = await fetch(`${this.backendUrl}/schedule/info?number=${number}&userId=${userId}`, {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
-                'Authorization': `Bearer ${accessToken}`
+                Authorization: `Bearer ${accessToken}`
             },
         })
         return await this.checkErrorAndReturnJson(r)
@@ -232,7 +259,7 @@ export class ScheduleTrackingApi extends BaseApiClass {
             method: "PUT",
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
-                'Authorization': `Bearer ${accessToken}`
+                Authorization: `Bearer ${accessToken}`
             },
             body: JSON.stringify(req)
         })
@@ -244,7 +271,7 @@ export class ScheduleTrackingApi extends BaseApiClass {
             method: "PUT",
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
-                'Authorization': `Bearer ${accessToken}`
+                Authorization: `Bearer ${accessToken}`
             },
             body: JSON.stringify(req)
         })
@@ -272,32 +299,44 @@ export class UserApi extends BaseApiClass {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
-                'Authorization': `Bearer ${accessToken}`
+                Authorization: `Bearer ${accessToken}`
             },
         })
         return await this.checkErrorAndReturnJson(r)
     }
 
     async addBills(numbers, accessToken) {
+        let numbersInBody = []
+        for (const number of numbers) {
+            numbersInBody.push({"number": number})
+        }
         const r = await fetch(`${this.backendUrl}/user/bills`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
-                'Authorization': `Bearer ${accessToken}`
+                Authorization: `Bearer ${accessToken}`
             },
-            body: JSON.stringify({numbers:numbers})
+            body: JSON.stringify({
+                "container": numbersInBody
+            })
         })
         return await this.checkErrorAndReturnJson(r)
     }
 
     async addContainers(numbers, accessToken) {
+        let numbersInBody = []
+        for (const number of numbers) {
+            numbersInBody.push({"number": number})
+        }
         const r = await fetch(`${this.backendUrl}/user/containers`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
-                'Authorization': `Bearer ${accessToken}`
+                Authorization: `Bearer ${accessToken}`
             },
-            body: JSON.stringify({numbers:numbers})
+            body: JSON.stringify({
+                "container": numbersInBody
+            })
         })
         return await this.checkErrorAndReturnJson(r)
     }
@@ -307,9 +346,9 @@ export class UserApi extends BaseApiClass {
             method: "DELETE",
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
-                'Authorization': `Bearer ${accessToken}`
+                Authorization: `Bearer ${accessToken}`
             },
-            body: JSON.stringify({numbers:numbers})
+            body: JSON.stringify({numbers: numbers})
         })
         return await this.checkErrorAndReturnJson(r)
     }
@@ -319,9 +358,9 @@ export class UserApi extends BaseApiClass {
             method: "DELETE",
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
-                'Authorization': `Bearer ${accessToken}`
+                Authorization: `Bearer ${accessToken}`
             },
-            body: JSON.stringify({numbers:numbers})
+            body: JSON.stringify({numbers: numbers})
         })
         return await this.checkErrorAndReturnJson(r)
     }

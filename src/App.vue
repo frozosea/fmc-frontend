@@ -27,8 +27,10 @@ export default {
   },
   async mounted() {
     if (this.$store.getters[`user/getAuthToken`]=== "undefined" || this.$store.getters[`user/getRefreshToken`]=== "undefined") {
+      console.log(localStorage.getItem("authToken"))
       this.$forceUpdate();
-      this.$store.commit(`user/logout`)    }
+      this.$store.commit(`user/logout`)
+    }
     if (this.$store.getters[`user/getIsAuth`]) {
       await this.$store.commit(`refreshToken`)
     }

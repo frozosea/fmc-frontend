@@ -18,7 +18,7 @@ export default createStore({
             const fromLocal = localStorage.getItem("refreshToken")
             if (fromLocal) {
                 const obj = await state.api.authApi.refresh(fromLocal)
-                this.commit(`user/setAuthToken`, obj.token)
+                this.commit(`user/setAuthToken`, obj.tokens)
                 this.commit(`user/setRefreshToken`, obj.refreshToken)
             }
         }

@@ -50,7 +50,7 @@ export default {
   components: {SpinnerLoader},
   data() {
     return {
-      email: "i20072004@gmail.com",
+      email: "",
       password: "",
       showLoading: false,
       error: "",
@@ -63,7 +63,8 @@ export default {
       try {
         this.showLoading = true
         const data = await api.login(this.email, this.password)
-        this.$store.commit(`user/setAuthToken`, data.token)
+        this.$store.commit(`user/setAuthToken`, data.tokens)
+        console.log(this.$store.getters["user/getAuthToken"])
         this.$store.commit(`user/setRefreshToken`, data.refreshToken)
         this.$store.commit(`user/setEmail`, this.email)
         this.showLoading = false
@@ -71,6 +72,7 @@ export default {
         this.$store.commit(`user/setIsAuth`, true)
         this.$emit(`show`, false)
       } catch (e) {
+        console.log(e)
         this.showLoading = false
         this.error = "user was not found!"
         this.showError = true
