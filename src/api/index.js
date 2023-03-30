@@ -89,7 +89,7 @@ export class AuthApi extends BaseApiClass {
 
 
     async recoveryPassword(token, password) {
-        const r = await fetch(`${this.backendUrl}/auth/reset`, {
+        const r = await fetch(`${this.backendUrl}/auth/recovery`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'
