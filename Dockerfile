@@ -1,6 +1,7 @@
 FROM node:lts-alpine as build-stage
 WORKDIR /app
 COPY package*.json ./
+ENV VUE_APP_BACKEND_URL=http://api.findmycargo.ru
 RUN npm config set legacy-peer-deps true
 RUN npm install --force
 COPY . .
