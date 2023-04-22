@@ -113,7 +113,6 @@ export default {
           for (let item of result.infoAboutMoving) {
             item.time = this.$store.getters["utils/getTime"].humanizeTime(item.time)
           }
-          // console.log(result)
           this.number = result.container
           this.trackingResult = result
           this.isFound = true
@@ -126,7 +125,7 @@ export default {
           for (let item of result.infoAboutMoving) {
             item.time = this.$store.getters["utils/getTime"].humanizeTime(item.time)
           }
-          result.eta = this.$store.getters["utils/getTime"].humanizeTime(result.eta)
+          result.etaFinalDelivery = this.$store.getters["utils/getTime"].humanizeTime(result.etaFinalDelivery)
           this.number = result.billNo
           this.trackingResult = result
           this.isFound = true
