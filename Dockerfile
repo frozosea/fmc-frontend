@@ -1,5 +1,4 @@
 FROM node:lts-alpine as build-stage
-RUN npm install -g http-server
 WORKDIR /app
 COPY package*.json ./
 ENV VUE_APP_BACKEND_URL=https://api.findmycargo.ru
