@@ -4,9 +4,14 @@ services:
     image: flyasea/fmc-frontend:latest
     ports:
       - "80:80"
+      - "443:443"
     environment:
       VUE_APP_BACKEND_URL: https://api.findmycargo.ru
-
+    volumes:
+      - "./nginx/nginx.conf:/etc/nginx/nginx.conf"
+      - "./nginx/proxy.conf:/etc/nginx/proxy.conf"
+      - "./:/var/www"
+      - "/etc/letsencrypt/:/etc/letsencrypt/"
 networks:
   public:
     name: public
