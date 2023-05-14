@@ -6,6 +6,9 @@ services:
       - "8080:8080"
     environment:
       VUE_APP_BACKEND_URL: https://api.findmycargo.ru
+
+    networks:
+      - public
   nginx:
     image: nginx
     ports:
