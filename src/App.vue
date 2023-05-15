@@ -27,7 +27,6 @@ export default {
   },
   async mounted() {
     if (!this.$store.getters[`user/getAuthToken`] || !this.$store.getters[`user/getRefreshToken`]) {
-      console.log(localStorage.getItem("authToken"))
       this.$forceUpdate();
       this.$store.commit(`user/logout`)
     }

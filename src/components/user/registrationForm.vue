@@ -121,6 +121,13 @@ export default {
         this.showLoading = false
         this.showError = false
         this.$emit(`show`, false)
+        const data = await api.login(this.email, this.password)
+        this.$store.commit(`user/setAuthToken`, data.tokens)
+        this.$store.commit(`user/setRefreshToken`, data.refreshToken)
+        this.$store.commit(`user/setEmail`, this.email)
+        this.showLoading = false
+        this.showError = false
+        this.$store.commit(`user/setIsAuth`, true)
       } catch (e) {
         this.error = "user with this username or email already exist!"
         this.showError = true

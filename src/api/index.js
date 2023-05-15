@@ -18,7 +18,6 @@ class BaseApiClass {
                 body: JSON.stringify({refreshToken: refreshToken})
             })
             const obj = await response.json()
-            console.log(obj)
             localStorage.setItem("refreshToken", obj.refreshToken)
             localStorage.setItem("authToken", obj.token)
         }
@@ -42,7 +41,6 @@ class BaseApiClass {
             },
         })
         const j = await r.json()
-        console.log(j)
         return j.userId
     }
 }
@@ -233,7 +231,6 @@ export class ScheduleTrackingApi extends BaseApiClass {
 
     async getInfoAboutTracking(number, accessToken) {
         const userId = await this.getUserId(accessToken)
-        console.log(userId)
         const r = await fetch(`${this.backendUrl}/schedule/info?number=${number}&userId=${userId}`, {
             method: "GET",
             headers: {

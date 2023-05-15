@@ -2,7 +2,6 @@ import createPersistedState from "vuex-persistedstate";
 
 const getItem = (state, item) => {
     const fromLocal = localStorage.getItem(item)
-    console.log(fromLocal)
     if (fromLocal !== state[item] && (fromLocal !== null || fromLocal)) {
         state[item] = fromLocal
         return fromLocal
@@ -34,7 +33,6 @@ export default {
         },
         setAuthToken(state, token) {
             localStorage.setItem("authToken", token)
-            console.log(localStorage.getItem("authToken"));
             state.authToken = token
         },
         setRefreshToken(state, token) {

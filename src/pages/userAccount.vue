@@ -120,7 +120,6 @@ export default {
     },
     updateNumberType(type) {
       this.numberType = type;
-      console.log(this.numberType)
     },
     selectContainer(number) {
       if (this.selectedContainerNumbers.indexOf(number) === -1) {
@@ -182,7 +181,6 @@ export default {
         }
       } else {
         for (const item of this.selectedAddOnTrackBillNumbers) {
-          console.log(item)
           ar.push(item.toUpperCase())
         }
       }
@@ -381,7 +379,6 @@ export default {
       return nums
     },
     filterBillNumbers() {
-      console.log(this.billNumbers)
       if (this.searchQuery === "") return this.billNumbers
       const nums = utils.findInUserAccountBySearchQuery(this.billNumbers, this.searchQuery);
       if (!nums) {

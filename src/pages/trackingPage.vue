@@ -146,7 +146,6 @@ export default {
           throw new Error();
         }
       } catch (e) {
-        console.log(e)
         this.isOnTrack = false
       }
     },
