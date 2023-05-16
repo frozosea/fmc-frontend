@@ -3,7 +3,7 @@
     <div class="container g-0">
       <div class="row g-0">
         <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-xs-12">
-          <div class="title-8 input-modal-title">Log in</div>
+          <div class="title-8 input-modal-title">Вход</div>
         </div>
 
         <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-12">
@@ -21,16 +21,16 @@
           <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <input type="email" class="input-css-grey input-modal" placeholder="E-mail"
                    @input="email = $event.target.value">
-            <input type="password" class="input-css-grey input-modal-end" placeholder="*************"
+            <input type="пароль" class="input-css-grey input-modal-end" placeholder="*************"
                    @input="password = $event.target.value">
           </div>
           <div class="container g-0">
             <div class="row g-0">
               <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div v-if="showError" style="color: red"> {{ error }}</div>
-                <button type="submit" class="button-menu" :disabled="showLoading" ref="button">log in</button>
+                <button type="submit" class="button-menu" :disabled="showLoading" ref="button">Войти</button>
                 <button type="button" class="button-menu-line password-pad" @click="setShowRemindForm"
-                        :disabled="showLoading">Remind password
+                        :disabled="showLoading">Напомнить пароль
                 </button>
               </div>
             </div>

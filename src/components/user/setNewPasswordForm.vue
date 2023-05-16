@@ -3,7 +3,7 @@
     <div class="container g-0">
       <div class="row g-0">
         <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-xs-12">
-          <div class="title-8 input-modal-title">Set new password</div>
+          <div class="title-8 input-modal-title">Установить новый пароль</div>
         </div>
 
         <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-12">
@@ -17,16 +17,16 @@
         />
         <div v-if="!showLoading">
           <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <input type="password" class="input-css-grey input-modal" placeholder="Write password"
+            <input type="password" class="input-css-grey input-modal" placeholder="Введите пароль"
                    @input="handlePasswordInput">
-            <input type="password" class="input-css-grey input-modal-end" placeholder="Password again"
+            <input type="password" class="input-css-grey input-modal-end" placeholder="Введите пароль еще раз"
                    @input="handleRepeatedPasswordInput">
           </div>
 
           <div class="row g-0">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
               <div style="color: red; margin-left: auto; margin-top: auto" v-if="showError">{{ errorMessage }}</div>
-              <button type="submit" class="button-menu" :disabled="!valid" ref="button">Reset</button>
+              <button type="submit" class="button-menu" :disabled="!valid" ref="button">Сбросить</button>
             </div>
           </div>
         </div>
@@ -60,7 +60,7 @@ export default {
         this.valid = false
         this.showError = true
         this.disableButton()
-        this.errorMessage = "passwords should be equal!"
+        this.errorMessage = "пароли должны быть одинаковы!"
       } else {
         this.valid = true
         this.showError = false
@@ -74,7 +74,7 @@ export default {
         this.valid = false
         this.showError = true
         this.disableButton()
-        this.errorMessage = "passwords should be equal!"
+        this.errorMessage = "пароли должны быть одинаковы!"
       } else {
         this.valid = true
         this.showError = false
@@ -104,7 +104,7 @@ export default {
         this.showError = false
         this.$emit(`show`, false)
       } catch (e) {
-        this.error = "something went wrong, try again later"
+        this.error = "что-то пошло не так, попробуйте позднее"
         this.showError = true
         this.showLoading = false
       }

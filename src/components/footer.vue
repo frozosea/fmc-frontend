@@ -7,7 +7,7 @@
       </div>
       <div class="col-xl-4 col-lg-8 col-md-6 col-sm-12 col-xs-12">
         <div class="footer-copyright">
-          © {{ new Date().getFullYear() }} «<b>Find my Cargo</b>», <a href=""
+          © {{ new Date().getFullYear() }} «<b>Find my Cargo</b>», <a :href="`mailto:${this.$store.state.info.supportEmail}`"
                                                                       class="title-4">{{
             this.$store.state.info.supportEmail
           }}</a>
@@ -15,9 +15,9 @@
       </div>
       <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-xs-12 d-md-none d-xl-block
                     d-none d-sm-block d-sm-none d-md-block footer-menu">
-        <router-link to="/about" class="title-4">Company</router-link>
-        <a @click="showServices" class="menu-link-footer title-4">Services</a>
-        <a @click="showFeedback" class="menu-link-footer title-4">Feedback</a>
+        <router-link to="/about" class="title-4">Компания</router-link>
+        <a @click="showServices" class="menu-link-footer title-4">Сервисы</a>
+        <a @click="showFeedback" class="menu-link-footer title-4">Обратная связь</a>
       </div>
       <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-xs-12 footer-socials">
         <a href=""><img src="@/assets/images/telegram.svg" class="img-hover svg-social"></a>

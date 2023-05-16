@@ -12,16 +12,16 @@
   <div class="container g-3 actions-pad">
     <div class="row g-0">
       <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12 number">
-        Tracking your cargo by number:
+        Отследить морской груз по номеру:
       </div>
       <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
         <div class="action">
           <img src="@/assets/images/plus.svg" width="14">
           <button class="title-7 borderless_button" @click="setAddTrackingVisible"
-                  :disabled="!this.$store.getters[`user/getIsAuth`]">&nbsp;Schedule tracking
+                  :disabled="!this.$store.getters[`user/getIsAuth`]">&nbsp;Слежение по расписанию
           </button>
           <img src="@/assets/images/delete.svg" width="14" class="pad-action">
-          <button class="title-6 borderless_button" @click="deleteNumbersFromList">&nbsp;Remove</button>
+          <button class="title-6 borderless_button" @click="deleteNumbersFromList">&nbsp;Удалить</button>
         </div>
       </div>
     </div>
@@ -44,7 +44,7 @@
         class="spinner"
     />
   </div>
-  <div v-if="!isLoading && !hasContainers" class="not_found_numbers">Number(s) not found!</div>
+  <div v-if="!isLoading && !hasContainers" class="not_found_numbers">Номер(а) не найдены!</div>
   <base-container-or-bill-number :is-found="isFound"
                                  :tracking-response="trackingResult"
                                  :isContainer="isContainer"

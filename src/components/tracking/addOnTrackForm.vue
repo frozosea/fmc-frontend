@@ -2,7 +2,7 @@
   <div class="container g-0">
     <div class="row g-0">
       <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-xs-12">
-        <div class="title-8 input-modal-title">Schedule tracking</div>
+        <div class="title-8 input-modal-title">Слежение по расписанию</div>
       </div>
 
       <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-12">
@@ -13,10 +13,10 @@
 
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div>
-          <input type="text" class="input-css-grey input-modal" placeholder="E-mail for mailings / separated by commas"
+          <input type="text" class="input-css-grey input-modal" placeholder="E-mail для рассылки / через запятую"
                  @input="handleEmails"
                  :value="emails.join(`,`)">
-          <input type="text" class="input-css-grey input-modal" placeholder="Subject name"
+          <input type="text" class="input-css-grey input-modal" placeholder="Тема сообщения"
                  @input="subject = $event.target.value"
                  :value="subject">
           <input type="text" class="input-css-grey input-modal"
@@ -40,9 +40,9 @@
     <div class="row g-0">
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div style="color: red" v-if="showError"> {{ error }}</div>
-        <button type="button" class="button-menu" @click="addOnTrack" ref="button" :disabled="!valid">Add on track
+        <button type="button" class="button-menu" @click="addOnTrack" ref="button" :disabled="!valid">Добавить на слежение
         </button>
-        <button type="button" class="button-menu-line password-pad" @click="deleteFromTrack">Remove tracking</button>
+        <button type="button" class="button-menu-line password-pad" @click="deleteFromTrack">Удалить со слежения</button>
       </div>
     </div>
   </div>
@@ -63,7 +63,7 @@ export default {
       error: "",
       showError: false,
       timeZone: "",
-      timePlaceholder: "Time in format 01:44"
+      timePlaceholder: "Время в формате 01:44"
     }
   },
   props: {
@@ -92,7 +92,7 @@ export default {
       for (let email of this.emails) {
         if (!emailRegex.test(email)) {
           this.valid = false
-          this.error = "please input valid emails"
+          this.error = "пожалуйста, введите корректный E-mail"
           this.showError = true
           this.disableButton()
         } else {
@@ -141,7 +141,7 @@ export default {
       for (const email of emails) {
         if (!regex.test(email)) {
           this.disableButton()
-          this.error = "please, enter valid email(s)"
+          this.error = "пожалуйста, введите корректный E-mail"
           this.valid = false
           this.showError = true
         } else {
@@ -167,7 +167,7 @@ export default {
       this.time = time
       if (!/\d{1,2}:\d{1,2}/g.test(time)) {
         this.disableButton()
-        this.error = "please, enter valid time in format `hh:mm` "
+        this.error = "пожалуйста, введите время в формате `ЧЧ:ММ` "
         this.valid = false
         this.showError = true
       } else {
@@ -188,10 +188,10 @@ export default {
     const api = this.$store.state.api
     const raw = await api.scheduleTrackingApi.getTimeZone()
     this.timeZone = raw.timeZone
-    this.timePlaceholder += `, timezone is ${this.timeZone}`
+    this.timePlaceholder += `, часовой пояс ${this.timeZone}`
     if (!this.numberList.length) {
       this.disableButton()
-      this.error = "add container or bill numbers!"
+      this.error = "добавьте контейнера или коносаменты!"
       this.showError = true
       return
     }
@@ -206,7 +206,7 @@ export default {
         this.disableButton()
       }
     } catch (e) {
-      this.error = "enter data!"
+      this.error = "введите данные!"
       this.showError = true
       this.disableButton()
     }

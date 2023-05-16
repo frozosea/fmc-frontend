@@ -3,7 +3,7 @@
     <div class="container g-0">
       <div class="row g-0">
         <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-xs-12">
-          <div class="title-8 input-modal-title">Registration</div>
+          <div class="title-8 input-modal-title">Регистрация</div>
         </div>
 
         <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-12">
@@ -17,19 +17,19 @@
         />
         <div v-if="!showLoading">
           <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <input type="text" class="input-css-grey input-modal" placeholder="Your E-mail" @input="handleEmail">
-            <input type="text" class="input-css-grey input-modal" placeholder="Create username"
+            <input type="text" class="input-css-grey input-modal" placeholder="Ваш E-mail" @input="handleEmail">
+            <input type="text" class="input-css-grey input-modal" placeholder="Введите имя пользователя"
                    @input="username = $event.target.value">
-            <input type="password" class="input-css-grey input-modal" placeholder="Create password"
+            <input type="password" class="input-css-grey input-modal" placeholder="Введите пароль"
                    @input="handlePasswordInput">
-            <input type="password" class="input-css-grey input-modal-end" placeholder="Password again"
+            <input type="password" class="input-css-grey input-modal-end" placeholder="Введите пароль снова"
                    @input="handleRepeatedPasswordInput">
           </div>
 
           <div class="row g-0">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
               <div style="color: red; margin-left: auto; margin-top: auto" v-if="showError">{{ errorMessage }}</div>
-              <button type="submit" class="button-menu" :disabled="!valid" ref="button">Register</button>
+              <button type="submit" class="button-menu" :disabled="!valid" ref="button">Регистрация</button>
             </div>
           </div>
         </div>
@@ -64,7 +64,7 @@ export default {
         this.valid = false
         this.showError = true
         this.disableButton()
-        this.errorMessage = "please input correct email!"
+        this.errorMessage = "пожалуйста, введите корректный E-mail"
       } else {
         this.valid = true
         this.showError = false
@@ -80,7 +80,7 @@ export default {
         this.valid = false
         this.showError = true
         this.disableButton()
-        this.errorMessage = "passwords should be equal!"
+        this.errorMessage = "пароли должны совпадать"
       } else {
         this.valid = true
         this.showError = false
@@ -94,7 +94,7 @@ export default {
         this.valid = false
         this.showError = true
         this.disableButton()
-        this.errorMessage = "passwords should be equal!"
+        this.errorMessage = "пароли должны совпадать"
       } else {
         this.valid = true
         this.showError = false
@@ -129,7 +129,7 @@ export default {
         this.showError = false
         this.$store.commit(`user/setIsAuth`, true)
       } catch (e) {
-        this.error = "user with this username or email already exist!"
+        this.error = "пользователь с такими данными уже существует!"
         this.showError = true
         this.showLoading = false
       }

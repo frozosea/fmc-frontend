@@ -3,7 +3,7 @@
     <div class="container g-0">
       <div class="row g-0">
         <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-xs-12">
-          <div class="title-8 input-modal-title">Remind password</div>
+          <div class="title-8 input-modal-title">Напомнить пароль</div>
         </div>
 
         <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-12">
@@ -22,8 +22,8 @@
     <div class="row g-0">
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div v-if="showError" style="color: red"> {{ error }}</div>
-        <div v-if="showSuccessMessage"> Recovery user message was send to your email! </div>
-        <button type="submit" class="button-menu">Remind password</button>
+        <div v-if="showSuccessMessage"> Сообщение для восстановаления пароля было отправлено на почту!</div>
+        <button type="submit" class="button-menu">Напомнить пароль</button>
       </div>
     </div>
   </form>
@@ -50,6 +50,11 @@ export default {
       const api = this.$store.state.api.authApi
       try {
         await api.remindPassword(this.email)
+        this.showSuccessMessage = true
+        this.showError = false
+        setTimeout(() => {
+          this.$emit("show",false)
+        }, 5000)
       } catch (e) {
         this.showLoading = false
         this.error = "user with this email doesn't exists"

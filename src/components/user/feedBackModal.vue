@@ -2,7 +2,7 @@
   <div class="container g-0">
     <div class="row g-0">
       <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-xs-12">
-        <div class="title-8 input-modal-title">Feedback</div>
+        <div class="title-8 input-modal-title">Отзыв</div>
       </div>
 
       <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-12">
@@ -14,14 +14,14 @@
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <input type="text" class="input-css-grey input-modal" id="recipient-name" placeholder="E-mail"
                @input="inputEmail"/>
-        <textarea id="msg" class="text-area" placeholder="Ask your question" v-model="feedback"/>
+        <textarea id="msg" class="text-area" placeholder="Напишите свой вопрос или отзыв в это поле" v-model="feedback"/>
       </div>
     </div>
   </div>
   <div class="container g-0">
     <div class="row g-0">
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <button type="button" class="button-menu area-pad" @click="submit" ref="button">Send message</button>
+        <button type="button" class="button-menu area-pad" @click="submit" ref="button">Отправить отзыв</button>
         <div style="color: red" v-if="showError">{{ error }}</div>
       </div>
     </div>

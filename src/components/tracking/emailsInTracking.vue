@@ -1,7 +1,7 @@
 <template>
   <div class="col-xl-9 col-lg-8 col-md-12 col-sm-12 col-xs-12">
     <div class="container-font">
-      <span class="bold">E-mail(s):</span>
+      <span class="bold">E-mail:</span>
       {{ separateEmailsByComma() }}
     </div>
   </div>

@@ -47,7 +47,7 @@
 
               <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="container-font">
-                  <span class="bold grey-color">Tracking information: </span>
+                  <span class="bold grey-color">Информация о грузе: </span>
                   <span class="grey-color"><p></p>
                                      </span></div>
               </div>

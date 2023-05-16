@@ -1,7 +1,7 @@
 <template>
   <div class="col-xl-5 col-lg-4 col-md-12 col-sm-12 col-xs-12">
     <div class="container-local" v-if="isFound">
-      <img src="@/assets/images/location.svg" class="svg-location" v-if="isFound &&!empty"> Latest move:
+      <img src="@/assets/images/location.svg" class="svg-location" v-if="isFound &&!empty"> Последняя локация:
       {{
         trackingResponse ? trackingResponse.infoAboutMoving[trackingResponse.infoAboutMoving.length - 1].location.toUpperCase() : ``
       }}

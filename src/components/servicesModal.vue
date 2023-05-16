@@ -16,22 +16,22 @@
 
   <div class="container g-0 password-pad">
     <div class="row g-3">
-      <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12" style="cursor: pointer;" @click="redirectToTracking">
+      <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12" style="cursor: pointer;" @click="redirectToContainerTracking">
         <div class="service-block">
           <img src="@/assets/images/container.png" class="service-img img-hover">
-          <p>Tracking by container number</p>
+          <p>Отследить по номеру контейнера</p>
         </div>
       </div>
-      <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12" style="cursor: pointer;" @click="redirectToTracking">
+      <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12" style="cursor: pointer;" @click="redirectToBillTracking">
           <div class="service-block">
             <img src="@/assets/images/bill.png" class="service-img img-hover">
-            <p>Tracking by bill number</p>
+            <p>Отследить по номеру коносамента</p>
           </div>
       </div>
-      <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12" style="cursor: pointer;" @click="redirectToFreight">
+      <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12" style="cursor: pointer;">
         <div class="service-block">
-          <img src="@/assets/images/document.png" class="service-img img-hover">
-          <p>Search the cheapest freight</p>
+          <img src="@/assets/images/document.png" class="service-img">
+          <p>Поиск фрахта</p>
         </div>
       </div>
     </div>
@@ -40,7 +40,7 @@
     <div class="row g-3">
 
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 service-text">
-        FindMyCargo can help you with automize logistics routine processes.
+        FindMyCargo помогает автоматизировать рутинные процессы в морской логистике.
       </div>
 
     </div>
@@ -61,8 +61,12 @@ export default {
     enableButton() {
       this.$refs.button.classList.replace("disabled-button", "button-menu")
     },
-    redirectToTracking() {
-      this.$router.push(`/tracking`)
+    redirectToContainerTracking() {
+      this.$router.push(`/tracking?isContainer=true`)
+      this.$emit(`show`, false)
+    },
+    redirectToBillTracking() {
+      this.$router.push(`/tracking?isContainer=false`)
       this.$emit(`show`, false)
     },
     redirectToFreight(){

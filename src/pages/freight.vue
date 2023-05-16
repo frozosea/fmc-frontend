@@ -1,6 +1,6 @@
 <template>
   <long-dotted-line/>
-  <div class="inProgress">Development in progress...</div>
+  <div class="inProgress">В процессе разработки...</div>
 </template>
 
 <script>

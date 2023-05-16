@@ -10,9 +10,9 @@
       <div class="col-xl-6 col-lg-5 col-md-6 col-sm-12 col-xs-12 d-md-none d-lg-block
                     d-none d-sm-block d-sm-none d-md-block">
         <div class="menu">
-          <router-link to="/about" class="title-3">Company</router-link>
-          <a @click="showServices" class="menu-link title-3 borderless_button">Services</a>
-          <a @click="showFeedback" class="menu-link title-3 borderless_button">Feedback</a>
+          <router-link to="/about" class="title-3">О компании</router-link>
+          <a @click="showServices" class="menu-link title-3 borderless_button">Сервисы</a>
+          <a @click="showFeedback" class="menu-link title-3 borderless_button">Обратная связь</a>
         </div>
       </div>
 
@@ -38,9 +38,9 @@
         <div class="login" v-if="!this.$store.getters[`user/getIsAuth`]">
           <img src="@/assets/images/exit.svg" class="svg-enter"
                @click="this.$store.commit(`user/logout`); this.$router.push(`/`)">
-          <a @click="showLogin" class="title-3">Log in</a>
+          <a @click="showLogin" class="title-3">Авторизация</a>
           <a @click="showRegister">
-            <button type="button" class="button-login">Registration</button>
+            <button type="button" class="button-login">Регистрация</button>
           </a>
         </div>
       </div>
@@ -56,17 +56,17 @@
             </router-link>
             <li class="menu-padding">
             </li>
-            <li class=""><a class="menu-item" href="">Company</a></li>
-            <li><a class="menu-item" @click="showServices">Services</a></li>
-            <li><a class="menu-item" @click="showFeedback">Feedback</a></li>
+            <li class=""><a class="menu-item" href="">О компании</a></li>
+            <li><a class="menu-item" @click="showServices">Сервисы</a></li>
+            <li><a class="menu-item" @click="showFeedback">Оставить отзыв</a></li>
             <li>
-              <a class="menu-item" v-if="this.$store.getters[`user/getIsAuth`]" href="/user">Account</a>
+              <a class="menu-item" v-if="this.$store.getters[`user/getIsAuth`]" href="/user">Аккаунт</a>
             </li>
-            <li><a class="menu-item" @click="showLogin" v-if="!this.$store.getters[`user/getIsAuth`]">Login →</a></li>
+            <li><a class="menu-item" @click="showLogin" v-if="!this.$store.getters[`user/getIsAuth`]">Авторизация →</a></li>
             <li><a class="menu-item" @click="showRegister"
                    v-if="!this.$store.getters[`user/getIsAuth`]">Registration</a></li>
             <li><a class="menu-item" v-if="this.$store.getters[`user/getIsAuth`]"
-                   @click="this.$store.commit(`user/logout`); this.$router.push(`/`)">Logout →</a></li>
+                   @click="this.$store.commit(`user/logout`); this.$router.push(`/`)">Выйти →</a></li>
             <div class="menu-font">© {{ new Date().getFullYear() }} <b>«Find my Cargo»</b>
               <p>Support: <a href="" class="title-5">{{ this.$store.state.info.supportEmail }}</a></p></div>
             <div class="menu-font">
