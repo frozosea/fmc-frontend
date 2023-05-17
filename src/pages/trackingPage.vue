@@ -49,12 +49,12 @@
                                  :tracking-response="trackingResult"
                                  :isContainer="isContainer"
                                  :is-on-track="isOnTrack"
-                                 @selectCheckBox="changeNumToSelectedList(number,$event)"
+                                 @selectCheckBox="changeNumToSelectedList(trackNumber,$event)"
                                  @showModal="addTrackingVisible = $event"
                                  :is-loading="isLoading"
                                  v-if="hasContainers"
                                  :schedule-tracking-info="scheduleTrackingInfo"
-                                 :number="number"
+                                 :number="trackNumber"
                                  id="result"
   />
 </template>
@@ -79,6 +79,7 @@ export default {
       isContainer: true,
       isLoading: false,
       isFound: false,
+      trackNumber: "",
       hasContainers: false,
       number: "",
       isOnTrack: false,
@@ -103,6 +104,7 @@ export default {
     async trackByNumber(isContainer, num, scac) {
       this.isContainer = isContainer
       this.number = num
+      this.trackNumber = this.number
       this.scac = scac
       this.isLoading = true
       const api = this.$store.state.api
@@ -121,12 +123,12 @@ export default {
 
         } else {
           this.isLoading = true
-          const result = await api.trackingApi.trackByBillNumber(this.number.toUpperCase(), this.scac === "" ? "AUTO" : this.scac)
+          const result = await api.trackingApi.trackByBillNumber(this.trackNumber.toUpperCase(), this.scac === "" ? "AUTO" : this.scac)
           for (let item of result.infoAboutMoving) {
             item.time = this.$store.getters["utils/getTime"].humanizeTime(item.time)
           }
           result.etaFinalDelivery = this.$store.getters["utils/getTime"].humanizeTime(result.etaFinalDelivery)
-          this.number = result.billNo
+          this.trackNumber = result.billNo
           this.trackingResult = result
           this.isFound = true
           this.hasContainers = true

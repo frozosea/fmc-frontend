@@ -12,7 +12,7 @@
               <container-title :is-found="isFound"
                                :is-container="isContainer"
                                :tracking-response="trackingResponse"
-                               :number="this.n"
+                               :number="number"
                                :is-loading="isLoading"
               />
               <!--              <SpinnerLoader-->
@@ -97,7 +97,7 @@ export default {
       // number: "MRKU6788432",
       isSelectCheckBox: false,
       isFound: true,
-      n: "number"
+      n: ""
       // isContainer: true,
       // isOnTrack: true,
     }
