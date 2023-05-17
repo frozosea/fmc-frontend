@@ -4,7 +4,7 @@
 
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <button :class="isOnTrack ? `accordion` : `accordion back-accordion`" @click="onClick" ref="button"
-                :disabled="isLoading" :id="this.number">
+                :disabled="isLoading" :id="this.n">
           <div class="container g-3">
             <div class="row g-0">
               <container-picture :is-on-track="isOnTrack" :is-container="isContainer"/>
@@ -12,7 +12,7 @@
               <container-title :is-found="isFound"
                                :is-container="isContainer"
                                :tracking-response="trackingResponse"
-                               :number="number"
+                               :number="this.n"
                                :is-loading="isLoading"
               />
               <!--              <SpinnerLoader-->
@@ -24,7 +24,7 @@
 
               <binaculars-picture :is-found="isFound"
                                   v-if="!isLoading"
-                                  :number="number"
+                                  :number="n"
                                   :schedule-tracking-object="scheduleTrackingInfo"
                                   @showModal="showModal"
                                   :disabled="!this.$store.getters[`user/getIsAuth`]"
@@ -89,11 +89,15 @@ export default {
     // SpinnerLoader,
     ContainerTitle, ContainerPicture, scheduleTrackingInfoInBillOrContainer
   },
+  mounted() {
+    this.n = this.number
+  },
   data() {
     return {
       // number: "MRKU6788432",
       isSelectCheckBox: false,
       isFound: true,
+      n: "number"
       // isContainer: true,
       // isOnTrack: true,
     }
