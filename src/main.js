@@ -15,9 +15,7 @@ components.forEach(component => {
 
 app.use(VueSpinners).use(router).use(store).use(VueYandexMetrika, {
     id: 93636620,
-    router: router,
-    env: process.env.NODE_ENV,
-    scriptSrc: true,
+    router: router
 
 }).mount("#app")
 
