@@ -17,7 +17,7 @@ app.use(VueSpinners).use(router).use(store).use(VueYandexMetrika, {
     id: 93636620,
     router: router,
     env: "production",
-    debug: false,
+    debug: true,
     ignoreRoutes: [],
     skipSamePath: true,
     options: {

@@ -10,9 +10,9 @@
       <div class="col-xl-6 col-lg-5 col-md-6 col-sm-12 col-xs-12 d-md-none d-lg-block
                     d-none d-sm-block d-sm-none d-md-block">
         <div class="menu">
-          <router-link to="/about" class="title-3">О компании</router-link>
-          <a @click="showServices" class="menu-link title-3 borderless_button">Сервисы</a>
-          <a @click="showFeedback" class="menu-link title-3 borderless_button">Обратная связь</a>
+          <router-link to="/about" class="menu-link title-3">О компании</router-link>
+          <a @click="showServices" class="menu-link title-3">Сервисы</a>
+          <a @click="showFeedback" class="menu-link title-3">Обратная связь</a>
         </div>
       </div>
 

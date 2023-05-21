@@ -59,10 +59,12 @@ html, body, #app {
 
 .menu-link {
     margin-left: 8%;
+    cursor: pointer;
 }
 
 .menu-link-footer {
     margin-left: 16%;
+    cursor: pointer;
 }
 
 .pad-avatar {
