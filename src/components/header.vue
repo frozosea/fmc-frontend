@@ -11,7 +11,7 @@
                     d-none d-sm-block d-sm-none d-md-block">
         <div class="menu">
           <router-link to="/about" class="menu-link title-3">О компании</router-link>
-          <a @click="showServices" class="menu-link title-3">Сервисы</a>
+<!--          <a @click="showServices" class="menu-link title-3">Сервисы</a>-->
           <a @click="showFeedback" class="menu-link title-3">Обратная связь</a>
         </div>
       </div>

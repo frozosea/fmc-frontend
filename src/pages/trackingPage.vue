@@ -7,6 +7,7 @@
       @changeScac="scac = $event"
       :container-scac="containerScac"
       :bill-scac="billScac"
+      :defaultTrackingSignature="`bill`"
   />
   <short-dotted-line/>
   <div class="container g-3 actions-pad">

@@ -15,9 +15,8 @@
       </div>
       <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-xs-12 d-md-none d-xl-block
                     d-none d-sm-block d-sm-none d-md-block footer-menu">
-        <router-link to="/about" class="title-4">Компания</router-link>
-        <a @click="showServices" class="menu-link-footer title-4">Сервисы</a>
-        <a @click="showFeedback" class="menu-link-footer title-4">Обратная связь</a>
+        <router-link to="/privacy" class="title-4">Обработка персональных данных</router-link>
+        <router-link to="/agreement" class="title-4">Пользовательское соглашение</router-link>
       </div>
       <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-xs-12 footer-socials">
         <a href=""><img src="@/assets/images/telegram.svg" class="img-hover svg-social"></a>

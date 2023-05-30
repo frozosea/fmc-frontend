@@ -136,6 +136,7 @@ html, body, #app {
 .title-4 {
     color: #767676;
     text-decoration: underline;
+    margin-right: 12px;
 }
 
 .title-4:hover {

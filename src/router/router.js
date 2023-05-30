@@ -4,6 +4,8 @@ import companyPage from "@/pages/companyPage";
 import {createRouter, createWebHistory} from "vue-router";
 import FreightPage from "@/pages/freight";
 import RecoveryUserPage from "@/pages/recoveryUserPage"
+import PrivacyPolicy from "@/pages/privacyPolicy";
+import UserAgreement from "@/pages/userAgreement";
 
 export const routes = [
     {
@@ -29,6 +31,14 @@ export const routes = [
     {
         path: `/recovery`,
         component: RecoveryUserPage
+    },
+    {
+        path: `/privacy`,
+        component: PrivacyPolicy
+    },
+    {
+        path: `/agreement`,
+        component: UserAgreement
     }
 ]
 

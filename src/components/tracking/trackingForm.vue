@@ -61,7 +61,7 @@ export default {
   components: {},
   data() {
     return {
-      isContainer: true,
+      isContainer: this.defaultTrackingSignature === `container`,
       number: "",
       isValid: true,
       selectedScac: ""
@@ -69,7 +69,8 @@ export default {
   },
   props: {
     billScac: Array,
-    containerScac: Array
+    containerScac: Array,
+    defaultTrackingSignature: String
   },
   methods: {
     submitForm() {
