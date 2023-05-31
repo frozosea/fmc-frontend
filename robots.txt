@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+Allow: /user
+Allow: /tracking
+Allow: /about
+Allow: /freight
+Allow: /recovery
+Allow: /privacy
+Allow: /agreement
+Host: findmycargo.ru
+Sitemap: https://findmycargo.ru/sitemap.xml # Абсолютная ссылка на карту сайта
