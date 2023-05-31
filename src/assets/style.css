@@ -304,12 +304,14 @@ html, body, #app {
 .footer-width {
     background-color: #f9f7f7;
     width: 100%;
-    position: absolute;
-    bottom: 0;
+    /*position: absolute;*/
+    /*bottom: 0;*/
 }
 
 .footer {
     background: #f9f7f7;
+    /*position:absolute;*/
+    /*overflow:hidden;*/
     /*position:absolute;*/
     bottom: 0;
     /*margin: auto;*/
@@ -318,6 +320,7 @@ html, body, #app {
     padding: 55px;
     color: #767676;
 }
+
 
 .footer-copyright {
     padding-top: 10px;

@@ -22,10 +22,10 @@
                    @input="username = $event.target.value">
             <input type="password" class="input-css-grey input-modal" placeholder="Введите пароль"
                    @input="handlePasswordInput">
-            <input type="password" class="input-css-grey input-modal-end" placeholder="Введите пароль снова"
+            <input type="password" class="input-css-grey input-modal" placeholder="Введите пароль снова"
                    @input="handleRepeatedPasswordInput">
+<!--            <label style="margin-bottom: 8px"><input type="checkbox" id="checkbox" v-model="checked" placeholder="checkbox" style="margin: 8px"></label>-->
           </div>
-
           <div class="row g-0">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
               <div style="color: red; margin-left: auto; margin-top: auto" v-if="showError">{{ errorMessage }}</div>

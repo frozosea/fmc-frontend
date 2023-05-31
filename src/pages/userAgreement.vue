@@ -96,7 +96,17 @@
 import LongDottedLine from "@/UI/longDottedLine";
 export default {
   name: "userAgreement",
-  components: {LongDottedLine}
+  components: {LongDottedLine},
+  async mounted(){
+    if (this.$store.getters[`user/getIsAuth`]) {
+      await this.$store.commit(`refreshToken`)
+    }
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
+  }
 }
 </script>
 

@@ -19,8 +19,8 @@
         <router-link to="/agreement" class="title-4">Пользовательское соглашение</router-link>
       </div>
       <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-xs-12 footer-socials">
-        <a href=""><img src="@/assets/images/telegram.svg" class="img-hover svg-social"></a>
-        <a href=""><img src="@/assets/images/facebook.svg" class="pad-socials svg-social img-hover"></a>
+        <a href="https://t.me/findmycargo"><img src="@/assets/images/telegram.svg" class="img-hover svg-social"></a>
+        <a href="https://www.facebook.com/profile.php?id=100093158229495&mibextid=LQQJ4d"><img src="@/assets/images/facebook.svg" class="pad-socials svg-social img-hover"></a>
         <a href=""><img src="@/assets/images/twitter.svg" class="pad-socials svg-social img-hover"></a>
       </div>
     </div>
