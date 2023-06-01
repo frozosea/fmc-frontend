@@ -3,7 +3,7 @@
     <div class="row g-0">
       <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-xs-12 d-md-none d-lg-block
                     d-none d-sm-block d-sm-none d-md-block">
-        <router-link to="/"><img src="@/assets/images/logo-footer.svg" class="svg-logotype-footer"></router-link>
+        <router-link to="/" aria-label="отследить контейнер или коносамент"><img src="@/assets/images/logo-footer.svg" class="svg-logotype-footer" alt="findmycargo container tracking service logo"></router-link>
       </div>
       <div class="col-xl-4 col-lg-8 col-md-6 col-sm-12 col-xs-12">
         <div class="footer-copyright">
