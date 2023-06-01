@@ -10,7 +10,7 @@
       <div class="col-xl-2 col-lg-3 col-md-3 col-sm-12 col-xs-12 order-md-1 order-2">
         <div class="action container flex-test-wrap">
           <button class="title-7 borderless_button flex-test" @click="setAddTrackingVisible">
-            <img src="@/assets/images/plus.svg" width="14">
+            <img src="@/assets/images/plus.svg" width="14" alt="plus">
             <span>&nbsp;Слежение по расписанию</span>
           </button>
           <button class="title-6 borderless_button flex-test" @click="deleteNumbers">

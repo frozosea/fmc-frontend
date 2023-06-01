@@ -3,25 +3,25 @@
     <div class="row g-0">
       <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-xs-12 d-md-none d-lg-block
                     d-none d-sm-block d-sm-none d-md-block">
-        <router-link to="/"><img src="@/assets/images/logo-footer.svg" class="svg-logotype-footer"></router-link>
+        <router-link to="/"><img src="@/assets/images/logo-footer.svg" class="svg-logotype-footer" alt="logo"></router-link>
       </div>
       <div class="col-xl-4 col-lg-8 col-md-6 col-sm-12 col-xs-12">
         <div class="footer-copyright">
           © {{ new Date().getFullYear() }} «<b>Find my Cargo</b>», <a :href="`mailto:${this.$store.state.info.supportEmail}`"
-                                                                      class="title-4">{{
+                                                                      class="title-4" aria-label="Почта технической поддержки">{{
             this.$store.state.info.supportEmail
           }}</a>
         </div>
       </div>
       <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-xs-12 d-md-none d-xl-block
                     d-none d-sm-block d-sm-none d-md-block footer-menu">
-        <router-link to="/privacy" class="title-4">Обработка персональных данных</router-link>
-        <router-link to="/agreement" class="title-4">Пользовательское соглашение</router-link>
+        <router-link to="/privacy" class="title-4" aria-label="Страница обработки персональных данных">Обработка персональных данных</router-link>
+        <router-link to="/agreement" class="title-4" aria-label="Страница пользовательского соглашения">Пользовательское соглашение</router-link>
       </div>
       <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-xs-12 footer-socials">
-        <a href="https://t.me/findmycargo"><img src="@/assets/images/telegram.svg" class="img-hover svg-social"></a>
-        <a href="https://www.facebook.com/profile.php?id=100093158229495&mibextid=LQQJ4d"><img src="@/assets/images/facebook.svg" class="pad-socials svg-social img-hover"></a>
-        <a href=""><img src="@/assets/images/twitter.svg" class="pad-socials svg-social img-hover"></a>
+        <a href="https://t.me/findmycargo" aria-label="Ссылка на телеграм"><img src="@/assets/images/telegram.svg" class="img-hover svg-social" alt="telegram logo"></a>
+        <a href="https://www.facebook.com/profile.php?id=100093158229495&mibextid=LQQJ4d" aria-label="Ссылка на фэйсбук"><img src="@/assets/images/facebook.svg" class="pad-socials svg-social img-hover" alt="facebook logo"></a>
+        <a href=""><img src="@/assets/images/twitter.svg" class="pad-socials svg-social img-hover"  alt="twitter logo" aria-label="Ссылка на твитер"></a>
       </div>
     </div>
   </div>
