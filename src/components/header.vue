@@ -3,7 +3,7 @@
     <div class="row g-0">
       <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12">
         <div class="logotype">
-          <router-link to="/"><img src="@/assets/images/logotype.svg" class="svg-logotype" alt="logo"></router-link>
+          <router-link to="/"><img src="@/assets/images/logotype.svg" class="svg-logotype"></router-link>
         </div>
       </div>
 
@@ -11,8 +11,8 @@
                     d-none d-sm-block d-sm-none d-md-block">
         <div class="menu">
           <router-link to="/about" class="menu-link title-3">О компании</router-link>
-<!--          <a @click="showServices" class="menu-link title-3">Сервисы</a>-->
-          <a @click="showFeedback" class="menu-link title-3" aria-label="Форма обратной связи">Обратная связь</a>
+          <!--          <a @click="showServices" class="menu-link title-3">Сервисы</a>-->
+          <a @click="showFeedback" class="menu-link title-3">Обратная связь</a>
         </div>
       </div>
 
@@ -25,21 +25,21 @@
             }}
           </router-link>
           <router-link to="/user">
-            <img src="@/assets/images/avatar.png" class="pad-avatar" alt="avatar"/>
+            <img src="@/assets/images/avatar.png" class="pad-avatar">
           </router-link>
           <button class="borderless_button"
                   @click="this.$store.commit(`user/logout`); this.$router.push(`/`)"
                   v-if="this.$store.getters[`user/getIsAuth`]">
             <img src="@/assets/images/exit.svg"
-                 class="svg-exit img-hover" width="512" height="448" alt="exit">
+                 class="svg-exit img-hover">
           </button>
         </div>
 
         <div class="login" v-if="!this.$store.getters[`user/getIsAuth`]">
           <img src="@/assets/images/exit.svg" class="svg-enter"
-               @click="this.$store.commit(`user/logout`); this.$router.push(`/`)"  alt="exit">
-          <a @click="showLogin" class="title-3" aria-label="Кнопка авторизации">Авторизация</a>
-          <a @click="showRegister" aria-label="Кнопка регистрации">
+               @click="this.$store.commit(`user/logout`); this.$router.push(`/`)">
+          <a @click="showLogin" class="title-3">Авторизация</a>
+          <a @click="showRegister">
             <button type="button" class="button-login">Регистрация</button>
           </a>
         </div>
@@ -52,28 +52,28 @@
           </label>
           <ul class="menubox">
             <router-link to="/">
-              <div class="logo-menu-pad"><img src="@/assets/images/logo-mobile.svg" alt="logo"></div>
+              <div class="logo-menu-pad"><img src="@/assets/images/logo-mobile.svg"></div>
             </router-link>
             <li class="menu-padding">
             </li>
-            <li class=""><router-link class="menu-item" to="/about">О компании</router-link></li>
-            <li><a class="menu-item" @click="showServices" aria-label="Кнопка сервисов">Сервисы</a></li>
-            <li><a class="menu-item" @click="showFeedback" aria-label="Форма обратной связи">Оставить отзыв</a></li>
+            <li class=""><a class="menu-item" href="">О компании</a></li>
+            <li><a class="menu-item" @click="showServices">Сервисы</a></li>
+            <li><a class="menu-item" @click="showFeedback">Оставить отзыв</a></li>
             <li>
-              <router-link class="menu-item" v-if="this.$store.getters[`user/getIsAuth`]" to="/user">Аккаунт</router-link>
+              <a class="menu-item" v-if="this.$store.getters[`user/getIsAuth`]" href="/user">Аккаунт</a>
             </li>
-            <li><a class="menu-item" @click="showLogin" v-if="!this.$store.getters[`user/getIsAuth`]" aria-label="Кнопка авторизации">Авторизация →</a></li>
+            <li><a class="menu-item" @click="showLogin" v-if="!this.$store.getters[`user/getIsAuth`]">Авторизация →</a></li>
             <li><a class="menu-item" @click="showRegister"
-                   v-if="!this.$store.getters[`user/getIsAuth`]" aria-label="Кнопка регистрации">Регистрация</a></li>
+                   v-if="!this.$store.getters[`user/getIsAuth`]">Registration</a></li>
             <li><a class="menu-item" v-if="this.$store.getters[`user/getIsAuth`]"
-                   @click="this.$store.commit(`user/logout`); this.$router.push(`/`)" aria-label="Кнопка выхода с аккаунта">Выйти →</a></li>
+                   @click="this.$store.commit(`user/logout`); this.$router.push(`/`)">Выйти →</a></li>
             <div class="menu-font">© {{ new Date().getFullYear() }} <b>«Find my Cargo»</b>
-              <p>Support: <a :href="`mailto:${this.$store.state.info.supportEmail}`" class="title-5" aria-label="Почта технической поддержки">{{ this.$store.state.info.supportEmail }}</a></p></div>
+              <p>Support: <a href="" class="title-5">{{ this.$store.state.info.supportEmail }}</a></p></div>
             <div class="menu-font">
-              <a :href="this.$store.state.info.telegramUrl" class="avatar-menu" aria-label="Ссылка на телеграм"><img src="@/assets/images/telegram.svg" alt="telegram logo"></a>
-              <a :href="this.$store.state.info.facebookUrl" class="avatar-menu" aria-label="Ссылка на фэйсбук"><img src="@/assets/images/facebook.svg" alt="facebook logo"></a>
-              <a :href="this.$store.state.info.twitterUrl" class="avatar-menu" aria-label="Ссылка на твитер"><img
-                  src="@/assets/images/twitter.svg" alt="twitter logo"></a>
+              <a :href="this.$store.state.info.telegramUrl" class="avatar-menu"><img src="@/assets/images/telegram.svg"></a>
+              <a :href="this.$store.state.info.facebookUrl" class="avatar-menu"><img src="@/assets/images/facebook.svg"></a>
+              <a :href="this.$store.state.info.twitterUrl" class="avatar-menu"><img
+                  src="@/assets/images/twitter.svg"></a>
             </div>
           </ul>
         </div>
