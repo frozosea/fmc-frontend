@@ -3,7 +3,7 @@
     <div class="row g-0">
       <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12">
         <div class="logotype">
-          <router-link to="/"><img src="@/assets/images/logotype.svg" class="svg-logotype"></router-link>
+          <router-link to="/"><img src="@/assets/images/logotype.svg" class="svg-logotype" alt="logo"></router-link>
         </div>
       </div>
 
@@ -12,7 +12,7 @@
         <div class="menu">
           <router-link to="/about" class="menu-link title-3">О компании</router-link>
           <!--          <a @click="showServices" class="menu-link title-3">Сервисы</a>-->
-          <a @click="showFeedback" class="menu-link title-3">Обратная связь</a>
+          <span @click="showFeedback" class="menu-link title-3">Обратная связь</span>
         </div>
       </div>
 
@@ -25,23 +25,23 @@
             }}
           </router-link>
           <router-link to="/user">
-            <img src="@/assets/images/avatar.png" class="pad-avatar">
+            <img src="@/assets/images/avatar.png" class="pad-avatar" alt="avatar">
           </router-link>
           <button class="borderless_button"
                   @click="this.$store.commit(`user/logout`); this.$router.push(`/`)"
                   v-if="this.$store.getters[`user/getIsAuth`]">
             <img src="@/assets/images/exit.svg"
-                 class="svg-exit img-hover">
+                 class="svg-exit img-hover" alt="exit logo">
           </button>
         </div>
 
         <div class="login" v-if="!this.$store.getters[`user/getIsAuth`]">
-          <img src="@/assets/images/exit.svg" class="svg-enter"
+          <img src="@/assets/images/exit.svg" class="svg-enter" alt="exit logo"
                @click="this.$store.commit(`user/logout`); this.$router.push(`/`)">
-          <a @click="showLogin" class="title-3">Авторизация</a>
-          <a @click="showRegister">
+          <span @click="showLogin" class="title-3">Авторизация</span>
+          <span @click="showRegister">
             <button type="button" class="button-login">Регистрация</button>
-          </a>
+          </span>
         </div>
       </div>
       <div class="d-lg-none">
@@ -52,23 +52,23 @@
           </label>
           <ul class="menubox">
             <router-link to="/">
-              <div class="logo-menu-pad"><img src="@/assets/images/logo-mobile.svg"></div>
+              <div class="logo-menu-pad"><img src="@/assets/images/logo-mobile.svg" alt="logo"></div>
             </router-link>
             <li class="menu-padding">
             </li>
-            <li class=""><a class="menu-item" href="">О компании</a></li>
-            <li><a class="menu-item" @click="showServices">Сервисы</a></li>
-            <li><a class="menu-item" @click="showFeedback">Оставить отзыв</a></li>
+            <li class=""><router-link class="menu-item" to="/about">О компании</router-link></li>
+            <li><span class="menu-item" @click="showServices">Сервисы</span></li>
+            <li><span class="menu-item" @click="showFeedback">Обратная связь</span></li>
             <li>
-              <a class="menu-item" v-if="this.$store.getters[`user/getIsAuth`]" href="/user">Аккаунт</a>
+              <router-link class="menu-item" v-if="this.$store.getters[`user/getIsAuth`]" to="/user">Аккаунт</router-link>
             </li>
-            <li><a class="menu-item" @click="showLogin" v-if="!this.$store.getters[`user/getIsAuth`]">Авторизация →</a></li>
-            <li><a class="menu-item" @click="showRegister"
-                   v-if="!this.$store.getters[`user/getIsAuth`]">Registration</a></li>
-            <li><a class="menu-item" v-if="this.$store.getters[`user/getIsAuth`]"
-                   @click="this.$store.commit(`user/logout`); this.$router.push(`/`)">Выйти →</a></li>
+            <li><span class="menu-item" @click="showLogin" v-if="!this.$store.getters[`user/getIsAuth`]">Авторизация →</span></li>
+            <li><span class="menu-item" @click="showRegister"
+                   v-if="!this.$store.getters[`user/getIsAuth`]">Registration</span></li>
+            <li><span class="menu-item" v-if="this.$store.getters[`user/getIsAuth`]"
+                   @click="this.$store.commit(`user/logout`); this.$router.push(`/`)">Выйти →</span></li>
             <div class="menu-font">© {{ new Date().getFullYear() }} <b>«Find my Cargo»</b>
-              <p>Support: <a href="" class="title-5">{{ this.$store.state.info.supportEmail }}</a></p></div>
+              <p>Support: <a :href="`mailto:${this.$store.state.info.supportEmail}`" class="title-5">{{ this.$store.state.info.supportEmail }}</a></p></div>
             <div class="menu-font">
               <a :href="this.$store.state.info.telegramUrl" class="avatar-menu"><img src="@/assets/images/telegram.svg"></a>
               <a :href="this.$store.state.info.facebookUrl" class="avatar-menu"><img src="@/assets/images/facebook.svg"></a>

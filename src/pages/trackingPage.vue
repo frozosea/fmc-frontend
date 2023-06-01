@@ -17,11 +17,11 @@
       </div>
       <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
         <div class="action">
-          <img src="@/assets/images/plus.svg" width="14">
+          <img src="@/assets/images/plus.svg" width="14" alt="add cargo to schedule tracking">
           <button class="title-7 borderless_button" @click="setAddTrackingVisible"
                   :disabled="!this.$store.getters[`user/getIsAuth`]">&nbsp;Слежение по расписанию
           </button>
-          <img src="@/assets/images/delete.svg" width="14" class="pad-action">
+          <img src="@/assets/images/delete.svg" width="14" class="pad-action" alt="remove cargo to schedule tracking">
           <button class="title-6 borderless_button" @click="deleteNumbersFromList">&nbsp;Удалить</button>
         </div>
       </div>
