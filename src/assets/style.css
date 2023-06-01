@@ -5,7 +5,7 @@ html, body, #app {
     max-width: 100%;
     overflow-x: hidden;
     font-family: MyriadPro-LightSemiExt;
-    font-display: auto;
+    font-display: swap;
     scroll-behavior: smooth;
     display: flex;
     flex-direction: column;
@@ -16,19 +16,19 @@ html, body, #app {
 @font-face {
     font-family: MyriadPro-Regular;
     src: url(font/MyriadPro-Regular.otf);
-    font-display: auto;
+    font-display: swap;
 }
 
 @font-face {
     font-family: MyriadPro-Bold;
     src: url(font/MyriadPro-Bold.otf);
-    font-display: auto;
+    font-display: swap;
 }
 
 @font-face {
     font-family: MyriadPro-LightSemiExt;
     src: url(font/MyriadPro-LightSemiExt.otf);
-    font-display: auto;
+    font-display: swap;
 }
 
 /*-------------------------------------------------------------------------*/
