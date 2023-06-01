@@ -20,15 +20,15 @@
         <div v-if="!showLoading">
           <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <input type="email" class="input-css-grey input-modal" placeholder="E-mail"
-                   @input="email = $event.target.value">
+                   @input="email = $event.target.value" @keyup.enter="submitForm">
             <input type="пароль" class="input-css-grey input-modal-end" placeholder="*************"
-                   @input="password = $event.target.value">
+                   @input="password = $event.target.value" @keyup.enter="submitForm">
           </div>
           <div class="container g-0">
             <div class="row g-0">
               <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div v-if="showError" style="color: red"> {{ error }}</div>
-                <button type="submit" class="button-menu" :disabled="showLoading" ref="button">Войти</button>
+                <button type="submit" @keyup.enter="submitForm" class="button-menu" :disabled="showLoading" ref="button">Войти</button>
                 <button type="button" class="button-menu-line password-pad" @click="setShowRemindForm"
                         :disabled="showLoading">Напомнить пароль
                 </button>

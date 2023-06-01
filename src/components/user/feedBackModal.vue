@@ -13,7 +13,7 @@
 
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <input type="text" class="input-css-grey input-modal" id="recipient-name" placeholder="E-mail"
-               @input="inputEmail"/>
+               @input="inputEmail" @keyup.enter="submit"/>
         <textarea id="msg" class="text-area" placeholder="Напишите свой вопрос или отзыв в это поле" v-model="feedback"/>
       </div>
     </div>

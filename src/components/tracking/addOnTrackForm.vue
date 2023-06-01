@@ -15,14 +15,19 @@
         <div>
           <input type="text" class="input-css-grey input-modal" placeholder="E-mail для рассылки / через запятую"
                  @input="handleEmails"
-                 :value="emails.join(`,`)">
+                 :value="emails.join(`,`)"
+                 @keyup.enter="addOnTrack"
+          >
           <input type="text" class="input-css-grey input-modal" placeholder="Тема сообщения"
                  @input="subject = $event.target.value"
-                 :value="subject">
+                 :value="subject"
+                 @keyup.enter="addOnTrack"
+          >
           <input type="text" class="input-css-grey input-modal"
                  :placeholder="timePlaceholder"
                  @input="handleTime"
                  :value="time"
+                 @keyup.enter="addOnTrack"
           >
         </div>
       </div>
