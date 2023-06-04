@@ -21,7 +21,7 @@
       <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-xs-12 footer-socials">
         <a href="https://t.me/findmycargo"><img src="@/assets/images/telegram.svg" alt="container bill number tracking telegram" class="img-hover svg-social"></a>
         <a href="https://www.facebook.com/profile.php?id=100093158229495&mibextid=LQQJ4d"><img src="@/assets/images/facebook.svg" alt="container bill number tracking facebook" class="pad-socials svg-social img-hover"></a>
-        <a href=""><img src="@/assets/images/twitter.svg" class="pad-socials svg-social img-hover" alt="container bill number tracking twitter"></a>
+        <a href="/about"><img src="@/assets/images/twitter.svg" class="pad-socials svg-social img-hover" alt="container bill number tracking twitter"></a>
       </div>
     </div>
   </div>

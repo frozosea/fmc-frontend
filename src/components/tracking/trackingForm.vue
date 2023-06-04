@@ -61,7 +61,7 @@ export default {
   components: {},
   data() {
     return {
-      isContainer: this.defaultTrackingSignature === `container`,
+      isContainer: true,
       number: "",
       isValid: true,
       selectedScac: ""

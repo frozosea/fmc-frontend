@@ -18,10 +18,9 @@ export default {
     FmcFooter
   },
   metaInfo: {
-    title: 'FindMyCargo',
-    titleTemplate: '%s - Yay!',
+    title: 'FindMyCargo слежение за контейнерами и коносаментами',
     htmlAttrs: {
-      lang: 'en',
+      lang: 'ru',
       amp: true
     }
   },
