@@ -6,6 +6,7 @@ import FreightPage from "@/pages/freight";
 import RecoveryUserPage from "@/pages/recoveryUserPage"
 import PrivacyPolicy from "@/pages/privacyPolicy";
 import UserAgreement from "@/pages/userAgreement";
+import NotFound from "@/pages/notFound";
 
 export const routes = [
     {
@@ -39,7 +40,8 @@ export const routes = [
     {
         path: `/agreement`,
         component: UserAgreement
-    }
+    },
+    { path: '/:notFound', component: NotFound },
 ]
 
 const router = createRouter({
