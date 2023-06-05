@@ -15,12 +15,7 @@
                                :number="number"
                                :is-loading="isLoading"
               />
-              <!--              <SpinnerLoader-->
-              <!--                  :active="isLoading"-->
-              <!--                  text=""-->
-              <!--                  v-if="isLoading"-->
-              <!--              />-->
-              <tracking-latest-move :is-found="isFound" :tracking-response="trackingResponse" v-if="!isLoading"/>
+              <tracking-latest-move :is-found="isFound" :tracking-response="trackingResponse" v-if="!isLoading && trackingResponse.infoAboutMoving.length" />
 
               <binaculars-picture :is-found="isFound"
                                   v-if="!isLoading"
@@ -54,7 +49,7 @@
 
             </div>
           </div>
-          <tracking-events-list :tracking-response="trackingResponse" v-if="isFound"/>
+          <tracking-events-list :tracking-response="trackingResponse" v-if="isFound && trackingResponse.infoAboutMoving.length"/>
 
         </div>
       </div>
