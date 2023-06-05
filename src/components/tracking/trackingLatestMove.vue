@@ -4,7 +4,7 @@
       <img src="@/assets/images/location.svg" class="svg-location" v-if="isFound &&!empty"> Последняя локация:
       {{
         this.$store.getters["utils/getTime"].convertToTimestamp(this.trackingResponse.infoAboutMoving[this.trackingResponse.infoAboutMoving.length - 1].time)>Date.now()?
-        text + ` (Ориентировочно)`: text
+        text + ` (Ожидается)`: text
       }}
       <div v-if="empty"/>
     </div>

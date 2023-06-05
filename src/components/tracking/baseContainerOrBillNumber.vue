@@ -15,6 +15,11 @@
                                :number="number"
                                :is-loading="isLoading"
               />
+              <!--              <SpinnerLoader-->
+              <!--                  :active="isLoading"-->
+              <!--                  text=""-->
+              <!--                  v-if="isLoading"-->
+              <!--              />-->
               <tracking-latest-move :is-found="isFound" :tracking-response="trackingResponse" v-if="!isLoading && trackingResponse.infoAboutMoving.length" />
 
               <binaculars-picture :is-found="isFound"
