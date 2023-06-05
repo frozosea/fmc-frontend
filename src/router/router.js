@@ -41,7 +41,10 @@ export const routes = [
         path: `/agreement`,
         component: UserAgreement
     },
-    { path: '/:notFound', component: NotFound },
+    {
+        path: '/:notFound',
+        component: NotFound
+    },
 ]
 
 const router = createRouter({
