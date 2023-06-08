@@ -3,8 +3,8 @@
     <div class="container-local" v-if="isFound">
       <img src="@/assets/images/location.svg" class="svg-location" v-if="isFound &&!empty"> Последняя локация:
       {{
-        this.$store.getters["utils/getTime"].convertToTimestamp(this.trackingResponse.infoAboutMoving[this.trackingResponse.infoAboutMoving.length - 1].time)>Date.now()?
-        text + ` (Ожидается)`: text
+        this.$store.getters["utils/getTime"].convertToTimestamp(this.trackingResponse.infoAboutMoving[this.trackingResponse.infoAboutMoving.length - 1].time) > Date.now() ?
+            text + ` (Ожидается)` : text
       }}
       <div v-if="empty"/>
     </div>
@@ -34,14 +34,11 @@ export default {
   },
   mounted() {
     this.$store.getters["utils/getTime"].convertToTimestamp()
-    this.text = this.trackingResponse
-        ? this.trackingResponse.infoAboutMoving[this.trackingResponse.infoAboutMoving.length - 1].location.toUpperCase()
-        : ``
-    console.log(this.trackingResponse.infoAboutMoving[this.trackingResponse.infoAboutMoving.length - 1].time)
-    console.log(this.$store.getters["utils/getTime"].convertToTimestamp(this.trackingResponse.infoAboutMoving[this.trackingResponse.infoAboutMoving.length - 1].time),Date.now())
-    // if  (this.trackingResponse.infoAboutMoving[this.trackingResponse.infoAboutMoving.length - 1].time > Date.now()){
-    //   this.text += ` (Ориентировочно)`
-    // }
+    if (this.trackingResponse) {
+      this.text = this.trackingResponse
+          ? this.trackingResponse.infoAboutMoving[this.trackingResponse.infoAboutMoving.length - 1].location.toUpperCase()
+          : ``
+    }
   }
 }
 </script>
