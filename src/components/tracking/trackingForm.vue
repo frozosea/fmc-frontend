@@ -3,20 +3,21 @@
     <div class="row g-3">
 
       <div class="col-xl-4 col-lg-6 col-md-4 col-sm-12 col-xs-12">
-        <input type="text" class="input-css-grey" id="recipient-name" placeholder="Введите номер"
+        <input type="text" class="input-css-grey" id="recipient-name"
+               :placeholder="$t(`tracking.trackingForm.inputNumberPlaceholder`)"
                @input="changeNumber">
       </div>
 
       <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-xs-12">
         <select class="select-css-grey" @change="changeTrackingSignature">
-          <option value="container">Контейнер</option>
-          <option value="bill number">Коносамент</option>
+          <option value="container">{{ $t(`tracking.trackingForm.containerName`) }}</option>
+          <option value="bill number">{{ $t(`tracking.trackingForm.billName`) }}</option>
         </select>
       </div>
 
       <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-xs-12" v-if="isContainer">
         <select class="select-css-grey" @change="changeScac">
-          <option value="AUTO" selected>Автоматически</option>
+          <option value="AUTO" selected>{{ $t(`tracking.trackingForm.autoScacName`) }}</option>
           <option :key="line" :value="line.scac.toUpperCase()" v-for="line in containerScac">{{
               line.fullname
             }}
@@ -26,7 +27,7 @@
 
       <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-xs-12" v-if="!isContainer">
         <select class="select-css-grey" @change="changeScac" v-if="!isContainer">
-          <option value="AUTO" selected>Автоматически</option>
+          <option value="AUTO" selected>{{ $t(`tracking.trackingForm.autoScacName`) }}</option>
           <option :key="line" :value="line.scac.toUpperCase()" v-for="line in billScac">{{
               line.fullname
             }}
@@ -34,8 +35,8 @@
         </select>
 
         <select class="select-css-grey" @change="changeScac" v-if="isContainer">
-          <option value="AUTO" selected>Автоматически</option>
-          <option :key="line" :value="line.scacCode.toUpperCase()" v-for="line in containerScac">{{
+          <option value="AUTO" selected>{{ $t(`tracking.trackingForm.autoScacName`) }}</option>
+          <option :key="line" :value="line.scac.toUpperCase()" v-for="line in containerScac">{{
               line.fullName
             }}
           </option>
@@ -46,7 +47,8 @@
 
       <div class="col-xl-2 col-lg-3 col-md-4 col-sm-12 col-xs-12">
         <button type="submit" class="button-menu">
-          <img src="@/assets/images/magnifying.svg" class="svg-magnifying pad-search-img" alt="track cargo"> Поиск
+          <img src="@/assets/images/magnifying.svg" class="svg-magnifying pad-search-img" alt="track cargo">
+          {{ $t(`tracking.trackingForm.searchButtonText`) }}
         </button>
       </div>
 

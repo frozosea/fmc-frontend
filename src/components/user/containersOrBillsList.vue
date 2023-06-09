@@ -1,8 +1,9 @@
 <template>
   <div class="not_found_numbers"
        v-if="!numbers.length && !isLoading">
-    Number(s) not
-    found!
+    {{
+      $t(`errors.numbersNotFound`)
+    }}
   </div>
   <div v-if="numbers || numbers.length">
     <container-or-bill-in-user-account v-for="item in numbers"

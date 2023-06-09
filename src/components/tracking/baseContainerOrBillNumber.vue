@@ -15,11 +15,7 @@
                                :number="number"
                                :is-loading="isLoading"
               />
-              <!--              <SpinnerLoader-->
-              <!--                  :active="isLoading"-->
-              <!--                  text=""-->
-              <!--                  v-if="isLoading"-->
-              <!--              />-->
+
               <tracking-latest-move :is-found="isFound" :tracking-response="trackingResponse" v-if="!isLoading && trackingResponse.infoAboutMoving.length" />
 
               <binaculars-picture :is-found="isFound"
@@ -47,7 +43,7 @@
 
               <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="container-font">
-                  <span class="bold grey-color">Информация о грузе: </span>
+                  <span class="bold grey-color">{{ $t("tracking.containerOrBillInfo.cargoInfoName")}}</span>
                   <span class="grey-color"><p></p>
                                      </span></div>
               </div>
@@ -76,7 +72,6 @@ import CustomCheckBox from "@/UI/customCheckBox";
 import scheduleTrackingInfoInBillOrContainer from "@/components/tracking/scheduleTrackingInfoInBillOrContainer";
 import TrackingEventsList from "@/components/tracking/trackingEventsList";
 
-// import SpinnerLoader from "@/UI/loading";
 
 
 export default {
@@ -86,20 +81,18 @@ export default {
     CustomCheckBox,
     BinacularsPicture,
     TrackingLatestMove,
-    // SpinnerLoader,
-    ContainerTitle, ContainerPicture, scheduleTrackingInfoInBillOrContainer
+    ContainerTitle,
+    ContainerPicture,
+    scheduleTrackingInfoInBillOrContainer
   },
   mounted() {
     this.n = this.number
   },
   data() {
     return {
-      // number: "MRKU6788432",
       isSelectCheckBox: false,
       isFound: true,
       n: ""
-      // isContainer: true,
-      // isOnTrack: true,
     }
   },
   props: {
@@ -112,7 +105,6 @@ export default {
       type: Object,
       required: false
     },
-    // isFound: Boolean
   },
   methods: {
     selectCheckBox() {

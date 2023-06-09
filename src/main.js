@@ -5,8 +5,9 @@ import {VueSpinners} from '@saeris/vue-spinners'
 import router from "@/router/router";
 import store from "@/store";
 import VueYandexMetrika from 'vue-yandex-metrika'
+import i18n from './i18n'
 
-const app = createApp(App)
+const app = createApp(App).use(i18n)
 
 
 components.forEach(component => {

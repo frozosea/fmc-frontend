@@ -13,16 +13,16 @@
   <div class="container g-3 actions-pad">
     <div class="row g-0">
       <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12 number">
-        Отследить морской груз по номеру:
+        {{ $t(`tracking.containerOrBillInfo.trackingPageBodyTitle`) }}
       </div>
       <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
         <div class="action">
           <img src="@/assets/images/plus.svg" width="14" alt="add cargo to schedule tracking">
           <button class="title-7 borderless_button" @click="setAddTrackingVisible"
-                  :disabled="!this.$store.getters[`user/getIsAuth`]">&nbsp;Слежение по расписанию
+                  :disabled="!this.$store.getters[`user/getIsAuth`]">&nbsp;{{ $t(`tracking.scheduleTracking.addOnTrackForm.scheduleTrackingName`) }}
           </button>
           <img src="@/assets/images/delete.svg" width="14" class="pad-action" alt="remove cargo to schedule tracking">
-          <button class="title-6 borderless_button" @click="deleteNumbersFromList">&nbsp;Удалить</button>
+          <button class="title-6 borderless_button" @click="deleteNumbersFromList">&nbsp;{{ $t(`tracking.scheduleTracking.addOnTrackForm.removeButtonText`) }}</button>
         </div>
       </div>
     </div>
@@ -45,7 +45,7 @@
         class="spinner"
     />
   </div>
-  <div v-if="!isLoading && !hasContainers" class="not_found_numbers">Номер(а) не найдены!</div>
+  <div v-if="!isLoading && !hasContainers" class="not_found_numbers">{{ $t(`errors.numbersNotFound`) }}</div>
   <base-container-or-bill-number :is-found="isFound"
                                  :tracking-response="trackingResult"
                                  :isContainer="isContainer"

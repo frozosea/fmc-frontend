@@ -67,11 +67,9 @@ export default {
   components: {
     AddOnTrackForm,
     CustomModal,
-    // TrackingEventsList,
     CustomCheckBox,
     BinacularsPicture,
     trackingLatestMove,
-    // SpinnerLoader,
     ContainerTitle, ContainerPicture, scheduleTrackingInfoInBillOrContainer
   },
   props: {
@@ -79,7 +77,6 @@ export default {
     scheduleTrackingInfo: Object,
     number: String,
     isContainer: Boolean,
-    // selectCheckBox: Function
   },
   data() {
     return {

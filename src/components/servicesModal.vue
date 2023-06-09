@@ -2,7 +2,7 @@
   <div class="container g-0">
     <div class="row g-0">
       <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-xs-12">
-        <div class="title-8 input-modal-title">Services</div>
+        <div class="title-8 input-modal-title">{{ $t(`services.title`) }}</div>
       </div>
 
       <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-12">
@@ -19,19 +19,19 @@
       <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12" style="cursor: pointer;" @click="redirectToContainerTracking">
         <div class="service-block">
           <img src="@/assets/images/container.png" class="service-img img-hover">
-          <p>Отследить по номеру контейнера</p>
+          <p>{{ $t(`services.containerTracking`) }}</p>
         </div>
       </div>
       <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12" style="cursor: pointer;" @click="redirectToBillTracking">
           <div class="service-block">
             <img src="@/assets/images/bill.png" class="service-img img-hover">
-            <p>Отследить по номеру коносамента</p>
+            <p>{{ $t(`services.billTracking`) }}</p>
           </div>
       </div>
       <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12" style="cursor: pointer;">
         <div class="service-block">
           <img src="@/assets/images/document.png" class="service-img">
-          <p>Поиск фрахта</p>
+          <p>{{ $t(`services.freightParser`) }}</p>
         </div>
       </div>
     </div>
@@ -40,7 +40,7 @@
     <div class="row g-3">
 
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 service-text">
-        FindMyCargo помогает автоматизировать рутинные процессы в морской логистике.
+        {{$t(`services.text`)}}
       </div>
 
     </div>
@@ -67,10 +67,6 @@ export default {
     },
     redirectToBillTracking() {
       this.$router.push(`/tracking?isContainer=false`)
-      this.$emit(`show`, false)
-    },
-    redirectToFreight(){
-      this.$router.push(`/freight`)
       this.$emit(`show`, false)
     }
   },

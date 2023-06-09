@@ -4,8 +4,8 @@
 
       <div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 col-xs-12">
         <div class="container-font">
-          <span class="bold">Тема:</span> {{ infoAboutTracking.subject }}<p>
-          <span class="bold">Время:</span>{{ infoAboutTracking.time }}
+          <span class="bold">{{ $t("tracking.containerOrBillInfo.subjectName") }}</span> {{ infoAboutTracking.subject }}<p>
+          <span class="bold">{{ $t("tracking.containerOrBillInfo.timeName") }}</span>{{ infoAboutTracking.time }}
         </p></div>
       </div>
 

@@ -3,7 +3,7 @@
     <div class="container g-0">
       <div class="row g-0">
         <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-xs-12">
-          <div class="title-8 input-modal-title">Вход</div>
+          <div class="title-8 input-modal-title">{{ $t(`user.login.form.title`) }}</div>
         </div>
 
         <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-12">
@@ -21,16 +21,16 @@
           <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <input type="email" class="input-css-grey input-modal" placeholder="E-mail"
                    @input="email = $event.target.value" @keyup.enter="submitForm">
-            <input type="пароль" class="input-css-grey input-modal-end" placeholder="*************"
+            <input type="password" class="input-css-grey input-modal-end" placeholder="*************"
                    @input="password = $event.target.value" @keyup.enter="submitForm">
           </div>
           <div class="container g-0">
             <div class="row g-0">
               <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div v-if="showError" style="color: red"> {{ error }}</div>
-                <button type="submit" @keyup.enter="submitForm" class="button-menu" :disabled="showLoading" ref="button">Войти</button>
+                <button type="submit" @keyup.enter="submitForm" class="button-menu" :disabled="showLoading" ref="button">{{ $t(`user.login.form.buttonText`) }}</button>
                 <button type="button" class="button-menu-line password-pad" @click="setShowRemindForm"
-                        :disabled="showLoading">Напомнить пароль
+                        :disabled="showLoading">{{ $t(`user.login.form.remindPasswordText`) }}
                 </button>
               </div>
             </div>
@@ -72,7 +72,7 @@ export default {
         this.$emit(`show`, false)
       } catch (e) {
         this.showLoading = false
-        this.error = "user was not found!"
+        this.error = this.$t(`errors.userWasNotFound`)
         this.showError = true
         this.showLoading = false
         this.$store.commit(`user/setIsAuth`, false)

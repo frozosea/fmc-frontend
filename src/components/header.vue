@@ -1,4 +1,5 @@
 <template>
+  <language-switcher/>
   <div class="container g-3">
     <div class="row g-0">
       <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12">
@@ -10,9 +11,8 @@
       <div class="col-xl-6 col-lg-5 col-md-6 col-sm-12 col-xs-12 d-md-none d-lg-block
                     d-none d-sm-block d-sm-none d-md-block">
         <div class="menu">
-          <router-link to="/about" class="menu-link title-3">О компании</router-link>
-          <!--          <a @click="showServices" class="menu-link title-3">Сервисы</a>-->
-          <span @click="showFeedback" class="menu-link title-3">Обратная связь</span>
+          <router-link to="/about" class="menu-link title-3">{{ $t(`header.infoAboutCompanyName`) }}</router-link>
+          <span @click="showFeedback" class="menu-link title-3">{{ $t(`header.feedbackName`) }}</span>
         </div>
       </div>
 
@@ -38,9 +38,9 @@
         <div class="login" v-if="!this.$store.getters[`user/getIsAuth`]">
           <img src="@/assets/images/exit.svg" class="svg-enter" alt="exit logo"
                @click="this.$store.commit(`user/logout`); this.$router.push(`/`)">
-          <span @click="showLogin" class="title-3">Авторизация</span>
+          <span @click="showLogin" class="title-3 borderless_button">{{$t(`user.login.form.title`)}}</span>
           <span @click="showRegister">
-            <button type="button" class="button-login">Регистрация</button>
+            <button type="button" class="button-login">{{$t(`user.register.form.title`)}}</button>
           </span>
         </div>
       </div>
@@ -56,19 +56,19 @@
             </router-link>
             <li class="menu-padding">
             </li>
-            <li class=""><router-link class="menu-item" to="/about">О компании</router-link></li>
-            <li><span class="menu-item" @click="showServices">Сервисы</span></li>
-            <li><span class="menu-item" @click="showFeedback">Обратная связь</span></li>
+            <li class=""><router-link class="menu-item" to="/about">{{$t(`header.infoAboutCompanyName`)}}</router-link></li>
+            <li><span class="menu-item" @click="showServices">{{$t(`header.servicesName`)}}</span></li>
+            <li><span class="menu-item" @click="showFeedback">{{$t(`header.feedbackName`)}}</span></li>
             <li>
-              <router-link class="menu-item" v-if="this.$store.getters[`user/getIsAuth`]" to="/user">Аккаунт</router-link>
+              <router-link class="menu-item" v-if="this.$store.getters[`user/getIsAuth`]" to="/user">{{$t(`header.accountName`)}}</router-link>
             </li>
-            <li><span class="menu-item" @click="showLogin" v-if="!this.$store.getters[`user/getIsAuth`]">Авторизация →</span></li>
+            <li><span class="menu-item" @click="showLogin" v-if="!this.$store.getters[`user/getIsAuth`]">{{$t(`user.login.form.title`)}} →</span></li>
             <li><span class="menu-item" @click="showRegister"
-                   v-if="!this.$store.getters[`user/getIsAuth`]">Registration</span></li>
+                   v-if="!this.$store.getters[`user/getIsAuth`]">{{ $t('header.registration') }}</span></li>
             <li><span class="menu-item" v-if="this.$store.getters[`user/getIsAuth`]"
-                   @click="this.$store.commit(`user/logout`); this.$router.push(`/`)">Выйти →</span></li>
-            <div class="menu-font">© {{ new Date().getFullYear() }} <b>«Find my Cargo»</b>
-              <p>Support: <a :href="`mailto:${this.$store.state.info.supportEmail}`" class="title-5">{{ this.$store.state.info.supportEmail }}</a></p></div>
+                   @click="this.$store.commit(`user/logout`); this.$router.push(`/`)">{{$t(`header.exitName`)}} →</span></li>
+            <div class="menu-font">© {{ new Date().getFullYear() }} <b>{{ $t('header.findMyCargo') }}</b>
+              <p>{{ $t('header.support') }}<a :href="`mailto:${this.$store.state.info.supportEmail}`" class="title-5">{{ this.$store.state.info.supportEmail }}</a></p></div>
             <div class="menu-font">
               <a :href="this.$store.state.info.telegramUrl" class="avatar-menu"><img src="@/assets/images/telegram.svg"></a>
               <a :href="this.$store.state.info.facebookUrl" class="avatar-menu"><img src="@/assets/images/facebook.svg"></a>
@@ -112,10 +112,11 @@ import RegistrationForm from "@/components/user/registrationForm";
 import LoginForm from "@/components/user/loginForm";
 import {mapMutations} from "vuex";
 import RemindPassword from "@/components/user/remindPassword";
+import LanguageSwitcher from "@/components/languageSwitcher";
 
 export default {
   name: "FmcHeader",
-  components: {RemindPassword, LoginForm, RegistrationForm, CustomModal, FeedBackModal, ServicesModal},
+  components: { LanguageSwitcher,RemindPassword, LoginForm, RegistrationForm, CustomModal, FeedBackModal, ServicesModal},
   data() {
     return {
       isShowServices: false,
@@ -137,10 +138,6 @@ export default {
     },
     showRegister() {
       this.isShowRegister = !this.isShowRegister
-    },
-    redirectToAccount() {
-      this.$router.push(`/user`)
-
     }
   },
   computed: mapMutations(["user/logout"]),

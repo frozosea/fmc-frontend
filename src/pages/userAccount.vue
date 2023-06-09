@@ -41,8 +41,9 @@
   </div>
   <div class="not_found_numbers"
        v-if="isShowNumbersNotFound && !isLoading">
-    Number(s) not
-    found!
+    {{
+    $t(`errors.numbersNotFound`)
+    }}
   </div>
   <containers-or-bills-list v-if="!isShowNumbersNotFound"
                             :numbers=" numberType === `containers` ? filterContainerNumbers : filterBillNumbers"
@@ -76,7 +77,7 @@ import addOnTrackForm from "@/components/tracking/addOnTrackForm";
 import LoginForm from "@/components/user/loginForm";
 import registrationForm from "@/components/user/registrationForm";
 import SpinnerLoader from "@/UI/loading";
-import {utils} from "@/util";
+import {utils} from "@/utils";
 
 export default {
   name: "userAccount",

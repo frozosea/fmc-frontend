@@ -1,0 +1,144 @@
+{
+  "tracking": {
+    "scheduleTracking": {
+      "addOnTrackForm": {
+        "scheduleTrackingName": "Слежение по расписанию",
+        "emailsPlaceholder": "E-mail для рассылки / через запятую",
+        "emailSubject": "Тема сообщения",
+        "addOnTrackingName": "Добавить на слежение",
+        "removeFromTracking": "Удалить со слежения",
+        "incorrectEmailError": "Пожалуйста, введите корректный E-mail",
+        "incorrectTimeFormatError": "Пожалуйста, введите время в формате `ЧЧ:ММ` ",
+        "timePlaceholder": {
+          "first": "Время в формате 01:44",
+          "second": ", часовой пояс"
+        },
+        "noNumbersError": "Добавьте контейнера или коносаменты!",
+        "baseError": "Введите данные!",
+        "removeButtonText": "Удалить"
+      }
+    },
+    "containerOrBillInfo": {
+      "trackingPageBodyTitle": "Отследить морской груз по номеру:",
+      "cargoInfoName": "Информация о грузе: ",
+      "timeName": "Время:",
+      "subjectName": "Тема:",
+      "trackingEvent": {
+        "time": "Время",
+        "operationName": "Операция",
+        "location": "Локация",
+        "vessel": "Судно"
+      },
+      "scheduleTracking": {
+        "subject": "Тема:",
+        "time": "Время:"
+      }
+    },
+    "trackingForm": {
+      "inputNumberPlaceholder": "Введите номер",
+      "containerName": "Контейнер",
+      "billName": "Коносамент",
+      "autoScacName": "Автоматически",
+      "searchButtonText": "Поиск"
+    },
+    "latestMove": {
+      "name": "Последняя локация:",
+      "scheduled": "(Ожидается)",
+      "notFound": "Не найдено"
+    },
+    "errors": {
+      "numbersNotFound": "Номер(а) не найдены!"
+    }
+  },
+  "user": {
+    "feedback": {
+      "title": "Обратная связь",
+      "textArea": "Напишите свой вопрос или отзыв в это поле",
+      "submitButtonText": "Отправить"
+    },
+    "login": {
+      "form": {
+        "title": "Авторизация",
+        "buttonText": "Войти",
+        "remindPasswordText": "Напомнить пароль"
+      }
+    },
+    "register": {
+      "form": {
+        "title": "Регистрация",
+        "placeholder": {
+          "email": "Ваш E-mail",
+          "username": "Введите имя пользователя",
+          "password": "Введите пароль",
+          "passwordAgain": "Введите пароль снова"
+        },
+        "buttonText": "Регистрация"
+      }
+    },
+    "remindPassword": {
+      "form": {
+        "title": "Напомнить пароль",
+        "buttonText": "Напомнить пароль"
+      },
+      "successMessage": "Сообщение для восстановаления пароля было отправлено на почту!"
+    },
+    "searchNumber": {
+      "form": {
+        "numberInputPlaceholder": "Введите номер",
+        "buttonText": "Найти"
+      },
+      "actualNumbersTitle": "Актуальные"
+    },
+    "changePassword": {
+      "form": {
+        "title": "Установить новый пароль",
+        "buttonText": "Сбросить"
+      }
+    },
+    "account": {
+      "containersName": "Контейнера",
+      "billNumbersName": "Коносаменты"
+    }
+  },
+  "errors": {
+    "numbersNotFound": "Номер(а) не найдены!",
+    "incorrectEmailError": "пожалуйста, введите корректный E-mail!",
+    "base": "Что-то пошло не так",
+    "userWasNotFound": "Пользователь с такими данными не найден!",
+    "passwordsNotEqual": "Пароли должны совпадать!",
+    "userAlreadyExists": "Пользователь с такими данными уже существует!",
+    "userDoesntExists": "Пользователь не найден!"
+  },
+  "footer": {
+    "linkToHomePageAriaLabel": "отследить контейнер или коносамент",
+    "personalDataProcessingName": "Обработка персональных данных",
+    "userAgreement": "Пользовательское соглашение",
+    "findMyCargo": "Find my Cargo"
+  },
+  "header": {
+    "infoAboutCompanyName": "О компании",
+    "feedbackName": "Обратная связь",
+    "accountName": "Аккаунт",
+    "servicesName": "Сервисы",
+    "exitName": "Выйти",
+    "registration": "Регистрация",
+    "findMyCargo": "«Find my Cargo»",
+    "support": "Техническая поддержка: "
+  },
+  "services": {
+    "title": "Сервисы",
+    "containerTracking": "Отследить по номеру контейнера",
+    "billTracking": "Отследить по номеру коносамента",
+    "freightParser": "Поиск фрахта",
+    "text": "FindMyCargo помогает автоматизировать рутинные процессы по отслеживанию груза в морской логистике."
+  },
+  "companyPage": {
+    "1": "Инновационный онлайн-сервис компании «ООО Моя логистика» предлагает множество вариантов отслеживать местоположение контейнеров и коносаментов в режиме реального времени без привязки к судоходной линии. Максимально полная информация поступает регулярно, a гибко настраиваемый современный интерфейс и отображение локации груза позволяют сделать работу комфортной.",
+    "2": "Обладает следующими преимуществами:",
+    "3": "Не имеет привязки к определенному рабочему месту и доступен с любого устройства, подключенного к Интернету.",
+    "4": "И наше ключевое достоинство - возможность подписаться на ежедневные обновления передвижения морского груза с рассылкой на почту (без ограничений по количеству получателей), и без привязки к перевозчику, предоставляющая актуальную информацию о примерной дате доставки груза в порт назначения(ETA) и передвижении груза.",
+    "5": "Линии для трекинга по контейнеру:",
+    "6": "Линии для трекинга по коносаменту:"
+  }
+
+}

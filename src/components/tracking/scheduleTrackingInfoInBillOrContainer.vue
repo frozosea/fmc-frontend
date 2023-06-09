@@ -1,5 +1,5 @@
 <template>
-  <div class="container g-0">
+  <div class="container g-0" v-if="scheduleTrackingInfo">
     <div class="row g-0">
       <time-and-subject-in-tracking :time="scheduleTrackingInfo.time" :subject="scheduleTrackingInfo.subject"/>
       <emails-in-tracking :emails="scheduleTrackingInfo.emails"/>

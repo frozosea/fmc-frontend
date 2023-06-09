@@ -1200,7 +1200,7 @@ html, body, #app {
     bottom: 0;
     left: 0;
     background: rgba(238, 247, 253, 0.90);
-    z-index: 99999;
+    z-index: 99999999;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1387,6 +1387,7 @@ html, body, #app {
     padding: 0;
     border: none;
     background: none;
+    cursor: pointer;
 }
 
 .grid {

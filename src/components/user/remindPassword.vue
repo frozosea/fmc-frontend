@@ -3,7 +3,7 @@
     <div class="container g-0">
       <div class="row g-0">
         <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-xs-12">
-          <div class="title-8 input-modal-title">Напомнить пароль</div>
+          <div class="title-8 input-modal-title">{{ $t(`user.remindPassword.form.title`) }}</div>
         </div>
 
         <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-12">
@@ -22,8 +22,8 @@
     <div class="row g-0">
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div v-if="showError" style="color: red"> {{ error }}</div>
-        <div v-if="showSuccessMessage"> Сообщение для восстановаления пароля было отправлено на почту!</div>
-        <button type="submit" class="button-menu">Напомнить пароль</button>
+        <div v-if="showSuccessMessage">{{$t(`user.remindPassword.successMessage`)}}</div>
+        <button type="submit" class="button-menu">{{$t(`user.remindPassword.form.buttonText`)}}</button>
       </div>
     </div>
   </form>
@@ -53,11 +53,11 @@ export default {
         this.showSuccessMessage = true
         this.showError = false
         setTimeout(() => {
-          this.$emit("show",false)
+          this.$emit("show", false)
         }, 5000)
       } catch (e) {
         this.showLoading = false
-        this.error = "user with this email doesn't exists"
+        this.error = this.$t(`errors.userDoesntExists`)
         this.showError = true
       }
     },

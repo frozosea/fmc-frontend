@@ -2,7 +2,7 @@
   <div class="container g-0">
     <div class="row g-0">
       <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-xs-12">
-        <div class="title-8 input-modal-title">Отзыв</div>
+        <div class="title-8 input-modal-title">{{ $t(`user.feedback.title`) }}</div>
       </div>
 
       <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-12">
@@ -14,14 +14,14 @@
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <input type="text" class="input-css-grey input-modal" id="recipient-name" placeholder="E-mail"
                @input="inputEmail" @keyup.enter="submit"/>
-        <textarea id="msg" class="text-area" placeholder="Напишите свой вопрос или отзыв в это поле" v-model="feedback"/>
+        <textarea id="msg" class="text-area" :placeholder="$t(`user.feedback.textArea`)" v-model="feedback"/>
       </div>
     </div>
   </div>
   <div class="container g-0">
     <div class="row g-0">
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <button type="button" class="button-menu area-pad" @click="submit" ref="button">Отправить отзыв</button>
+        <button type="button" class="button-menu area-pad" @click="submit" ref="button">{{ $t(`user.feedback.submitButtonText`) }}</button>
         <div style="color: red" v-if="showError">{{ error }}</div>
       </div>
     </div>
@@ -46,7 +46,7 @@ export default {
       try {
         api.userApi.feedback(this.email, this.feedback)
       } catch (e) {
-        this.error = "something went wrong, try again later :("
+        this.error = this.$t(`errors.base`)
       }
       this.$emit(`show`, false)
 
@@ -68,7 +68,7 @@ export default {
       if (!re.test(email)) {
         this.disableButton()
         this.showError = true
-        this.error = "please input valid email!"
+        this.error = this.$t(`errors.incorrectEmailError`)
       } else {
         this.enableButton()
         this.showError = false

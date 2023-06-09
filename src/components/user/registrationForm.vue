@@ -3,7 +3,7 @@
     <div class="container g-0">
       <div class="row g-0">
         <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-xs-12">
-          <div class="title-8 input-modal-title">Регистрация</div>
+          <div class="title-8 input-modal-title">{{ $t(`user.register.form.title`) }}</div>
         </div>
 
         <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-12">
@@ -17,19 +17,18 @@
         />
         <div v-if="!showLoading">
           <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <input type="text" class="input-css-grey input-modal" placeholder="Ваш E-mail" @input="handleEmail">
-            <input type="text" class="input-css-grey input-modal" placeholder="Введите имя пользователя"
+            <input type="text" class="input-css-grey input-modal" :placeholder="$t(`user.register.form.placeholder.email`)" @input="handleEmail">
+            <input type="text" class="input-css-grey input-modal" :placeholder="$t(`user.register.form.placeholder.username`)"
                    @input="username = $event.target.value">
-            <input type="password" class="input-css-grey input-modal" placeholder="Введите пароль"
+            <input type="password" class="input-css-grey input-modal" :placeholder="$t(`user.register.form.placeholder.password`)"
                    @input="handlePasswordInput">
-            <input type="password" class="input-css-grey input-modal" placeholder="Введите пароль снова"
+            <input type="password" class="input-css-grey input-modal" :placeholder="$t(`user.register.form.placeholder.passwordAgain`)"
                    @input="handleRepeatedPasswordInput">
-<!--            <label style="margin-bottom: 8px"><input type="checkbox" id="checkbox" v-model="checked" placeholder="checkbox" style="margin: 8px"></label>-->
           </div>
           <div class="row g-0">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
               <div style="color: red; margin-left: auto; margin-top: auto" v-if="showError">{{ errorMessage }}</div>
-              <button type="submit" class="button-menu" :disabled="!valid" ref="button">Регистрация</button>
+              <button type="submit" class="button-menu" :disabled="!valid" ref="button">{{ $t(`user.register.form.buttonText`) }}</button>
             </div>
           </div>
         </div>
@@ -64,7 +63,7 @@ export default {
         this.valid = false
         this.showError = true
         this.disableButton()
-        this.errorMessage = "пожалуйста, введите корректный E-mail"
+        this.errorMessage = this.$t(`errors.incorrectEmailError`)
       } else {
         this.valid = true
         this.showError = false
@@ -80,7 +79,7 @@ export default {
         this.valid = false
         this.showError = true
         this.disableButton()
-        this.errorMessage = "пароли должны совпадать"
+        this.errorMessage = this.$t(`errors.passwordsNotEqual`)
       } else {
         this.valid = true
         this.showError = false
@@ -94,7 +93,7 @@ export default {
         this.valid = false
         this.showError = true
         this.disableButton()
-        this.errorMessage = "пароли должны совпадать"
+        this.errorMessage = this.$t(`errors.passwordsNotEqual`)
       } else {
         this.valid = true
         this.showError = false
@@ -129,7 +128,7 @@ export default {
         this.showError = false
         this.$store.commit(`user/setIsAuth`, true)
       } catch (e) {
-        this.error = "пользователь с такими данными уже существует!"
+        this.error = this.$t(`errors.userAlreadyExists`)
         this.showError = true
         this.showLoading = false
       }

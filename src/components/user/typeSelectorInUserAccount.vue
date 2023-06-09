@@ -3,32 +3,27 @@
     <div class="row g-0">
 
       <div class="col-xl-8 col-lg-6 col-md-6 col-sm-12 col-xs-12 number-two">
-        <button class="title-1-s pad-search borderless_button" @click="changeType(`actual`)">Актуальные</button>
-        <!--        <button class="title-1-s pad-search borderless_button" @click="changeType(`archive`)">Archive</button>-->
+        <button class="title-1-s pad-search borderless_button" @click="changeType(`actual`)">{{ $t(`user.searchNumber.actualNumbersTitle`) }}</button>
       </div>
 
       <div class="col-xl-2 col-lg-3 col-md-3 col-sm-12 col-xs-12 order-md-1 order-2">
         <div class="action container flex-test-wrap">
           <button class="title-7 borderless_button flex-test" @click="setAddTrackingVisible">
             <img src="@/assets/images/plus.svg" width="14" alt="plus">
-            <span>&nbsp;Слежение по расписанию</span>
+            <span>&nbsp;{{ $t(`tracking.scheduleTracking.addOnTrackForm.scheduleTrackingName`) }}</span>
           </button>
           <button class="title-6 borderless_button flex-test" @click="deleteNumbers">
             <img src="@/assets/images/delete.svg" width="14" class="pad-action">
-            <span>&nbsp;Удалить</span>
+            <span>&nbsp;{{$t(`tracking.scheduleTracking.addOnTrackForm.removeButtonText`) }}</span>
           </button>
-<!--          <button class="title-6 borderless_button flex-test" @click="deleteNumbersFromTracking">-->
-<!--            <img src="@/assets/images/delete.svg" width="14" class="pad-action">-->
-<!--            <span>&nbsp;Remove from tracking</span>-->
-<!--          </button>-->
         </div>
       </div>
 
       <div class="col-xl-2 col-lg-3 col-md-3 col-sm-12 col-xs-12 order-md-2 order-1">
         <div class="select-colum">
           <select class="select-css-small" @change="changeNumberType($event.target.value)">
-            <option value="containers">Контейнера</option>
-            <option value="bills">Коносаменты</option>
+            <option value="containers">{{ $t(`user.account.containersName`) }}</option>
+            <option value="bills">{{ $t(`user.account.billNumbersName`) }}</option>
           </select>
         </div>
       </div>
@@ -53,9 +48,6 @@ export default {
     setAddTrackingVisible() {
       this.$emit("addOnTrackVisible", true)
     },
-    // deleteNumbersFromTracking() {
-    //   this.$emit(`deleteNumbersFromTracking`, true)
-    // }
   }
 }
 </script>

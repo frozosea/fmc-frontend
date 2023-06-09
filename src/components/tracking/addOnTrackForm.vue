@@ -2,7 +2,7 @@
   <div class="container g-0">
     <div class="row g-0">
       <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-xs-12">
-        <div class="title-8 input-modal-title">Слежение по расписанию</div>
+        <div class="title-8 input-modal-title">{{ $t("tracking.scheduleTracking.addOnTrackForm.scheduleTrackingName") }}</div>
       </div>
 
       <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-12">
@@ -13,12 +13,12 @@
 
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div>
-          <input type="text" class="input-css-grey input-modal" placeholder="E-mail для рассылки / через запятую"
+          <input type="text" class="input-css-grey input-modal" :placeholder="$t(`tracking.scheduleTracking.addOnTrackForm.emailsPlaceholder`)"
                  @input="handleEmails"
                  :value="emails.join(`,`)"
                  @keyup.enter="addOnTrack"
           >
-          <input type="text" class="input-css-grey input-modal" placeholder="Тема сообщения"
+          <input type="text" class="input-css-grey input-modal" :placeholder="$t(`tracking.scheduleTracking.addOnTrackForm.emailSubject`)"
                  @input="subject = $event.target.value"
                  :value="subject"
                  @keyup.enter="addOnTrack"
@@ -45,17 +45,19 @@
     <div class="row g-0">
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div style="color: red" v-if="showError"> {{ error }}</div>
-        <button type="button" class="button-menu" @click="addOnTrack" ref="button" :disabled="!valid">Добавить на слежение
+        <button type="button" class="button-menu" @click="addOnTrack" ref="button" :disabled="!valid">{{
+            $t(`tracking.scheduleTracking.addOnTrackForm.addOnTrackingName`)
+          }}
         </button>
-        <button type="button" class="button-menu-line password-pad" @click="deleteFromTrack">Удалить со слежения</button>
+        <button type="button" class="button-menu-line password-pad" @click="deleteFromTrack">{{
+            $t(`tracking.scheduleTracking.addOnTrackForm.removeFromTracking`)
+          }}</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-// import CustomModal from "@/UI/CustomModal";
-// import CustomInput from "@/UI/CustomInput";
 
 export default {
   name: "addOnTrackForm",
@@ -68,7 +70,7 @@ export default {
       error: "",
       showError: false,
       timeZone: "",
-      timePlaceholder: "Время в формате 01:44"
+      timePlaceholder: this.$t(`tracking.scheduleTracking.addOnTrackForm.timePlaceholder.first`)
     }
   },
   props: {
@@ -97,7 +99,7 @@ export default {
       for (let email of this.emails) {
         if (!emailRegex.test(email)) {
           this.valid = false
-          this.error = "пожалуйста, введите корректный E-mail"
+          this.error = this.$t(`tracking.scheduleTracking.addOnTrackForm.incorrectEmailError`)
           this.showError = true
           this.disableButton()
         } else {
@@ -146,7 +148,7 @@ export default {
       for (const email of emails) {
         if (!regex.test(email)) {
           this.disableButton()
-          this.error = "пожалуйста, введите корректный E-mail"
+          this.error = this.$t(`tracking.scheduleTracking.addOnTrackForm.incorrectEmailError`)
           this.valid = false
           this.showError = true
         } else {
@@ -172,7 +174,7 @@ export default {
       this.time = time
       if (!/\d{1,2}:\d{1,2}/g.test(time)) {
         this.disableButton()
-        this.error = "пожалуйста, введите время в формате `ЧЧ:ММ` "
+        this.error = this.$t(`tracking.scheduleTracking.addOnTrackForm.incorrectTimeFormatError`)
         this.valid = false
         this.showError = true
       } else {
@@ -193,10 +195,10 @@ export default {
     const api = this.$store.state.api
     const raw = await api.scheduleTrackingApi.getTimeZone()
     this.timeZone = raw.timeZone
-    this.timePlaceholder += `, часовой пояс ${this.timeZone}`
+    this.timePlaceholder += `${this.$t(`tracking.scheduleTracking.addOnTrackForm.timePlaceholder.second`)} ${this.timeZone}`
     if (!this.numberList.length) {
       this.disableButton()
-      this.error = "добавьте контейнера или коносаменты!"
+      this.error = this.$t(`tracking.scheduleTracking.addOnTrackForm.noNumbersError`)
       this.showError = true
       return
     }
@@ -211,7 +213,7 @@ export default {
         this.disableButton()
       }
     } catch (e) {
-      this.error = "введите данные!"
+      this.error = this.$t(`tracking.scheduleTracking.addOnTrackForm.baseError`)
       this.showError = true
       this.disableButton()
     }

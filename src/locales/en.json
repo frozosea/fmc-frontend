@@ -1,0 +1,144 @@
+{
+  "tracking": {
+    "scheduleTracking": {
+      "addOnTrackForm": {
+        "scheduleTrackingName": "Schedule tracking",
+        "emailsPlaceholder": "E-mail separated by comma",
+        "emailSubject": "Message subject",
+        "addOnTrackingName": "Add on tracking",
+        "removeFromTracking": "Remove from tracking",
+        "incorrectEmailError": "Please enter correct E-mail",
+        "incorrectTimeFormatError": "Please enter time in format `hours:minutes`",
+        "timePlaceholder": {
+          "first": "Time in format `hours:minutes`",
+          "second": ", timezone"
+        },
+        "noNumbersError": "Add containers or bill numbers!",
+        "baseError": "Enter data!",
+        "removeButtonText": "Remove"
+      }
+    },
+    "containerOrBillInfo": {
+      "trackingPageBodyTitle": "Track marine cargo by container or bill number:",
+      "cargoInfoName": "Cargo info: ",
+      "timeName": "Time:",
+      "subjectName": "Subject:",
+      "trackingEvent": {
+        "time": "Time",
+        "operationName": "Operation",
+        "location": "Location",
+        "vessel": "Vessel"
+      },
+      "scheduleTracking": {
+        "subject": "Subject:",
+        "time": "Time:"
+      }
+    },
+    "trackingForm": {
+      "inputNumberPlaceholder": "Enter number",
+      "containerName": "Container",
+      "billName": "Bill number",
+      "autoScacName": "Auto",
+      "searchButtonText": "Search"
+    },
+    "latestMove": {
+      "name": "Last location:",
+      "scheduled": "(Scheduled)",
+      "notFound": "Not found"
+    },
+    "errors": {
+      "numbersNotFound": "Number(s) not found!"
+    }
+  },
+  "user": {
+    "feedback": {
+      "title": "Feedback",
+      "textArea": "Enter your question or review to this field.",
+      "submitButtonText": "Send"
+    },
+    "login": {
+      "form": {
+        "title": "Auth",
+        "buttonText": "Login",
+        "remindPasswordText": "Remind password"
+      }
+    },
+    "register": {
+      "form": {
+        "title": "Registration",
+        "placeholder": {
+          "email": "Your E-mail",
+          "username": "Enter username",
+          "password": "Enter password",
+          "passwordAgain": "Enter password again"
+        },
+        "buttonText": "Register"
+      }
+    },
+    "remindPassword": {
+      "form": {
+        "title": "Remind password",
+        "buttonText": "Remind"
+      },
+      "successMessage": "Recovery password message sent to your email!"
+    },
+    "searchNumber": {
+      "form": {
+        "numberInputPlaceholder": "Enter number",
+        "buttonText": "Search"
+      },
+      "actualNumbersTitle": "Actual"
+
+    },
+    "changePassword": {
+      "form": {
+        "title": "Set new password",
+        "buttonText": "Recovery"
+      }
+    },
+    "account": {
+      "containersName": "Containers",
+      "billNumbersName": "Bill numbers"
+    }
+  },
+  "errors": {
+    "numbersNotFound": "Number(s) not found!",
+    "incorrectEmailError": "Please enter valid E-mail!",
+    "base": "Something went wrong...",
+    "userWasNotFound": "User with this data was not found!",
+    "passwordsNotEqual": "Passwords should be equal!",
+    "userAlreadyExists": "User with this data already exists!",
+    "userDoesntExists": "User was not found!"
+  },
+  "footer": {
+    "linkToHomePageAriaLabel": "track container or bill number",
+    "personalDataProcessingName": "Personal data processing",
+    "userAgreement": "User agreement"
+  },
+  "header": {
+    "infoAboutCompanyName": "Company",
+    "feedbackName": "Feedback",
+    "accountName": "Account",
+    "servicesName": "Services",
+    "exitName": "Exit",
+    "registration": "Registration",
+    "findMyCargo": "«Find my Cargo»",
+    "support": "Support: "
+  },
+  "services": {
+    "title": "Services",
+    "containerTracking": "Container number tracking",
+    "billTracking": "Bill number tracking",
+    "freightParser": "Freight finder",
+    "text": "FindMyCargo helps automate routine cargo tracking processes in marine logistics."
+  },
+  "companyPage": {
+    "1": "The innovative online service of the company «My Logistics LLC» offers many options to track the location of containers and bills of lading in real time without reference to the shipping line. The most complete information is received regularly, and a flexibly customizable modern interface and the display of the cargo location allow you to make the work comfortable.",
+    "2": "It has the following advantages:",
+    "3": "It is not linked to a specific workplace and is accessible from any device connected to the Internet.",
+    "4": "And our key advantage is the ability to subscribe to daily updates on the movement of sea cargo by mail (without restrictions on the number of recipients), and without binding to the carrier, providing up-to-date information about the approximate date of cargo delivery to the port of destination (ETA) and the movement of cargo.",
+    "5": "Shipping lines for container tracking:",
+    "6": "Shipping lines for bill tracking:"
+  }
+
+}
