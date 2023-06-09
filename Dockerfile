@@ -1,11 +1,11 @@
 FROM node:lts-alpine as build-stage
 WORKDIR /app
 COPY package*.json ./
-COPY yarn.lock /app
 ENV VUE_APP_BACKEND_URL=https://api.findmycargo.ru
-RUN yarn install
+RUN npm config set legacy-peer-deps true
+RUN npm install --force
 COPY . .
-RUN yarn build
+RUN npm run build
 # production stage
 FROM nginx:stable-alpine as production-stage
 COPY --from=build-stage /app/dist /app
