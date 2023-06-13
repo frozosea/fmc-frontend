@@ -1,12 +1,8 @@
 <template>
-  <div class="langPosition">
-    <button
-        class="flex items-center langDropdownButton"
-        @click="toggleVisibility"
-    >
-      <img :src="`/flag_${$i18n.locale}.svg`" alt="flag" class="flagShadow"/>
-    </button>
-  </div>
+    <a class="language" @click="toggleVisibility">
+      <img src="@/assets/images/lang.svg" style="margin-right: 3px" class="lang-icon"/>
+      {{$i18n.locale === 'ru' ? 'EN' : 'RU'}}
+    </a>
 </template>
 
 <script>

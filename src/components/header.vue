@@ -1,6 +1,8 @@
 <template>
-  <language-switcher/>
-  <div class="container g-3">
+  <header style="margin-top: 0;margin-bottom: 15px;background: #f9f7f7;">
+    <language-switcher/>
+  </header>
+  <div class="container g-3" style="margin-bottom: 0;padding-bottom: 0;">
     <div class="row g-0">
       <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12">
         <div class="logotype">
