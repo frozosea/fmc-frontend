@@ -21,6 +21,7 @@
         <a href="https://t.me/findmycargo"><img src="@/assets/images/telegram.svg" alt="container bill number tracking telegram" class="img-hover svg-social"></a>
         <a href="https://www.facebook.com/profile.php?id=100093158229495&mibextid=LQQJ4d"><img src="@/assets/images/facebook.svg" alt="container bill number tracking facebook" class="pad-socials svg-social img-hover"></a>
         <router-link to="/about"><img src="@/assets/images/twitter.svg" class="pad-socials svg-social img-hover" alt="container bill number tracking twitter"></router-link>
+        <language-switcher/>
       </div>
     </div>
   </div>
@@ -36,10 +37,11 @@
 import CustomModal from "@/UI/CustomModal";
 import feedBackModal from "@/components/user/feedBackModal";
 import servicesModal from "@/components/servicesModal";
+import LanguageSwitcher from "@/components/languageSwitcher";
 
 export default {
   name: "FmcFooter",
-  components: {CustomModal, feedBackModal, servicesModal},
+  components: {LanguageSwitcher, CustomModal, feedBackModal, servicesModal},
   data() {
     return {
       isShowServices: false,

@@ -19,10 +19,13 @@
         <div class="action">
           <img src="@/assets/images/plus.svg" width="14" alt="add cargo to schedule tracking">
           <button class="title-7 borderless_button" @click="setAddTrackingVisible"
-                  :disabled="!this.$store.getters[`user/getIsAuth`]">&nbsp;{{ $t(`tracking.scheduleTracking.addOnTrackForm.scheduleTrackingName`) }}
+                  :disabled="!this.$store.getters[`user/getIsAuth`]">
+            &nbsp;{{ $t(`tracking.scheduleTracking.addOnTrackForm.scheduleTrackingName`) }}
           </button>
           <img src="@/assets/images/delete.svg" width="14" class="pad-action" alt="remove cargo to schedule tracking">
-          <button class="title-6 borderless_button" @click="deleteNumbersFromList">&nbsp;{{ $t(`tracking.scheduleTracking.addOnTrackForm.removeButtonText`) }}</button>
+          <button class="title-6 borderless_button" @click="deleteNumbersFromList">
+            &nbsp;{{ $t(`tracking.scheduleTracking.addOnTrackForm.removeButtonText`) }}
+          </button>
         </div>
       </div>
     </div>
@@ -128,7 +131,11 @@ export default {
           for (let item of result.infoAboutMoving) {
             item.time = this.$store.getters["utils/getTime"].humanizeTime(item.time)
           }
-          result.etaFinalDelivery = this.$store.getters["utils/getTime"].humanizeTime(result.etaFinalDelivery)
+          if (!result.etaFinalDelivery) {
+            result.etaFinalDelivery = null
+          } else {
+            result.etaFinalDelivery = this.$store.getters["utils/getTime"].humanizeTime(result.etaFinalDelivery)
+          }
           this.trackNumber = result.billNo
           this.trackingResult = result
           this.isFound = true

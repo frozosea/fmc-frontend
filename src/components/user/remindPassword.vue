@@ -22,7 +22,6 @@
     <div class="row g-0">
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div v-if="showError" style="color: red"> {{ error }}</div>
-        <div v-if="showSuccessMessage">{{$t(`user.remindPassword.successMessage`)}}</div>
         <button type="submit" class="button-menu">{{$t(`user.remindPassword.form.buttonText`)}}</button>
       </div>
     </div>
@@ -38,7 +37,6 @@ export default {
       showLoading: false,
       showError: false,
       error: "",
-      showSuccessMessage: false
     }
   },
   props: {
@@ -50,11 +48,9 @@ export default {
       const api = this.$store.state.api.authApi
       try {
         await api.remindPassword(this.email)
-        this.showSuccessMessage = true
+        this.$notification.info(this.$t(`user.remindPassword.successMessage`))
         this.showError = false
-        setTimeout(() => {
-          this.$emit("show", false)
-        }, 5000)
+        this.$emit("show", false)
       } catch (e) {
         this.showLoading = false
         this.error = this.$t(`errors.userDoesntExists`)

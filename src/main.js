@@ -6,7 +6,10 @@ import router from "@/router/router";
 import store from "@/store";
 import VueYandexMetrika from 'vue-yandex-metrika'
 import i18n from './i18n'
-
+// import ToastPlugin from 'vue-toast-notification';
+// import 'vue-toast-notification/dist/theme-bootstrap.css';
+import NotificationPlugin from "@/plugins/notification";
+import "@/plugins/notification/themes/styles.css"
 const app = createApp(App).use(i18n)
 
 
@@ -27,7 +30,7 @@ app.use(VueSpinners).use(router).use(store).use(VueYandexMetrika, {
         accurateTrackBounce: true,
         webvisor: true
     },
-}).mount("#app")
+}).use(NotificationPlugin).mount("#app")
 
 
 

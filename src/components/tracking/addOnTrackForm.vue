@@ -2,7 +2,10 @@
   <div class="container g-0">
     <div class="row g-0">
       <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-xs-12">
-        <div class="title-8 input-modal-title">{{ $t("tracking.scheduleTracking.addOnTrackForm.scheduleTrackingName") }}</div>
+        <div class="title-8 input-modal-title">{{
+            $t("tracking.scheduleTracking.addOnTrackForm.scheduleTrackingName")
+          }}
+        </div>
       </div>
 
       <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-12">
@@ -13,12 +16,14 @@
 
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div>
-          <input type="text" class="input-css-grey input-modal" :placeholder="$t(`tracking.scheduleTracking.addOnTrackForm.emailsPlaceholder`)"
+          <input type="text" class="input-css-grey input-modal"
+                 :placeholder="$t(`tracking.scheduleTracking.addOnTrackForm.emailsPlaceholder`)"
                  @input="handleEmails"
                  :value="emails.join(`,`)"
                  @keyup.enter="addOnTrack"
           >
-          <input type="text" class="input-css-grey input-modal" :placeholder="$t(`tracking.scheduleTracking.addOnTrackForm.emailSubject`)"
+          <input type="text" class="input-css-grey input-modal"
+                 :placeholder="$t(`tracking.scheduleTracking.addOnTrackForm.emailSubject`)"
                  @input="subject = $event.target.value"
                  :value="subject"
                  @keyup.enter="addOnTrack"
@@ -51,7 +56,8 @@
         </button>
         <button type="button" class="button-menu-line password-pad" @click="deleteFromTrack">{{
             $t(`tracking.scheduleTracking.addOnTrackForm.removeFromTracking`)
-          }}</button>
+          }}
+        </button>
       </div>
     </div>
   </div>
@@ -129,6 +135,7 @@ export default {
           emails: this.emails,
           subject: this.subject
         })
+        this.$notification.info(this.$t(`tracking.scheduleTracking.addOnTrackForm.successMessage`))
         this.$emit(`show`, false)
       } catch (e) {
         this.showError = true
@@ -186,6 +193,7 @@ export default {
       }
     },
     deleteFromTrack() {
+      this.$notification.info(this.$t(`tracking.scheduleTracking.removeFromTracking.successMessage`))
       this.$emit(`deleteFromTrack`, this.numberList)
       this.$emit(`show`, false)
     },

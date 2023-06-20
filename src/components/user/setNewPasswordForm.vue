@@ -103,6 +103,7 @@ export default {
         this.showLoading = false
         this.showError = false
         this.$emit(`show`, false)
+        this.$notification.info(this.$t(`user.changePassword.form.successMessage`))
       } catch (e) {
         this.error = this.$t(`errors.base`)
         this.showError = true

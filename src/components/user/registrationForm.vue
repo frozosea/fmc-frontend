@@ -120,6 +120,7 @@ export default {
         this.showLoading = false
         this.showError = false
         this.$emit(`show`, false)
+        this.$notification.info(this.$t(`user.register.form.successMessage`))
         const data = await api.login(this.email, this.password)
         this.$store.commit(`user/setAuthToken`, data.tokens)
         this.$store.commit(`user/setRefreshToken`, data.refreshToken)

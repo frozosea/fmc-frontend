@@ -15,8 +15,16 @@
         },
         "noNumbersError": "Добавьте контейнера или коносаменты!",
         "baseError": "Введите данные!",
-        "removeButtonText": "Удалить"
+        "removeButtonText": "Удалить",
+        "successMessage": "Номер(а) добавлены успешно!"
+      },
+      "removeFromTracking": {
+        "successMessage": "Номер(а) удалены успешно!"
       }
+    },
+    "eta": {
+      "name": "Расчётное время прибытия",
+      "notFound": "Не найдено"
     },
     "containerOrBillInfo": {
       "trackingPageBodyTitle": "Отследить морской груз по номеру:",
@@ -54,14 +62,19 @@
     "feedback": {
       "title": "Обратная связь",
       "textArea": "Напишите свой вопрос или отзыв в это поле",
-      "submitButtonText": "Отправить"
+      "submitButtonText": "Отправить",
+      "successMessage": "Успешно отправлено!"
     },
     "login": {
       "form": {
         "title": "Авторизация",
         "buttonText": "Войти",
-        "remindPasswordText": "Напомнить пароль"
+        "remindPasswordText": "Напомнить пароль",
+        "successMessage": "Успешная авторизация!"
       }
+    },
+    "exit": {
+      "successMessage": "Успешный выход!"
     },
     "register": {
       "form": {
@@ -72,7 +85,8 @@
           "password": "Введите пароль",
           "passwordAgain": "Введите пароль снова"
         },
-        "buttonText": "Регистрация"
+        "buttonText": "Регистрация",
+        "successMessage": "Регистрация успешна!"
       }
     },
     "remindPassword": {
@@ -92,7 +106,8 @@
     "changePassword": {
       "form": {
         "title": "Установить новый пароль",
-        "buttonText": "Сбросить"
+        "buttonText": "Сбросить",
+        "successMessage": "Пароль успешно изменен!"
       }
     },
     "account": {

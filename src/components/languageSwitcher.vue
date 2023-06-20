@@ -1,8 +1,8 @@
 <template>
-    <a class="language" @click="toggleVisibility">
-      <img src="@/assets/images/lang.svg" style="margin-right: 3px" class="lang-icon"/>
-      {{$i18n.locale === 'ru' ? 'EN' : 'RU'}}
-    </a>
+    <span class="language" @click="toggleVisibility">
+  <img src="@/assets/images/lang.svg" class="pad-socials svg-social img-hover"/>
+    {{ $i18n.locale === 'ru' ? 'EN' : 'RU' }}
+    </span>
 </template>
 
 <script>
@@ -27,48 +27,5 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-.langPosition {
-  /*z-index: 9999;*/
-  position: fixed;
-  display: flex;
-  justify-content: center;
-  bottom: 20px;
-  left: 20px;
-}
-
-.langDropdownButton {
-  outline: none;
-  cursor: pointer !important;
-  background-color: transparent !important;
-  border: none;
-  padding-right: 0px;
-}
-
-
-ul {
-  text-align: left;
-  min-width: 138px;
-  border-radius: 8px;
-  background: white;
-  z-index: 500;
-  position: absolute;
-  list-style: none;
-  padding: 10px 10px !important;
-  margin: 0px !important;
-  bottom: 60px;
-  left: -10px;
-}
-
-li {
-  padding: 5px 0;
-}
-
-
-.flagShadow {
-  border-radius: 50px;
-  box-shadow: 0px 3px 3px rgb(204, 210, 235);
-  width: 35px;
-}
-
+<style>
 </style>

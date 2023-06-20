@@ -11,7 +11,7 @@ export default createStore({
         info: infoStore,
         api: apiStore,
         utils: utils,
-        scheduleTracking: scheduleTracking
+        scheduleTracking: scheduleTracking,
     },
     mutations: {
         async refreshToken(state) {

@@ -15,8 +15,16 @@
         },
         "noNumbersError": "Add containers or bill numbers!",
         "baseError": "Enter data!",
-        "removeButtonText": "Remove"
+        "removeButtonText": "Remove",
+        "successMessage": "Number(s) added successfully!"
+      },
+      "removeFromTracking": {
+        "successMessage": "Number(s) remove successfully!"
       }
+    },
+    "eta": {
+      "name": "Estimated time of arrival",
+      "notFound": "Not found"
     },
     "containerOrBillInfo": {
       "trackingPageBodyTitle": "Track marine cargo by container or bill number:",
@@ -54,14 +62,19 @@
     "feedback": {
       "title": "Feedback",
       "textArea": "Enter your question or review to this field.",
-      "submitButtonText": "Send"
+      "submitButtonText": "Send",
+      "successMessage": "Successfully sent!"
     },
     "login": {
       "form": {
         "title": "Auth",
         "buttonText": "Login",
-        "remindPasswordText": "Remind password"
+        "remindPasswordText": "Remind password",
+        "successMessage": "Login successful!"
       }
+    },
+    "exit": {
+      "successMessage": "Logout successful!"
     },
     "register": {
       "form": {
@@ -72,7 +85,8 @@
           "password": "Enter password",
           "passwordAgain": "Enter password again"
         },
-        "buttonText": "Register"
+        "buttonText": "Register",
+        "successMessage": "Register successful!"
       }
     },
     "remindPassword": {
@@ -88,12 +102,12 @@
         "buttonText": "Search"
       },
       "actualNumbersTitle": "Actual"
-
     },
     "changePassword": {
       "form": {
         "title": "Set new password",
-        "buttonText": "Recovery"
+        "buttonText": "Recovery",
+        "successMessage": "Password successfully changed!"
       }
     },
     "account": {
@@ -140,5 +154,4 @@
     "5": "Shipping lines for container tracking:",
     "6": "Shipping lines for bill tracking:"
   }
-
 }

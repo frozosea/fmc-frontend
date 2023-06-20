@@ -16,7 +16,8 @@
                                :is-loading="isLoading"
               />
 
-              <tracking-latest-move :is-found="isFound" :tracking-response="trackingResponse" v-if="!isLoading && trackingResponse.infoAboutMoving.length" />
+              <estimated-time-of-arrival :is-found="isFound" :tracking-response="trackingResponse" v-if="!isLoading"
+                   :is-container="isContainer"/>
 
               <binaculars-picture :is-found="isFound"
                                   v-if="!isLoading"
@@ -43,14 +44,15 @@
 
               <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="container-font">
-                  <span class="bold grey-color">{{ $t("tracking.containerOrBillInfo.cargoInfoName")}}</span>
+                  <span class="bold grey-color">{{ $t("tracking.containerOrBillInfo.cargoInfoName") }}</span>
                   <span class="grey-color"><p></p>
                                      </span></div>
               </div>
 
             </div>
           </div>
-          <tracking-events-list :tracking-response="trackingResponse" v-if="isFound && trackingResponse.infoAboutMoving.length"/>
+          <tracking-events-list :tracking-response="trackingResponse"
+                                v-if="isFound && trackingResponse.infoAboutMoving.length"/>
 
         </div>
       </div>
@@ -66,12 +68,11 @@
 
 import ContainerPicture from "@/components/tracking/containerPicture";
 import ContainerTitle from "@/components/tracking/containerTitle";
-import TrackingLatestMove from "@/components/tracking/trackingLatestMove";
+import estimatedTimeOfArrival from "@/components/tracking/eta";
 import BinacularsPicture from "@/components/tracking/binacularsPicture";
 import CustomCheckBox from "@/UI/customCheckBox";
 import scheduleTrackingInfoInBillOrContainer from "@/components/tracking/scheduleTrackingInfoInBillOrContainer";
 import TrackingEventsList from "@/components/tracking/trackingEventsList";
-
 
 
 export default {
@@ -80,7 +81,7 @@ export default {
     TrackingEventsList,
     CustomCheckBox,
     BinacularsPicture,
-    TrackingLatestMove,
+    estimatedTimeOfArrival,
     ContainerTitle,
     ContainerPicture,
     scheduleTrackingInfoInBillOrContainer

@@ -69,6 +69,7 @@ export default {
         this.showLoading = false
         this.showError = false
         this.$store.commit(`user/setIsAuth`, true)
+        this.$notification.info(this.$t(`user.login.form.successMessage`))
         this.$emit(`show`, false)
       } catch (e) {
         this.showLoading = false

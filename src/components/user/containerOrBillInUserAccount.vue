@@ -23,7 +23,7 @@
                   :number="number"
                   :is-in-account="true"
               />
-              <tracking-latest-move :empty="true"/>
+              <estimated-time-of-arrival :empty="true" :is-container="isContainer"/>
               <binaculars-picture :schedule-tracking-object="scheduleTrackingInfo"
                                   :is-on-track="isOnTrack"
                                   :number="number"
@@ -58,7 +58,7 @@ import ContainerTitle from "@/components/tracking/containerTitle";
 import BinacularsPicture from "@/components/tracking/binacularsPicture";
 import CustomCheckBox from "@/UI/customCheckBox";
 import scheduleTrackingInfoInBillOrContainer from "@/components/tracking/scheduleTrackingInfoInBillOrContainer";
-import trackingLatestMove from "@/components/tracking/trackingLatestMove";
+import estimatedTimeOfArrival from "@/components/tracking/eta";
 import CustomModal from "@/UI/CustomModal";
 import AddOnTrackForm from "@/components/tracking/addOnTrackForm";
 
@@ -69,7 +69,7 @@ export default {
     CustomModal,
     CustomCheckBox,
     BinacularsPicture,
-    trackingLatestMove,
+    estimatedTimeOfArrival,
     ContainerTitle, ContainerPicture, scheduleTrackingInfoInBillOrContainer
   },
   props: {

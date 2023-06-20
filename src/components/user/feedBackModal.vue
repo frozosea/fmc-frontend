@@ -45,9 +45,12 @@ export default {
       const api = this.$store.state.api
       try {
         api.userApi.feedback(this.email, this.feedback)
+        this.$notification.info(this.$t(`user.feedback.successMessage`))
       } catch (e) {
         this.error = this.$t(`errors.base`)
+        this.$notification.error(this.$t(`errors.base`))
       }
+
       this.$emit(`show`, false)
 
     },

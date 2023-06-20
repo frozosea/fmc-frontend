@@ -1,6 +1,5 @@
 <template>
   <header style="margin-top: 0;margin-bottom: 15px;background: #f9f7f7;">
-    <language-switcher/>
   </header>
   <div class="container g-3" style="margin-bottom: 0;padding-bottom: 0;">
     <div class="row g-0">
@@ -30,7 +29,7 @@
             <img src="@/assets/images/avatar.png" class="pad-avatar" alt="avatar">
           </router-link>
           <button class="borderless_button"
-                  @click="this.$store.commit(`user/logout`); this.$router.push(`/`)"
+                  @click="logout"
                   v-if="this.$store.getters[`user/getIsAuth`]">
             <img src="@/assets/images/exit.svg"
                  class="svg-exit img-hover" alt="exit logo">
@@ -39,7 +38,7 @@
 
         <div class="login" v-if="!this.$store.getters[`user/getIsAuth`]">
           <img src="@/assets/images/exit.svg" class="svg-enter" alt="exit logo"
-               @click="this.$store.commit(`user/logout`); this.$router.push(`/`)">
+               @click=logout>
           <span @click="showLogin" class="title-3 borderless_button">{{$t(`user.login.form.title`)}}</span>
           <span @click="showRegister">
             <button type="button" class="button-login">{{$t(`user.register.form.title`)}}</button>
@@ -68,7 +67,7 @@
             <li><span class="menu-item" @click="showRegister"
                    v-if="!this.$store.getters[`user/getIsAuth`]">{{ $t('header.registration') }}</span></li>
             <li><span class="menu-item" v-if="this.$store.getters[`user/getIsAuth`]"
-                   @click="this.$store.commit(`user/logout`); this.$router.push(`/`)">{{$t(`header.exitName`)}} →</span></li>
+                   @click="logout">{{$t(`header.exitName`)}} →</span></li>
             <div class="menu-font">© {{ new Date().getFullYear() }} <b>{{ $t('header.findMyCargo') }}</b>
               <p>{{ $t('header.support') }}<a :href="`mailto:${this.$store.state.info.supportEmail}`" class="title-5">{{ this.$store.state.info.supportEmail }}</a></p></div>
             <div class="menu-font">
@@ -114,11 +113,10 @@ import RegistrationForm from "@/components/user/registrationForm";
 import LoginForm from "@/components/user/loginForm";
 import {mapMutations} from "vuex";
 import RemindPassword from "@/components/user/remindPassword";
-import LanguageSwitcher from "@/components/languageSwitcher";
 
 export default {
   name: "FmcHeader",
-  components: { LanguageSwitcher,RemindPassword, LoginForm, RegistrationForm, CustomModal, FeedBackModal, ServicesModal},
+  components: { RemindPassword, LoginForm, RegistrationForm, CustomModal, FeedBackModal, ServicesModal},
   data() {
     return {
       isShowServices: false,
@@ -140,6 +138,11 @@ export default {
     },
     showRegister() {
       this.isShowRegister = !this.isShowRegister
+    },
+    logout(){
+      this.$notification.info(this.$t(`user.exit.successMessage`))
+      this.$store.commit(`user/logout`)
+      this.$router.push(`/`)
     }
   },
   computed: mapMutations(["user/logout"]),

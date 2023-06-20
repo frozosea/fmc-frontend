@@ -258,13 +258,15 @@ export default {
             try {
               await api.scheduleTrackingApi.deleteBillNosFromTracking(this.selectedBillNumbers, this.$store.getters[`user/getAuthToken`])
             } catch (e) {
-              //
+              this.$notification.error(e)
             }
             try {
               await api.userApi.deleteBills(this.selectedBillNumbers, this.$store.getters[`user/getAuthToken`])
             } catch (e) {
-              //
+              this.$notification.error(e)
+
             }
+            this.$notification.info(this.$t(`tracking.scheduleTracking.removeFromTracking.successMessage`))
           })();
         }
       } else {
@@ -276,13 +278,15 @@ export default {
             try {
               await api.scheduleTrackingApi.deleteContainerFromTracking(this.selectedContainerNumbers, this.$store.getters[`user/getAuthToken`])
             } catch (e) {
-              //
+              this.$notification.error(e)
+
             }
             try {
               await api.userApi.deleteContainers(this.selectedContainerNumbers, this.$store.getters[`user/getAuthToken`])
             } catch (e) {
-              //
+              this.$notification.error(e)
             }
+            this.$notification.info(this.$t(`tracking.scheduleTracking.removeFromTracking.successMessage`))
           })();
         }
       }
