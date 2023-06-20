@@ -180,13 +180,15 @@ export default {
       this.$notification.info(this.$t(`tracking.scheduleTracking.removeFromTracking.successMessage`))
     },
     deleteNumbersFromList(num) {
-      const index = this.numbers.indexOf(num)
-      if (index > -1) {
-        this.numbers.splice(index, 1)
+      if (this.$store.getters[`user/getIsAuth`] && this.isFound && this.hasContainers) {
+        const index = this.numbers.indexOf(num)
+        if (index > -1) {
+          this.numbers.splice(index, 1)
+        }
+        this.isFound = false;
+        this.hasContainers = false
+        this.$notification.info(this.$t(`tracking.scheduleTracking.removeFromTracking.successMessage`))
       }
-      this.isFound = false;
-      this.hasContainers = false
-      this.$notification.info(this.$t(`tracking.scheduleTracking.removeFromTracking.successMessage`))
     },
     async deleteFromTracking() {
       this.isOnTrack = false
