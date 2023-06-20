@@ -177,6 +177,7 @@ export default {
       if (index > -1) {
         this.numbers.splice(index, 1)
       }
+      this.$notification.info(this.$t(`tracking.scheduleTracking.removeFromTracking.successMessage`))
     },
     deleteNumbersFromList(num) {
       const index = this.numbers.indexOf(num)
@@ -185,6 +186,7 @@ export default {
       }
       this.isFound = false;
       this.hasContainers = false
+      this.$notification.info(this.$t(`tracking.scheduleTracking.removeFromTracking.successMessage`))
     },
     async deleteFromTracking() {
       this.isOnTrack = false

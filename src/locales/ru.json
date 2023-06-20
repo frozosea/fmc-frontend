@@ -16,10 +16,10 @@
         "noNumbersError": "Добавьте контейнера или коносаменты!",
         "baseError": "Введите данные!",
         "removeButtonText": "Удалить",
-        "successMessage": "Номер(а) добавлены успешно!"
+        "successMessage": "Номер(а) добавлены успешно"
       },
       "removeFromTracking": {
-        "successMessage": "Номер(а) удалены успешно!"
+        "successMessage": "Номер(а) удалены успешно"
       }
     },
     "eta": {
@@ -63,18 +63,18 @@
       "title": "Обратная связь",
       "textArea": "Напишите свой вопрос или отзыв в это поле",
       "submitButtonText": "Отправить",
-      "successMessage": "Успешно отправлено!"
+      "successMessage": "Успешно отправлено"
     },
     "login": {
       "form": {
         "title": "Авторизация",
         "buttonText": "Войти",
         "remindPasswordText": "Напомнить пароль",
-        "successMessage": "Успешная авторизация!"
+        "successMessage": "Успешная авторизация"
       }
     },
     "exit": {
-      "successMessage": "Успешный выход!"
+      "successMessage": "Успешный выход"
     },
     "register": {
       "form": {
@@ -86,7 +86,7 @@
           "passwordAgain": "Введите пароль снова"
         },
         "buttonText": "Регистрация",
-        "successMessage": "Регистрация успешна!"
+        "successMessage": "Регистрация завершена"
       }
     },
     "remindPassword": {
@@ -94,7 +94,7 @@
         "title": "Напомнить пароль",
         "buttonText": "Напомнить пароль"
       },
-      "successMessage": "Сообщение для восстановаления пароля было отправлено на почту!"
+      "successMessage": "Сообщение для восстановления пароля было отправлено на почту!"
     },
     "searchNumber": {
       "form": {
@@ -117,12 +117,13 @@
   },
   "errors": {
     "numbersNotFound": "Номер(а) не найдены!",
-    "incorrectEmailError": "пожалуйста, введите корректный E-mail!",
+    "incorrectEmailError": "Пожалуйста, введите корректный E-mail!",
     "base": "Что-то пошло не так",
     "userWasNotFound": "Пользователь с такими данными не найден!",
     "passwordsNotEqual": "Пароли должны совпадать!",
     "userAlreadyExists": "Пользователь с такими данными уже существует!",
-    "userDoesntExists": "Пользователь не найден!"
+    "userDoesntExists": "Пользователь не найден!",
+    "unableAccess": "Отказано в доступе!"
   },
   "footer": {
     "linkToHomePageAriaLabel": "отследить контейнер или коносамент",

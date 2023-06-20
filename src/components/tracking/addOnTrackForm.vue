@@ -193,9 +193,13 @@ export default {
       }
     },
     deleteFromTrack() {
-      this.$notification.info(this.$t(`tracking.scheduleTracking.removeFromTracking.successMessage`))
-      this.$emit(`deleteFromTrack`, this.numberList)
-      this.$emit(`show`, false)
+      if (this.$store.getters[`user/getIsAuth`]) {
+        this.$notification.info(this.$t(`tracking.scheduleTracking.removeFromTracking.successMessage`))
+        this.$emit(`deleteFromTrack`, this.numberList)
+        this.$emit(`show`, false)
+      }else{
+        this.$notification.error(this.$t(`error.unableAccess`))
+      }
     },
   },
   async mounted() {

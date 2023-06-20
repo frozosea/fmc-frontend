@@ -16,10 +16,10 @@
         "noNumbersError": "Add containers or bill numbers!",
         "baseError": "Enter data!",
         "removeButtonText": "Remove",
-        "successMessage": "Number(s) added successfully!"
+        "successMessage": "Number(s) added successfully"
       },
       "removeFromTracking": {
-        "successMessage": "Number(s) remove successfully!"
+        "successMessage": "Number(s) remove successfully"
       }
     },
     "eta": {
@@ -63,18 +63,18 @@
       "title": "Feedback",
       "textArea": "Enter your question or review to this field.",
       "submitButtonText": "Send",
-      "successMessage": "Successfully sent!"
+      "successMessage": "Successfully sent"
     },
     "login": {
       "form": {
         "title": "Auth",
         "buttonText": "Login",
         "remindPasswordText": "Remind password",
-        "successMessage": "Login successful!"
+        "successMessage": "Login successful"
       }
     },
     "exit": {
-      "successMessage": "Logout successful!"
+      "successMessage": "Logout successful"
     },
     "register": {
       "form": {
@@ -86,7 +86,7 @@
           "passwordAgain": "Enter password again"
         },
         "buttonText": "Register",
-        "successMessage": "Register successful!"
+        "successMessage": "Register complete"
       }
     },
     "remindPassword": {
@@ -122,7 +122,8 @@
     "userWasNotFound": "User with this data was not found!",
     "passwordsNotEqual": "Passwords should be equal!",
     "userAlreadyExists": "User with this data already exists!",
-    "userDoesntExists": "User was not found!"
+    "userDoesntExists": "User was not found!",
+    "unableAccess": "Unable to access!"
   },
   "footer": {
     "linkToHomePageAriaLabel": "track container or bill number",
