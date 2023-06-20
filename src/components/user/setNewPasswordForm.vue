@@ -20,7 +20,9 @@
             <input type="password" class="input-css-grey input-modal" :placeholder="$t(`user.register.form.placeholder.password`)"
                    @input="handlePasswordInput">
             <input type="password" class="input-css-grey input-modal-end" :placeholder="$t(`user.register.form.placeholder.passwordAgain`)"
-                   @input="handleRepeatedPasswordInput">
+                   @input="handleRepeatedPasswordInput"
+                   @keydown.enter="submitForm"
+            >
           </div>
 
           <div class="row g-0">

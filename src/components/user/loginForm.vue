@@ -20,9 +20,9 @@
         <div v-if="!showLoading">
           <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <input type="email" class="input-css-grey input-modal" placeholder="E-mail"
-                   @input="email = $event.target.value" @keyup.enter="submitForm">
+                   @input="email = $event.target.value" >
             <input type="password" class="input-css-grey input-modal-end" placeholder="*************"
-                   @input="password = $event.target.value" @keyup.enter="submitForm">
+                   @input="password = $event.target.value" @keydown.enter="submitForm">
           </div>
           <div class="container g-0">
             <div class="row g-0">

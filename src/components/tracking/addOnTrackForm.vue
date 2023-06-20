@@ -20,19 +20,17 @@
                  :placeholder="$t(`tracking.scheduleTracking.addOnTrackForm.emailsPlaceholder`)"
                  @input="handleEmails"
                  :value="emails.join(`,`)"
-                 @keyup.enter="addOnTrack"
           >
           <input type="text" class="input-css-grey input-modal"
                  :placeholder="$t(`tracking.scheduleTracking.addOnTrackForm.emailSubject`)"
                  @input="subject = $event.target.value"
                  :value="subject"
-                 @keyup.enter="addOnTrack"
           >
           <input type="text" class="input-css-grey input-modal"
                  :placeholder="timePlaceholder"
                  @input="handleTime"
                  :value="time"
-                 @keyup.enter="addOnTrack"
+                 @keydown.enter="addOnTrack"
           >
         </div>
       </div>

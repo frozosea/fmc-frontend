@@ -21,9 +21,9 @@
             <input type="text" class="input-css-grey input-modal" :placeholder="$t(`user.register.form.placeholder.username`)"
                    @input="username = $event.target.value">
             <input type="password" class="input-css-grey input-modal" :placeholder="$t(`user.register.form.placeholder.password`)"
-                   @input="handlePasswordInput">
+                   @input="handlePasswordInput" >
             <input type="password" class="input-css-grey input-modal" :placeholder="$t(`user.register.form.placeholder.passwordAgain`)"
-                   @input="handleRepeatedPasswordInput">
+                   @input="handleRepeatedPasswordInput" @keydown.enter="submitForm">
           </div>
           <div class="row g-0">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
