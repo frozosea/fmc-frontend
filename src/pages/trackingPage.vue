@@ -23,7 +23,7 @@
             &nbsp;{{ $t(`tracking.scheduleTracking.addOnTrackForm.scheduleTrackingName`) }}
           </button>
           <img src="@/assets/images/delete.svg" width="14" class="pad-action" alt="remove cargo to schedule tracking">
-          <button class="title-6 borderless_button" @click="deleteNumbersFromList">
+          <button class="title-6 borderless_button" @click="deleteNumbersFromList" :disabled="!isFound">
             &nbsp;{{ $t(`tracking.scheduleTracking.addOnTrackForm.removeButtonText`) }}
           </button>
         </div>
