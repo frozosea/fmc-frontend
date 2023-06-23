@@ -26,7 +26,7 @@
                  @input="subject = $event.target.value"
                  :value="subject"
           >
-          <input type="text" class="input-css-grey input-modal"
+          <input type="time" class="input-css-grey input-modal"
                  :placeholder="timePlaceholder"
                  @input="handleTime"
                  :value="time"

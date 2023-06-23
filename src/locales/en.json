@@ -123,7 +123,8 @@
     "passwordsNotEqual": "Passwords should be equal!",
     "userAlreadyExists": "User with this data already exists!",
     "userDoesntExists": "User was not found!",
-    "unableAccess": "Unable to access!"
+    "unableAccess": "Unable to access!",
+    "pagesNotfound": "Page not found!"
   },
   "footer": {
     "linkToHomePageAriaLabel": "track container or bill number",
@@ -154,5 +155,9 @@
     "4": "And our key advantage is the ability to subscribe to daily updates on the movement of sea cargo by mail (without restrictions on the number of recipients), and without binding to the carrier, providing up-to-date information about the approximate date of cargo delivery to the port of destination (ETA) and the movement of cargo.",
     "5": "Shipping lines for container tracking:",
     "6": "Shipping lines for bill tracking:"
+  },
+  "notFoundPage": {
+    "error": "Page not found!",
+    "buttonText": "Home"
   }
 }

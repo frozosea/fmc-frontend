@@ -152,10 +152,13 @@ export default {
           const scheduleTrackingResult = await api.scheduleTrackingApi.getInfoAboutTracking(this.number, this.$store.getters[`user/getAuthToken`])
           this.scheduleTrackingInfo = scheduleTrackingResult.scheduleTrackingInfo
           this.isOnTrack = true
+          console.log(this.scheduleTrackingInfo,this.isOnTrack)
         } else {
+          console.log("not is auth")
           throw new Error();
         }
       } catch (e) {
+        console.log(e)
         this.isOnTrack = false
       }
     },

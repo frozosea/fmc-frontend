@@ -39,41 +39,49 @@
         <div class="login" v-if="!this.$store.getters[`user/getIsAuth`]">
           <img src="@/assets/images/exit.svg" class="svg-enter" alt="exit logo"
                @click=logout>
-          <span @click="showLogin" class="title-3 borderless_button">{{$t(`user.login.form.title`)}}</span>
+          <span @click="showLogin" class="title-3 borderless_button">{{ $t(`user.login.form.title`) }}</span>
           <span @click="showRegister">
-            <button type="button" class="button-login">{{$t(`user.register.form.title`)}}</button>
+            <button type="button" class="button-login">{{ $t(`user.register.form.title`) }}</button>
           </span>
         </div>
       </div>
       <div class="d-lg-none">
         <div class="position-menu">
-          <input id="menu-toggle" type="checkbox">
+          <input id="menu-toggle" type="checkbox" ref="mobileMenu">
           <label class="menu-btn" for="menu-toggle">
             <span></span>
           </label>
           <ul class="menubox">
             <router-link to="/">
-              <div class="logo-menu-pad"><img src="@/assets/images/logo-mobile.svg" alt="logo"></div>
+              <div class="logo-menu-pad"><img src="@/assets/images/logo-mobile.svg" alt="logo" @click="$refs.mobileMenu.click()" ></div>
             </router-link>
             <li class="menu-padding">
             </li>
-            <li class=""><router-link class="menu-item" to="/about">{{$t(`header.infoAboutCompanyName`)}}</router-link></li>
-            <li><span class="menu-item" @click="showServices">{{$t(`header.servicesName`)}}</span></li>
-            <li><span class="menu-item" @click="showFeedback">{{$t(`header.feedbackName`)}}</span></li>
-            <li>
-              <router-link class="menu-item" v-if="this.$store.getters[`user/getIsAuth`]" to="/user">{{$t(`header.accountName`)}}</router-link>
+            <li class="">
+              <router-link class="menu-item" to="/about" @click="$refs.mobileMenu.click()">{{ $t(`header.infoAboutCompanyName`) }}</router-link>
             </li>
-            <li><span class="menu-item" @click="showLogin" v-if="!this.$store.getters[`user/getIsAuth`]">{{$t(`user.login.form.title`)}} →</span></li>
-            <li><span class="menu-item" @click="showRegister"
-                   v-if="!this.$store.getters[`user/getIsAuth`]">{{ $t('header.registration') }}</span></li>
+            <!--            <li><span class="menu-item" @click="showServices">{{$t(`header.servicesName`)}}</span></li>-->
+            <li><span class="menu-item"
+                      @click="showFeedback();$refs.mobileMenu.click()">{{ $t(`header.feedbackName`) }}</span>
+            </li>
+            <li>
+              <router-link class="menu-item" v-if="this.$store.getters[`user/getIsAuth`]" @click="$refs.mobileMenu.click()" to="/user">
+                {{ $t(`header.accountName`) }}
+              </router-link>
+            </li>
+            <li><span class="menu-item" @click="showLogin();$refs.mobileMenu.click()"
+                      v-if="!this.$store.getters[`user/getIsAuth`]">{{ $t(`user.login.form.title`) }} →</span></li>
+            <li><span class="menu-item" @click="showRegister();$refs.mobileMenu.click()"
+                      v-if="!this.$store.getters[`user/getIsAuth`]">{{ $t('header.registration') }}</span></li>
             <li><span class="menu-item" v-if="this.$store.getters[`user/getIsAuth`]"
-                   @click="logout">{{$t(`header.exitName`)}} →</span></li>
+                      @click="logout();$refs.mobileMenu.click()">{{ $t(`header.exitName`) }} →</span></li>
             <div class="menu-font">© {{ new Date().getFullYear() }} <b>{{ $t('header.findMyCargo') }}</b>
-              <p>{{ $t('header.support') }}<a :href="`mailto:${this.$store.state.info.supportEmail}`" class="title-5">{{ this.$store.state.info.supportEmail }}</a></p></div>
+              <p>{{ $t('header.support') }}<a :href="`mailto:${this.$store.state.info.supportEmail}`"
+                                              class="title-5">{{ this.$store.getters[`info/getSupportEmail`] }}</a></p></div>
             <div class="menu-font">
-              <a :href="this.$store.state.info.telegramUrl" class="avatar-menu"><img src="@/assets/images/telegram.svg"></a>
-              <a :href="this.$store.state.info.facebookUrl" class="avatar-menu"><img src="@/assets/images/facebook.svg"></a>
-              <a :href="this.$store.state.info.twitterUrl" class="avatar-menu"><img
+              <a :href="this.$store.getters[`info/getTelegramUrl`]" class="avatar-menu"><img src="@/assets/images/telegram.svg"></a>
+              <a :href="this.$store.getters[`info/getFacebookUrl`]" class="avatar-menu"><img src="@/assets/images/facebook.svg"></a>
+              <a :href="this.$store.getters[`info/getTwitterUrl`]" class="avatar-menu"><img
                   src="@/assets/images/twitter.svg"></a>
             </div>
           </ul>
@@ -116,14 +124,15 @@ import RemindPassword from "@/components/user/remindPassword";
 
 export default {
   name: "FmcHeader",
-  components: { RemindPassword, LoginForm, RegistrationForm, CustomModal, FeedBackModal, ServicesModal},
+  components: {RemindPassword, LoginForm, RegistrationForm, CustomModal, FeedBackModal, ServicesModal},
   data() {
     return {
       isShowServices: false,
       isShowFeedBack: false,
       isShowLogin: false,
       isShowRegister: false,
-      isShowRemindPassword: false
+      isShowRemindPassword: false,
+      isShowMobileMenu: false
     }
   },
   methods: {
@@ -139,7 +148,7 @@ export default {
     showRegister() {
       this.isShowRegister = !this.isShowRegister
     },
-    logout(){
+    logout() {
       this.$notification.info(this.$t(`user.exit.successMessage`))
       this.$store.commit(`user/logout`)
       this.$router.push(`/`)
