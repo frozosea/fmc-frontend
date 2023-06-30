@@ -29,11 +29,13 @@ export default {
   },
   methods: {
     getEtaFromContainerResponse(infoAboutMoving) {
+      const eta = []
       for (let item of infoAboutMoving) {
         if (item.operationName === "ETA") {
-          return item.time
+          eta.push(item.time)
         }
       }
+      return eta.pop()
     },
     mountEta(){
       if (!this.empty){
