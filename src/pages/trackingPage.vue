@@ -115,7 +115,14 @@ export default {
       try {
         if (this.isContainer) {
           this.isLoading = true
-          const result = await api.trackingApi.trackContainer(this.number.toUpperCase(), this.scac === "" ? "AUTO" : this.scac)
+          let result = {}
+          for (let i = 0; i < 3; i++) {
+            try {
+              result = await api.trackingApi.trackContainer(this.number.toUpperCase(), this.scac === "" ? "AUTO" : this.scac)
+            } catch (e) {
+              continue
+            }
+          }
           for (let item of result.infoAboutMoving) {
             item.time = this.$store.getters["utils/getTime"].humanizeTime(item.time)
           }
@@ -127,7 +134,14 @@ export default {
 
         } else {
           this.isLoading = true
-          const result = await api.trackingApi.trackByBillNumber(this.trackNumber.toUpperCase(), this.scac === "" ? "AUTO" : this.scac)
+          let result = {}
+          for (let i = 0; i < 3; i++) {
+            try {
+              result = await api.trackingApi.trackByBillNumber(this.trackNumber.toUpperCase(), this.scac === "" ? "AUTO" : this.scac)
+            } catch (e) {
+              continue
+            }
+          }
           for (let item of result.infoAboutMoving) {
             item.time = this.$store.getters["utils/getTime"].humanizeTime(item.time)
           }
@@ -152,7 +166,7 @@ export default {
           const scheduleTrackingResult = await api.scheduleTrackingApi.getInfoAboutTracking(this.number, this.$store.getters[`user/getAuthToken`])
           this.scheduleTrackingInfo = scheduleTrackingResult.scheduleTrackingInfo
           this.isOnTrack = true
-          console.log(this.scheduleTrackingInfo,this.isOnTrack)
+          console.log(this.scheduleTrackingInfo, this.isOnTrack)
         } else {
           console.log("not is auth")
           throw new Error();
