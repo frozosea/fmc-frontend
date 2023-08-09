@@ -22,7 +22,7 @@ export default {
     }
   },
   async mounted() {
-    if (!this.$store.getters[`user/getAuthToken`] || !this.$store.getters[`user/getRefreshToken`]) {
+    if (this.$store.getters[`user/getAuthToken`] === "undefined" || !this.$store.getters[`user/getRefreshToken`]) {
       this.$forceUpdate();
       this.$store.commit(`user/logout`)
     }
